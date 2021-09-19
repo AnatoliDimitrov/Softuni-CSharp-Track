@@ -1,0 +1,2 @@
+DELETE
+FROM [Occupancies]
