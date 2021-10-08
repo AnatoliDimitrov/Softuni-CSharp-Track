@@ -1,6 +1,6 @@
 CREATE PROC usp_CalculateFutureValueForAccount(@id INT, @interestRate FLOAT)
 AS
-	SELECT a.[Id] AS [Account Id]
+	SELECT TOP(1) a.[Id] AS [Account Id]
 	   ,a.[FirstName] AS [First Name]
 	   ,a.[LastName] AS [Last Name]
 	   ,d.[Balance] AS [Current Balance]
