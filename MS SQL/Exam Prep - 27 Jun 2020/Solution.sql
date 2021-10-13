@@ -176,11 +176,12 @@ SELECT j.JobId
 
 ---------------------TASK 10. Missing Parts
 
-SELECT p.PartId
-       ,p.[Description]
-	   ,pn.Quantity AS [Required]
-	   ,p.StockQty AS [In Stock]
-	   ,op.Quantity
+SELECT p.Description
+       ,p.PartId
+       ,p.SerialNumber
+	   ,SUM(p.StockQty) AS [In Stock]
+	   ,SUM(pn.Quantity) AS NeededQty
+	   ,SUM(op.Quantity) AS OrderdQty
 	   ,o.Delivered
   FROM Jobs AS j
   LEFT JOIN PartsNeeded AS pn ON j.JobId = pn.JobId
@@ -188,6 +189,7 @@ SELECT p.PartId
   LEFT JOIN OrderParts AS op ON p.PartId = op.PartId
   LEFT JOIN Orders AS o ON j.JobId = o.JobId
  WHERE j.[Status] <> 'Finished' AND p.PartId IS NOT NULL
+ GROUP BY p.SerialNumber, p.Description, o.Delivered, p.PartId
  ORDER BY p.PartId
 
 
@@ -224,9 +226,12 @@ SELECT * FROM Jobs
 SELECT *
   FROM Mechanics
 
-  SELECT * 
+ SELECT * FROM 
+  (SELECT PartId
+  ,Quantity
   FROM Orders AS o
   LEFT JOIN OrderParts as op ON o.OrderId = op.OrderId
+<<<<<<< HEAD
 
   SELECT *
     FROM Parts AS p
@@ -258,3 +263,16 @@ SELECT *
 							LEFT JOIN Orders AS o ON op.OrderId = o.OrderId
 							WHERE Delivered = 0) AS s ON f.PartId = s.PartId) AS t
  WHERE [Required] > [In Stock]
+=======
+  WHERE Delivered = 0) AS f
+  RIGHT JOIN 
+
+  SELECT *
+  FROM Jobs AS j
+  LEFT JOIN PartsNeeded AS pn ON j.JobId = pn.JobId
+  LEFT JOIN Parts AS p ON pn.PartId = p.PartId
+  LEFT JOIN OrderParts AS op ON p.PartId = op.PartId
+  LEFT JOIN Orders AS o ON j.JobId = o.JobId
+ WHERE j.[Status] <> 'Finished' AND p.PartId IS NOT NULL
+ ORDER BY p.PartId
+>>>>>>> 7c8c47d410640cb2cf29e57b74ec483c3eba66c4
