@@ -191,6 +191,28 @@ SELECT p.PartId
  ORDER BY p.PartId
 
 
+ ---------------------------------
+
+SELECT *
+  FROM
+ (SELECT p.PartId
+       ,p.[Description]
+	   ,SUM(pn.Quantity) AS [Required]
+	   ,CASE WHEN o.Delivered = 1 THEN SUM(p.StockQty) ELSE SUM(p.StockQty) + SUM(op.Quantity) END AS [In Stock]
+	   --,SUM(p.StockQty) + op.Quantity AS [In Stock]
+	   --,CASE WHEN o.Delivered = 1 THEN 0 ELSE op.Quantity END AS Ordered
+	   ,SUM(op.Quantity) AS [OrderQty]
+	   ,o.Delivered
+   FROM Parts AS p
+   LEFT JOIN PartsNeeded AS pn ON p.PartId = pn.PartId
+   LEFT JOIN Jobs AS j ON pn.JobId = j.JobId
+   LEFT JOIN OrderParts AS op ON p.PartId = op.PartId
+   LEFT JOIN Orders AS o ON op.OrderId = o.OrderId
+  WHERE j.[Status] <> 'Finished' AND p.PartId IS NOT NULL
+  GROUP BY p.PartId, p.[Description], o.Delivered, op.Quantity) AS f
+ WHERE [Required] > [In Stock]
+ ORDER BY PartId
+
 
 ---------------------SELECTS
 
@@ -205,3 +227,34 @@ SELECT *
   SELECT * 
   FROM Orders AS o
   LEFT JOIN OrderParts as op ON o.OrderId = op.OrderId
+
+  SELECT *
+    FROM Parts AS p
+	LEFT JOIN OrderParts AS op ON p.PartId = op.PartId
+	LEFT JOIN Orders AS o ON op.OrderId = o.OrderId
+	WHERE Delivered = 0
+
+
+SELECT *
+  FROM
+		(SELECT f.PartId
+			   ,f.Description
+			   ,f.Required
+			   ,CASE WHEN s.Quantity IS NULL THEN f.StockQty ELSE f.StockQty + s.Quantity END AS [In Stock]
+			   ,CASE WHEN s.Quantity IS NULL THEN 0 ELSE s.Quantity END AS [Ordered]
+		  FROM
+				(SELECT  p.PartId
+						, p.[Description]
+						, SUM(pn.Quantity) AS [Required]
+						, p.StockQty
+				  FROM Parts AS p
+				  LEFT JOIN PartsNeeded AS pn ON p.PartId = pn.PartId
+				  LEFT JOIN Jobs AS j ON pn.JobId = j.JobId
+				 WHERE j.Status <> 'Finished'
+				 GROUP BY p.PartId, p.[Description], p.StockQty) AS f
+				  LEFT JOIN (SELECT p.PartId, op.Quantity
+							FROM Parts AS p
+							LEFT JOIN OrderParts AS op ON p.PartId = op.PartId
+							LEFT JOIN Orders AS o ON op.OrderId = o.OrderId
+							WHERE Delivered = 0) AS s ON f.PartId = s.PartId) AS t
+ WHERE [Required] > [In Stock]
