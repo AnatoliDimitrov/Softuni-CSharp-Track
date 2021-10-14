@@ -176,70 +176,6 @@ SELECT j.JobId
 
 ---------------------TASK 10. Missing Parts
 
-SELECT p.Description
-       ,p.PartId
-       ,p.SerialNumber
-	   ,SUM(p.StockQty) AS [In Stock]
-	   ,SUM(pn.Quantity) AS NeededQty
-	   ,SUM(op.Quantity) AS OrderdQty
-	   ,o.Delivered
-  FROM Jobs AS j
-  LEFT JOIN PartsNeeded AS pn ON j.JobId = pn.JobId
-  LEFT JOIN Parts AS p ON pn.PartId = p.PartId
-  LEFT JOIN OrderParts AS op ON p.PartId = op.PartId
-  LEFT JOIN Orders AS o ON j.JobId = o.JobId
- WHERE j.[Status] <> 'Finished' AND p.PartId IS NOT NULL
- GROUP BY p.SerialNumber, p.Description, o.Delivered, p.PartId
- ORDER BY p.PartId
-
-
- ---------------------------------
-
-SELECT *
-  FROM
- (SELECT p.PartId
-       ,p.[Description]
-	   ,SUM(pn.Quantity) AS [Required]
-	   ,CASE WHEN o.Delivered = 1 THEN SUM(p.StockQty) ELSE SUM(p.StockQty) + SUM(op.Quantity) END AS [In Stock]
-	   --,SUM(p.StockQty) + op.Quantity AS [In Stock]
-	   --,CASE WHEN o.Delivered = 1 THEN 0 ELSE op.Quantity END AS Ordered
-	   ,SUM(op.Quantity) AS [OrderQty]
-	   ,o.Delivered
-   FROM Parts AS p
-   LEFT JOIN PartsNeeded AS pn ON p.PartId = pn.PartId
-   LEFT JOIN Jobs AS j ON pn.JobId = j.JobId
-   LEFT JOIN OrderParts AS op ON p.PartId = op.PartId
-   LEFT JOIN Orders AS o ON op.OrderId = o.OrderId
-  WHERE j.[Status] <> 'Finished' AND p.PartId IS NOT NULL
-  GROUP BY p.PartId, p.[Description], o.Delivered, op.Quantity) AS f
- WHERE [Required] > [In Stock]
- ORDER BY PartId
-
-
----------------------SELECTS
-
-SELECT * FROM Jobs
- WHERE [Status] <> 'Finished' AND [Status] IS NOT NULL
-
-SELECT * FROM Jobs
-
-SELECT *
-  FROM Mechanics
-
- SELECT * FROM 
-  (SELECT PartId
-  ,Quantity
-  FROM Orders AS o
-  LEFT JOIN OrderParts as op ON o.OrderId = op.OrderId
-<<<<<<< HEAD
-
-  SELECT *
-    FROM Parts AS p
-	LEFT JOIN OrderParts AS op ON p.PartId = op.PartId
-	LEFT JOIN Orders AS o ON op.OrderId = o.OrderId
-	WHERE Delivered = 0
-
-
 SELECT *
   FROM
 		(SELECT f.PartId
@@ -263,16 +199,99 @@ SELECT *
 							LEFT JOIN Orders AS o ON op.OrderId = o.OrderId
 							WHERE Delivered = 0) AS s ON f.PartId = s.PartId) AS t
  WHERE [Required] > [In Stock]
-=======
-  WHERE Delivered = 0) AS f
-  RIGHT JOIN 
 
-  SELECT *
-  FROM Jobs AS j
-  LEFT JOIN PartsNeeded AS pn ON j.JobId = pn.JobId
-  LEFT JOIN Parts AS p ON pn.PartId = p.PartId
-  LEFT JOIN OrderParts AS op ON p.PartId = op.PartId
-  LEFT JOIN Orders AS o ON j.JobId = o.JobId
- WHERE j.[Status] <> 'Finished' AND p.PartId IS NOT NULL
- ORDER BY p.PartId
->>>>>>> 7c8c47d410640cb2cf29e57b74ec483c3eba66c4
+---------------------TASK 11. Place Order
+
+CREATE PROC usp_PlaceOrder(@jobId INT, @serialNumber VARCHAR(50),@quantity INT)
+--------------Judge is down so the PROC is not Tested
+AS
+BEGIN TRANSACTION
+
+	IF (@quantity <= 0) 
+	BEGIN
+		ROLLBACK;
+		THROW 50012, 'Part quantity must be more than zero!', 1;
+		RETURN
+	END
+   
+	IF ((SELECT [Status] FROM Jobs WHERE JobId = @jobId) = 'Finished')
+	BEGIN
+		ROLLBACK;
+		THROW 50011, 'This job is not active!', 1;
+		RETURN;
+	END
+
+	IF (SELECT JobId FROM Jobs WHERE JobId = @jobId) IS NULL
+	BEGIN
+		ROLLBACK;
+		THROW 50013, 'Job not found!', 1;
+		RETURN
+	END
+
+	IF (SELECT SerialNumber FROM Parts WHERE SerialNumber = @serialNumber) IS NULL
+	BEGIN
+		ROLLBACK;
+		THROW 50014, 'Part not found!', 1;
+		RETURN
+	END
+
+	IF ((SELECT [Status] FROM Jobs WHERE JobId = @jobId) = 'Finished')
+	BEGIN
+		ROLLBACK;
+		THROW 50011, 'This job is not active!', 1;
+		RETURN;
+	END
+	
+	DECLARE @orderExist INT = (SELECT o.OrderId FROM Orders AS o
+		  JOIN OrderParts AS op ON o.OrderId = op.OrderId
+		  JOIN Parts AS p ON op.PartId = p.PartId
+		 WHERE p.SerialNumber = @serialNumber AND o.JobId = @jobId AND o.IssueDate IS NULL)
+
+	DECLARE @partId INT = (SELECT PartId FROM Parts
+		 WHERE SerialNumber = @serialNumber)
+
+	IF (@orderExist >= 1)
+	BEGIN
+		UPDATE OrderParts
+		   SET Quantity += @quantity
+		 WHERE PartId = @partId AND OrderId = @orderExist
+	END
+
+	DECLARE @lastOrderId INT = (SELECT MAX(OrderId ) FROM Orders)
+
+	IF (@orderExist IS NULL)
+	BEGIN
+		INSERT INTO Orders VALUES (@jobId, NULL, 0)
+		INSERT INTO OrderParts VALUES (@lastOrderId, @partId, @quantity)
+	END
+COMMIT
+
+SELECT * FROM Orders AS o
+		  JOIN OrderParts AS op ON o.OrderId = op.OrderId
+		  JOIN Parts AS p ON op.PartId = p.PartId
+		  JOIN Jobs AS j ON o.JobId = j.JobId
+		 --WHERE p.SerialNumber = 'ZeroQuantity' AND o.JobId = 1 AND op.Quantity = 0 AND o.IssueDate IS NULL
+
+EXEC usp_PlaceOrder 45, 80040, 4
+
+---------------------TASK 12. Cost of Order
+
+CREATE FUNCTION udf_GetCost(@jobId INT)
+RETURNS DECIMAL(10, 2)
+BEGIN
+	DECLARE @id INT = (SELECT JobId FROM Jobs WHERE JobId = @jobId)
+
+	IF (@id IS NULL)
+	BEGIN
+		RETURN 0
+	END
+	
+	RETURN (SELECT SUM(p.Price)
+			  FROM Jobs AS j
+			  LEFT JOIN PartsNeeded AS pn ON j.JobId = pn.JobId
+			  LEFT JOIN Parts AS p ON pn.PartId = p.PartId
+			 WHERE j.JobId = @jobId
+			 GROUP BY j.JobId)
+END
+
+SELECT dbo.udf_GetCost(1)
