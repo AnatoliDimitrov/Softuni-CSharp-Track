@@ -7,7 +7,6 @@ CREATE TABLE Cities
 	Id INT PRIMARY KEY NOT NULL IDENTITY
 	,[Name] NVARCHAR(20) NOT NULL
 	,CountryCode CHAR (2)
-	,CHECK(LEN(CountryCode) = 2)
 )
 
 CREATE TABLE Hotels
@@ -238,21 +237,35 @@ SELECT dbo.udf_GetAvailableRoom(94, '2015-07-26', 4)
 
 CREATE PROC usp_SwitchRoom(@TripId INT, @TargetRoomId INT)
 AS
-	SELECT * FROM Trips WHERE Id = @TripId
-	SELECT * FROM Rooms WHERE Id = @TargetRoomId
+	
+	DECLARE @currentHotel INT = (SELECT r.HotelId FROM Trips AS t
+								   JOIN Rooms AS r ON t.RoomId = r.Id
+								  WHERE t.Id = @TripId)
+
+	DECLARE @newHotel INT = (SELECT HotelId FROM Rooms WHERE Id = @TargetRoomId)
+
+	DECLARE @roomBedsCount INT = (SELECT Beds FROM Rooms WHERE Id = @TargetRoomId)
+
+	DECLARE @peopleCount INT = (SELECT COUNT(a.Id) 
+								 FROM Trips AS t
+								 JOIN AccountsTrips AS ac ON t.Id = ac.TripId
+								 JOIN Accounts As a ON ac.AccountId = a.Id
+								WHERE t.Id = @TripId)
+
+	IF @currentHotel <> @newHotel
+		THROW 50001, 'Target room is in another hotel!', 1
+
+	If @roomBedsCount < @peopleCount
+		THROW 50002, 'Not enough beds in target room!', 1
+
+	UPDATE Trips
+	   SET RoomId = @TargetRoomId
+	 WHERE Id = @TripId
 
 GO
 
---------------------------------- SELECTS
+EXEC usp_SwitchRoom 10, 11
+SELECT RoomId FROM Trips WHERE Id = 10
 
-SELECT * FROM Rooms
-SELECT * FROM AccountsTrips
-SELECT * FROM Accounts
-SELECT * FROM Hotels
-SELECT * FROM Cities
-SELECT * FROM Trips
-
-SELECT * FROM Trips WHERE Id = 10
-SELECT * FROM Trips WHERE RoomId = 11
-SELECT * FROM Rooms WHERE id = 11
-SELECT * FROM Rooms WHERE id = 10
+EXEC usp_SwitchRoom 10, 7
+EXEC usp_SwitchRoom 10, 8
