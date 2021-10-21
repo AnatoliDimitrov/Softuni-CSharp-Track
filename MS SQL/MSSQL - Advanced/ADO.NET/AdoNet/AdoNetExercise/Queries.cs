@@ -51,5 +51,24 @@ namespace AdoNetExercise
         public const string releaseMinions = @"DELETE FROM MinionsVillains WHERE VillainId = @villainId";
 
         public const string deleteVillain = @"DELETE FROM Villains WHERE Id = @villainId";
+
+        public const string selectAllMinionsIds = @"SELECT Name FROM Minions";
+
+        public const string updateMinionsAgeAndName = @"UPDATE Minions
+                                                       SET Name = UPPER(LEFT(Name, 1)) + SUBSTRING(Name, 2, LEN(Name)), Age += 1
+                                                     WHERE Id = @Id";
+
+        public const string selectMinionsNameAndAge = @"SELECT Name, Age FROM Minions";
+
+        public const string storedPocedureForMinionsAge = @"
+                                                        CREATE PROC usp_GetOlder @id INT
+                                                        AS
+                                                        UPDATE Minions
+                                                           SET Age += 1
+                                                         WHERE Id = @id";
+
+        public const string storedPocedureExecution = @"EXEC usp_GetOlder @Id";
+
+        public const string selectMinionsNameAndAgeById = @"SELECT Name, Age FROM Minions WHERE Id = @Id";
     }
 }

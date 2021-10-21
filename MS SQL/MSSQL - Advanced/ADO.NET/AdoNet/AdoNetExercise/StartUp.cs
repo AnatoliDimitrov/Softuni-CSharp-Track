@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 
@@ -12,10 +13,10 @@ namespace AdoNetExercise
             SqlConnection connection = new SqlConnection(ConnectionStrings.connectionString);
             await connection.OpenAsync();
 
-            //await using (connection)
-            //{
-            //    await VillainsNamesWithMinionsAsync(connection);
-            //}
+            await using (connection)
+            {
+                await VillainsNamesWithMinionsAsync(connection);
+            }
 
             //await using (connection)
             //{
@@ -44,11 +45,26 @@ namespace AdoNetExercise
             //    await ChangeTownsNamesAsync(connection, countryName);
             //}
 
-            await using (connection)
-            {
-                var villainId = int.Parse(Console.ReadLine());
-                await DeleteVillain(connection, villainId);
-            }
+            //await using (connection)
+            //{
+            //    var villainId = int.Parse(Console.ReadLine());
+            //    await DeleteVillain(connection, villainId);
+            //}
+
+            //await using (connection)
+            //{
+            //    await PrintAllMinions(connection);
+            //}
+
+            //await using (connection)
+            //{
+            //    await IncreaseMinionAge(connection);
+            //}
+
+            //await using (connection)
+            //{
+            //    await StoredProcedureForMinionsAge(connection);
+            //}
         }
 
         //TASK 02.
@@ -263,5 +279,73 @@ namespace AdoNetExercise
         }
 
         //TASK 07.
+        private static async Task PrintAllMinions(SqlConnection connection)
+        {
+            SqlCommand command = new SqlCommand(Queries.selectAllMinionsIds, connection);
+            SqlDataReader reader = await command.ExecuteReaderAsync();
+            var list = new List<string>();
+            await using (reader)
+            {
+                while (await reader.ReadAsync())
+                {
+                    list.Add((string)reader[0]);
+                }
+            }
+
+            for (int i = 0; i < (list.Count/2)+(list.Count%2); i++)
+            {
+                Console.Write($"{list[i]} ");
+                Console.Write($"{list[list.Count - i - 1]} ");
+            }
+        }
+
+        //TASK 08.
+        private static async Task IncreaseMinionAge(SqlConnection connection)
+        {
+            int[] ids = Console.ReadLine().Split(" ").Select(int.Parse).ToArray();
+
+            for (int i = 0; i < ids.Length; i++)
+            {
+                SqlCommand command = new SqlCommand(Queries.updateMinionsAgeAndName, connection);
+                command.Parameters.AddWithValue("Id", ids[i]);
+                await command.ExecuteNonQueryAsync();
+            }
+
+            SqlCommand finalCommand = new SqlCommand(Queries.selectMinionsNameAndAge, connection);
+            var reader = await finalCommand.ExecuteReaderAsync();
+
+            await using (reader)
+            {
+
+                while (await reader.ReadAsync())
+                {
+                    Console.WriteLine($"{reader[0]} {reader[1]}");
+                }
+            }
+        }
+
+        //TASK 09.
+        private static async Task StoredProcedureForMinionsAge(SqlConnection connection)
+        {
+            
+            //SqlCommand command = new SqlCommand(Queries.storedPocedureForMinionsAge, connection);
+            //await command.ExecuteNonQueryAsync();
+            
+            int id = int.Parse(Console.ReadLine());
+
+            SqlCommand command = new SqlCommand(Queries.storedPocedureExecution, connection);
+            command.Parameters.AddWithValue("Id", id);
+            await command.ExecuteNonQueryAsync();
+
+            command = new SqlCommand(Queries.selectMinionsNameAndAgeById, connection);
+            command.Parameters.AddWithValue("Id", id);
+            var reader = await command.ExecuteReaderAsync();
+
+            await using (reader)
+            {
+                await reader.ReadAsync();
+                Console.WriteLine($"{reader[0]} - {reader[1]} years old");
+            }
+        }
     }
 }
