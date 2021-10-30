@@ -27,7 +27,7 @@ namespace SoftUni.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=SoftUni;Integrated Security=True;");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-IJ8KKJE;DataBase=SoftUni;User Id=sa;Password=Password;TrustServerCertificate=True;");
             }
         }
 
