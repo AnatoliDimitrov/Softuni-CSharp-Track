@@ -144,23 +144,32 @@ namespace ProductShop
         {
             var sellers = context.Users
                 .Where(u => u.ProductsSold.Count(b => b.BuyerId != null) > 0)
+                .ToArray()
                 .OrderByDescending(u => u.ProductsSold.Count(b => b.BuyerId != null))
                 .Select(u => new
                 {
+                    firstName = u.FirstName,
                     lastName = u.LastName,
                     age = u.Age,
                     soldProducts = new
                         {
                             count = u.ProductsSold.Count,
-                            products = u.ProductsBought
-                                .Where(ps => ps != null)
+                            products = u.ProductsSold
+                                .Where(x => x.BuyerId != null)
                                 .Select(ps => new
                                 {
                                     name = ps.Name,
                                     price = ps.Price
                                 })
+                                .ToArray()
                     }})
                 .ToArray();
+
+            var settings = new JsonSerializerSettings()
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                Formatting = Formatting.Indented
+            };
 
             var result = new
             {
@@ -168,7 +177,7 @@ namespace ProductShop
                 users = sellers
             };
 
-            return JsonConvert.SerializeObject(result).TrimEnd();
+            return JsonConvert.SerializeObject(result, settings);
         }
     }
 }
