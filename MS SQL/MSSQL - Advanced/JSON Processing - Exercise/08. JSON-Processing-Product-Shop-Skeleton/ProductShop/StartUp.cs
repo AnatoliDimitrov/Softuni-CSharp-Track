@@ -153,7 +153,7 @@ namespace ProductShop
                     age = u.Age,
                     soldProducts = new
                         {
-                            count = u.ProductsSold.Count,
+                            count = u.ProductsSold.Count(b => b.BuyerId != null),
                             products = u.ProductsSold
                                 .Where(x => x.BuyerId != null)
                                 .Select(ps => new
