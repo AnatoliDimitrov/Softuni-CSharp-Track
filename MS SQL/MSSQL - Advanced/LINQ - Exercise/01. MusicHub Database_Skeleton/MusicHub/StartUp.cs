@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
 using Microsoft.EntityFrameworkCore;
 
 namespace MusicHub
@@ -18,8 +19,8 @@ namespace MusicHub
             //DbInitializer.ResetDatabase(context);
 
             //Test your solutions here
-            //Console.WriteLine(ExportAlbumsInfo(context, 9));
-            Console.WriteLine(ExportSongsAboveDuration(context, 9));
+            Console.WriteLine(ExportAlbumsInfo(context, 9));
+           // Console.WriteLine(ExportSongsAboveDuration(context, 9));
         }
 
         public static string ExportAlbumsInfo(MusicHubDbContext context, int producerId)
