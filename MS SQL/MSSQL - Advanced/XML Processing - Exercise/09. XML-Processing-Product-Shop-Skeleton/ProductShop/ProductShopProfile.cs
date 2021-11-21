@@ -32,7 +32,7 @@ namespace ProductShop
                 .ForMember(d => d.Price, o => o
                     .MapFrom(s => s.Price.ToString()))
                 .ForMember(d => d.BuyerName, o => o
-                    .MapFrom(s => s.Buyer == null ? null : $"{s.Buyer.FirstName} {s.Buyer.LastName}"));
+                    .MapFrom(s => s.BuyerId == null ? null : $"{s.Buyer.FirstName} {s.Buyer.LastName}"));
 
             CreateMap<User, ExportUserWithSoldProducts>()
                 .ForMember(d => d
@@ -41,15 +41,15 @@ namespace ProductShop
 
             CreateMap<Product, ExportSoldProductDto>()
                 .ForMember(d => d.Price, o => o
-                    .MapFrom(s => s.Price.ToString("G29")));
+                    .MapFrom(s => s.Price.ToString()));
 
             CreateMap<Category, ExportCategoryProductsCountDto>()
                 .ForMember(d => d.Count, o => o
                     .MapFrom(s => s.CategoryProducts.Count.ToString()))
                 .ForMember(d => d.AveragePrice, o => o
-                    .MapFrom(s => s.CategoryProducts.Average(p => p.Product.Price).ToString("G29")))
+                    .MapFrom(s => s.CategoryProducts.Average(p => p.Product.Price).ToString()))
                 .ForMember(d => d.TotalRevenue, o => o
-                    .MapFrom(s => s.CategoryProducts.Sum(p => p.Product.Price).ToString("G29")));
+                    .MapFrom(s => s.CategoryProducts.Sum(p => p.Product.Price).ToString()));
 
             CreateMap<User, ExportUserDto>()
                 .ForMember(d => d.ProductsSold, o => o

@@ -10,7 +10,7 @@ namespace ProductShop.Dtos.Export
         public string Count { get; set; }
 
         [XmlArrayItem("Product")]
-        [XmlArray("Products")]
+        [XmlArray("products")]
         public List<ExportSoldProductDto> Products { get; set; }
     }
 }

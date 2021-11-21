@@ -1,9 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Dtos - Copy\**" />
+    <Compile Remove="NewFolder\**" />
+    <EmbeddedResource Remove="Dtos - Copy\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="Dtos - Copy\**" />
+    <None Remove="NewFolder\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
