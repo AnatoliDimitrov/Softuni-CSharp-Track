@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
+using CarDealer.Dtos.Export;
 using CarDealer.Dtos.Import;
 using CarDealer.Models;
 
@@ -23,9 +25,34 @@ namespace CarDealer
                 .ForMember(d => d.SupplierId, o => o
                     .MapFrom(s => int.Parse(s.SupplierId)));
 
-            //IMPORT Cars
-            //CreateMap<ImportCarDto, Car>()
-            //    .ForMember()
+            //IMPORT Customers
+            CreateMap<ImportCustomerDto, Customer>()
+                .ForMember(d => d.IsYoungDriver, o => o
+                    .MapFrom(s => bool.Parse(s.IsYoungDriver)));
+
+            //IMPORT Sales
+            CreateMap<ImportSaleDto, Sale>();
+
+            //EXPORT Cars
+            CreateMap<Car, ExportCarDto>();
+
+            //EXPORT BMW
+            CreateMap<Car, ExportBMWDto>();
+
+            //EXPORT Suppliers
+            CreateMap<Supplier, ExportSupplierDto>()
+                .ForMember(d => d.Parts, o => o
+                    .MapFrom(s => s.Parts.Count.ToString()));
+
+            //EXPORT Customers with cars
+            CreateMap<Customer, ExportCustomerWithCarsDto>()
+                .ForMember(d => d.Cars, o => o
+                    .MapFrom(s => s.Sales.Count.ToString()))
+                .ForMember(d => d.MoneySpent, o => o
+                    .MapFrom(s => s.Sales.Count));
+
+            CreateMap<Car, ExportCarWithAttributesDto>();
+
         }
     }
 }
