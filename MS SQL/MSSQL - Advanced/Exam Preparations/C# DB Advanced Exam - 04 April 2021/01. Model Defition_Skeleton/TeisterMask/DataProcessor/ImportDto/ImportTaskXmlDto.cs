@@ -6,7 +6,7 @@ using TeisterMask.Data.Models.Enums;
 namespace TeisterMask.DataProcessor.ImportDto
 {
     [XmlType("Task")]
-    public class ImportTaskDto
+    public class ImportTaskXmlDto
     {
         [XmlElement("Name")]
         [MinLength(2)]
@@ -23,10 +23,10 @@ namespace TeisterMask.DataProcessor.ImportDto
 
         [XmlElement("ExecutionType")]
         [Required]
-        public ExecutionType? ExecutionType { get; set; }
+        public int ExecutionType { get; set; }
 
         [XmlElement("LabelType")]
         [Required]
-        public LabelType? LabelType { get; set; }
+        public int LabelType { get; set; }
     }
 }

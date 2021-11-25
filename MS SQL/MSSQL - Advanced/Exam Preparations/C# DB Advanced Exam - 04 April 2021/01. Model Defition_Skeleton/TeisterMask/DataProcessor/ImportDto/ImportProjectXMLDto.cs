@@ -22,6 +22,6 @@ namespace TeisterMask.DataProcessor.ImportDto
 
         [XmlArray("Tasks")]
         [XmlArrayItem("Task")]
-        public virtual ImportTaskDto[] Tasks { get; set; }
+        public virtual ImportTaskXmlDto[] Tasks { get; set; }
     }
 }
