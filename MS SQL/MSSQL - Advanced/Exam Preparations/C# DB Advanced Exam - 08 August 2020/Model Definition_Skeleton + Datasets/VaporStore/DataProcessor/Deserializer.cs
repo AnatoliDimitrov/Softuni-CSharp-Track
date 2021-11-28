@@ -1,4 +1,6 @@
-﻿namespace VaporStore.DataProcessor
+﻿using Newtonsoft.Json;
+
+namespace VaporStore.DataProcessor
 {
 	using System;
     using System.Collections.Generic;
@@ -8,8 +10,8 @@
 	public static class Deserializer
 	{
 		public static string ImportGames(VaporStoreDbContext context, string jsonString)
-		{
-
+        {
+            var dtos = JsonConvert.DeserializeObject(jsonString);
 
             return "Not ready Yet";
 		}

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace VaporStore.DataProcessor.Dto.Import
 {
-    class ImportGameJsonDto
+    public class ImportGameJsonDto
     {
         [Required]
         public string Name { get; set; }
@@ -14,9 +14,12 @@ namespace VaporStore.DataProcessor.Dto.Import
         [Required]
         public DateTime? ReleaseDate { get; set; }
 
-        public int DeveloperId { get; set; }
+        [Required]
+        public string Developer { get; set; }
 
         [Required]
-        public int GenreId { get; set; }
+        public string Genre { get; set; }
+
+        public string[] Tags { get; set; }
     }
 }
