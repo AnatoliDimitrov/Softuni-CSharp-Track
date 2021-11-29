@@ -36,7 +36,7 @@ namespace VaporStore.Data
 			if (!options.IsConfigured)
 			{
 				options
-                    //.UseLazyLoadingProxies()
+                    .UseLazyLoadingProxies()
 					.UseSqlServer(Configuration.ConnectionString);
 			}
 		}
