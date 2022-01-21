@@ -1,10 +1,11 @@
 ﻿namespace BasicWebServer.Server.Responses
 {
     using BasicWebServer.Server.Common;
+    using BasicWebServer.Server.HTTP;
 
-    internal class TextResponse : ContentResponse
+    public class TextResponse : ContentResponse
     {
-        public TextResponse(string content) : base(content, Constants.PlainText)
+        public TextResponse(string content, Action<Request, Response> preRenderAction = null) : base(content, Constants.PlainText, preRenderAction)
         {
         }
     }

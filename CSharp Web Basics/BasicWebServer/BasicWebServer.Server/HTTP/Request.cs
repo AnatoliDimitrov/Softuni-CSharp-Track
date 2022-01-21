@@ -1,6 +1,8 @@
 ﻿namespace BasicWebServer.Server.HTTP
 {
+    using BasicWebServer.Server.Common;
     using BasicWebServer.Server.HTTP.Enumerations;
+    using System.Web;
 
     public class Request
     {
@@ -12,9 +14,11 @@
 
         public string Body { get; private set; }
 
+        public IReadOnlyDictionary<string, string> Form { get; private set; }
+
         public static Request Parse(string request)
         {
-            var lines = request.Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+            var lines = request.Split("\r\n");
             var firstLine = lines[0].Split(" ");
 
             var method = ParseMethod(firstLine[0]);
@@ -24,20 +28,49 @@
 
             var body = string.Join("\r\n", lines.Skip(headers.Count + 2).ToArray());
 
+            var form = ParseForm(headers, body);
+
             return new Request()
             {
                 Method = method,
                 Url = url,
                 Body = body,
                 Headers = headers,
+                Form = form,
             };
+        }
+
+        private static Dictionary<string, string> ParseForm(HeaderCollection headers, string body)
+        {
+            var formCollection = new Dictionary<string, string>();
+
+            if (headers.contains(Constants.ContentType) && headers[Constants.ContentType] == Constants.FormUrlEncoded)
+            {
+               var parsedResult = ParseFormData(body);
+
+                foreach (var item in parsedResult)
+                {
+                    formCollection[item.Key] = item.Value;
+                }
+            }
+
+            return formCollection;
+        }
+
+        private static Dictionary<string, string> ParseFormData(string bodyLines)
+        {
+            return HttpUtility.UrlDecode(bodyLines)
+                .Split('&')
+                .Select(p => p.Split('='))
+                .Where(p => p.Length == 2)
+                .ToDictionary(x => x[0], y=> y[1], StringComparer.InvariantCultureIgnoreCase);
         }
 
         private static Method ParseMethod(string stringMethod)
         {
             try
             {
-                return Method.Parse<Method>(stringMethod);
+                return Method.Parse<Method>(stringMethod.ToLower());
             }
             catch (Exception)
             {

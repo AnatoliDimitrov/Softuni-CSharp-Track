@@ -1,18 +1,32 @@
 ﻿namespace BasicWebServer.Server.Responses
 {
+    using System.Text;
+
     using BasicWebServer.Server.Common;
     using BasicWebServer.Server.HTTP;
     using BasicWebServer.Server.HTTP.Enumerations;
 
     public abstract class ContentResponse : Response
     {
-        protected ContentResponse(string content, string contentType) : base(StatusCode.OK)
+        protected ContentResponse(string content, string contentType, Action<Request, Response> preRenderAction = null) : base(StatusCode.OK)
         {
             Guard.AgainstNull(content, nameof(content));
             Guard.AgainstNull(contentType, nameof(contentType));
 
             this.Headers.Add(Constants.ContentType, contentType);
             this.Body = content;
+            this.PreRenderAction = preRenderAction;
+        }
+
+        public override string ToString()
+        {
+            if (!string.IsNullOrWhiteSpace(this.Body))
+            {
+                var length = Encoding.UTF8.GetByteCount(this.Body);
+                this.Headers.Add(Constants.ContentLength, length.ToString());
+            }
+
+            return base.ToString();
         }
     }
 }

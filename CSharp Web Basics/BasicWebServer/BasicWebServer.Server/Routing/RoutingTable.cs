@@ -11,16 +11,16 @@
 
         public RoutingTable()
         {
-           this.routes.Add(Method.Get, new());
-           this.routes.Add(Method.Post, new());
-           this.routes.Add(Method.Put, new());
-           this.routes.Add(Method.Delete, new());
+           this.routes.Add(Method.get, new());
+           this.routes.Add(Method.post, new());
+           this.routes.Add(Method.put, new());
+           this.routes.Add(Method.delete, new());
         }
 
         public IRoutingTable Map(string url, Method method, Response response)
         {
-            if (method == Method.Get) return this.MapGet(url, response);
-            else if (method == Method.Post) return this.MapPost(url, response);
+            if (method == Method.get) return this.MapGet(url, response);
+            else if (method == Method.post) return this.MapPost(url, response);
             else throw new InvalidOperationException($"Method '{method}' is not suported");
         }
 
@@ -29,7 +29,7 @@
             Guard.AgainstNull(url, nameof(url));
             Guard.AgainstNull(response, nameof(response));
 
-            routes[Method.Get].Add(url, response);
+            routes[Method.get].Add(url, response);
 
             return this;
         }
@@ -39,7 +39,7 @@
             Guard.AgainstNull(url, nameof(url));
             Guard.AgainstNull(response, nameof(response));
 
-            routes[Method.Post].Add(url, response);
+            routes[Method.post].Add(url, response);
 
             return this;
         }
@@ -49,7 +49,7 @@
             var method = request.Method;
             var url = request.Url;
 
-            if (!this.routes.ContainsKey(method) || this.routes[method].ContainsKey(url))
+            if (!this.routes.ContainsKey(method) || !this.routes[method].ContainsKey(url))
             {
                 return new NotFoundResponse(StatusCode.NotFound);
             }

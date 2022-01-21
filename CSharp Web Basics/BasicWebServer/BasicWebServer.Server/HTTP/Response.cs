@@ -1,5 +1,7 @@
 ﻿namespace BasicWebServer.Server.HTTP
 {
+    using System.Text;
+
     using BasicWebServer.Server.Common;
     using BasicWebServer.Server.HTTP.Enumerations;
 
@@ -18,5 +20,28 @@
         public HeaderCollection Headers { get; } = new HeaderCollection();
 
         public string Body { get; set; }
+
+        public Action<Request, Response> PreRenderAction { get; protected set; }
+
+        public override string ToString()
+        {
+            var result = new StringBuilder();
+
+            result.AppendLine($"HTTP/1.1 {(int)this.StatusCode} {this.StatusCode}");
+
+            foreach (var header in this.Headers)
+            {
+                result.AppendLine(header.ToString());
+            }
+
+            result.AppendLine();
+
+            if (!string.IsNullOrWhiteSpace(this.Body))
+            {
+                result.AppendLine(this.Body);
+            }
+
+            return result.ToString();
+        }
     }
 }

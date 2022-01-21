@@ -10,7 +10,14 @@ namespace BasicWebServer.Server.HTTP
 
         public void Add(string name, string value)
         {
-            this.headers.Add(name, new Header(name, value));
+            this.headers[name] = new Header(name, value);
+        }
+
+        public string this[string name] => this.headers[name].Value;
+
+        public bool contains(string name)
+        {
+            return this.headers.ContainsKey(name);
         }
 
         public IEnumerator<Header> GetEnumerator()
