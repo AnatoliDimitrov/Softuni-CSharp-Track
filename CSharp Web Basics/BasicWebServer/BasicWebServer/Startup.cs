@@ -1,6 +1,8 @@
 ﻿namespace BasicWebServer
 {
     using System;
+    using System.Text;
+    using System.Web;
 
     using BasicWebServer.Server;
     using BasicWebServer.Server.HTTP;
@@ -29,8 +31,47 @@
                 .MapPost("/HTML", new TextResponse("", Startup.AddFormDataAction))
                 .MapGet("/Content", new HtmlResponse(DownLoadForm))
                 .MapPost("/Content", new TextFileResponse(FileName))
+                .MapGet("/Cookies", new HtmlResponse("", AddCookiesAction))
                 );
+
             await server.Start();
+        }
+
+        private static void AddCookiesAction( Request request, Response response)
+        {
+            var requestHasCookies = request.Cookies.Any();
+            var body = "";
+
+            if (requestHasCookies)
+            {
+                var cookieText = new StringBuilder();
+
+                cookieText.AppendLine("<h1>Cookies<h1>");
+
+                cookieText.AppendLine("<table border='1'><tr><th>Name</th><th>Value</th></tr>");
+
+                foreach (var cookie in request.Cookies)
+                {
+                    cookieText.Append("<tr>");
+                    cookieText.Append($"<th>{HttpUtility.HtmlEncode(cookie.Name)}</th>");
+                    cookieText.Append($"<th>{HttpUtility.HtmlEncode(cookie.Value)}</th>");
+                    cookieText.Append("</tr>");
+                }
+                cookieText.Append("</table>");
+                body = cookieText.ToString();
+            }
+            else
+            {
+                body = "<h1>Cookies Set!</h1>";
+            }
+
+            if (!requestHasCookies)
+            {
+                response.Cookies.Add("My-Cookie", "My-Value");
+                response.Cookies.Add("My-Second-Cookie", "My-Second-Value");
+            }
+
+            response.Body = body;
         }
 
         private static async Task DownloadSitesAsTextFileAsync(string fileName, string[] urls)

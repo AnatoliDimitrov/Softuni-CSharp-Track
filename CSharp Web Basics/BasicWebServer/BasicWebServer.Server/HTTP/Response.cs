@@ -17,7 +17,9 @@
 
         public StatusCode StatusCode { get; init; }
 
-        public HeaderCollection Headers { get; } = new HeaderCollection();
+        public HeaderCollection Headers { get; } = new();
+
+        public CookieCollection Cookies { get; } = new();
 
         public string Body { get; set; }
 
@@ -32,6 +34,11 @@
             foreach (var header in this.Headers)
             {
                 result.AppendLine(header.ToString());
+            }
+
+            foreach (var cookie in this.Cookies)
+            {
+                result.AppendLine($"{Constants.SetCookie}: {cookie}");
             }
 
             result.AppendLine();
