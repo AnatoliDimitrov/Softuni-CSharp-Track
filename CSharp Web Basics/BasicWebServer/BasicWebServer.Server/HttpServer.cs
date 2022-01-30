@@ -4,9 +4,9 @@
     using System.Net.Sockets;
     using System.Text;
 
-    using BasicWebServer.Server.Common;
-    using BasicWebServer.Server.HTTP;
-    using BasicWebServer.Server.Routing;
+    using Common;
+    using HTTP;
+    using Routing;
 
     public class HttpServer
     {

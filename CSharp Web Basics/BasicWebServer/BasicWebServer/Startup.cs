@@ -4,20 +4,12 @@
     using System.Text;
     using System.Web;
 
-    using BasicWebServer.Server;
-    using BasicWebServer.Server.HTTP;
-    using BasicWebServer.Server.Responses;
+    using Server;
+    using Server.HTTP;
+    using Server.Controllers;
 
     public class Startup
     {
-        private const string HtmlForm = @"<form action='/HTML' method='POST'>
-    Name: <input type='text' name='Name' />
-    Age: <input type='number' name='Age' />
-    <input type='submit' value='Save' />
-</form>";
-        private const string DownLoadForm = @"<form action='/Content' method='POST'>
-   <input type='submit' value ='Download Sites Content' /> 
-</form>";
         private const string FileName = "content.txt";
         private const string LoginForm = @"<form action='/Login' method='POST'>
    Username: <input type='text' name='Username'/>
@@ -29,24 +21,20 @@
 
         public static async Task Main()
         {
-            await DownloadSitesAsTextFileAsync(FileName, new string[] { "https://judge.softuni.org/", "https://softuni.org/" });
-
-            var server = new HttpServer(r => r
-                .MapGet("/", new TextResponse("Hello from server."))
-                .MapGet("/HTML", new HtmlResponse(HtmlForm))
-                .MapGet("/Redirect", new RedirectResponse("http://claudi.bg"))
-                .MapPost("/HTML", new TextResponse("", AddFormDataAction))
-                .MapGet("/Content", new HtmlResponse(DownLoadForm))
-                .MapPost("/Content", new TextFileResponse(FileName))
-                .MapGet("/Cookies", new HtmlResponse("", AddCookiesAction))
-                .MapGet("/Session", new TextResponse("", DisplaySessionInfoAction))
-                .MapGet("/Login", new HtmlResponse(LoginForm))
-                .MapPost("/Login", new HtmlResponse("", LoginAction))
-                .MapGet("/Logout", new HtmlResponse("", LogoutAction))
-                .MapGet("/UserProfile", new HtmlResponse("", GetUserDataAction))
-                );
-
-            await server.Start();
+            await new HttpServer(r => r
+                .MapGet<HomeController>("/", c => c.Index())
+                .MapGet<HomeController>("/HTML", c => c.Html())
+                .MapGet<HomeController>("/Redirect", c => c.Redirect())
+                .MapPost<HomeController>("/HTML", c => c.HtmlFormPost())
+                .MapGet<HomeController>("/Content", c => c.Content())
+                .MapPost<HomeController>("/Content", c => c.DownloadContent())
+                .MapGet<HomeController>("/Cookies", c => c.Cookies())
+                //.MapGet<HomeController>("/Session", c => c.Session())
+                //.MapGet<HomeController>("/Login", new HtmlResponse(LoginForm))
+                //.MapPost<HomeController>("/Login", new HtmlResponse("", LoginAction))
+                //.MapGet<HomeController>("/Logout", new HtmlResponse("", LogoutAction))
+                //.MapGet<HomeController>("/UserProfile", new HtmlResponse("", GetUserDataAction))
+                ).Start();
         }
 
         private static void GetUserDataAction(Request request, Response response)
@@ -151,30 +139,6 @@
             }
 
             response.Body = body;
-        }
-
-        private static async Task DownloadSitesAsTextFileAsync(string fileName, string[] urls)
-        {
-            var downloads = new List<Task<string>>();
-
-            foreach (var url in urls)
-            {
-                downloads.Add(DownloadWebSiteContent(url));
-            }
-
-            var responses = await  Task.WhenAll(downloads);
-
-            var responsesString = string.Join(Environment.NewLine, responses);
-
-            await File.WriteAllTextAsync(FileName, responsesString);
-        }
-
-        private static async Task<string> DownloadWebSiteContent(string url)
-        {
-            using var client = new HttpClient();
-            var response = await client.GetAsync(url);
-            var html = await response.Content.ReadAsStringAsync();
-            return html.Substring(0, 2000);
         }
 
         private static void AddFormDataAction(Request request, Response response)

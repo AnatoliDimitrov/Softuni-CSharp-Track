@@ -1,11 +1,11 @@
 ﻿namespace BasicWebServer.Server.Responses
 {
-    using BasicWebServer.Server.HTTP;
-    using BasicWebServer.Server.HTTP.Enumerations;
+    using HTTP;
+    using HTTP.Enumerations;
 
     internal class NotFoundResponse : Response
     {
-        public NotFoundResponse(StatusCode statusCode) : base(statusCode)
+        public NotFoundResponse() : base(StatusCode.NotFound)
         {
         }
     }

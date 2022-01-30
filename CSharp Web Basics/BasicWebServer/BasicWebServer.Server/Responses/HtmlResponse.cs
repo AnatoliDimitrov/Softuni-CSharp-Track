@@ -1,7 +1,7 @@
 ﻿namespace BasicWebServer.Server.Responses
 {
-    using BasicWebServer.Server.Common;
-    using BasicWebServer.Server.HTTP;
+    using Common;
+    using HTTP;
 
     public class HtmlResponse : ContentResponse
     {

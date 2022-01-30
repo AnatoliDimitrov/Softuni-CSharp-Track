@@ -1,9 +1,9 @@
-﻿using BasicWebServer.Server.Common;
-using BasicWebServer.Server.HTTP;
-using BasicWebServer.Server.HTTP.Enumerations;
-
-namespace BasicWebServer.Server.Responses
+﻿namespace BasicWebServer.Server.Responses
 {
+    using Common;
+    using HTTP;
+    using HTTP.Enumerations;
+
     public class TextFileResponse : Response
     {
         public TextFileResponse(string fileName) : base(StatusCode.OK)

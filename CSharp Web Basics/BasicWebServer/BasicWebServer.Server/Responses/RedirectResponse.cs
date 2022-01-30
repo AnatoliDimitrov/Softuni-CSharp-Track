@@ -1,8 +1,8 @@
 ﻿namespace BasicWebServer.Server.Responses
 {
-    using BasicWebServer.Server.Common;
-    using BasicWebServer.Server.HTTP;
-    using BasicWebServer.Server.HTTP.Enumerations;
+    using Common;
+    using HTTP;
+    using HTTP.Enumerations;
 
     public class RedirectResponse : Response
     {
