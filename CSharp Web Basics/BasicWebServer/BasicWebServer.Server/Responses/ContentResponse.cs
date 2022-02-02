@@ -15,7 +15,6 @@
 
             this.Headers.Add(Constants.ContentType, contentType);
             this.Body = content;
-            this.PreRenderAction = preRenderAction;
         }
 
         public override string ToString()

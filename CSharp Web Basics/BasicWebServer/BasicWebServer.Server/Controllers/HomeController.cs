@@ -1,6 +1,8 @@
 ﻿namespace BasicWebServer.Server.Controllers
 {
     using BasicWebServer.Server.HTTP;
+    using System.Text;
+    using System.Web;
 
     public class HomeController : Controller
     {
@@ -48,7 +50,44 @@
 
         public Response Cookies()
         {
+            if(Request.Cookies.Any(c => c.Name != HTTP.Session.SessionCookieName))
+            {
+                var cookieText = new StringBuilder();
+                cookieText.AppendLine("<h1>Cookies</h1>");
+                cookieText.Append("<table border='1'><tr><th>Name</th><th>Value</th></tr>");
 
+                foreach (var cookie in Request.Cookies)
+                {
+                    cookieText.Append("<tr>");
+                    cookieText.Append($"<td>{HttpUtility.UrlEncode(cookie.Name)}</td>");
+                    cookieText.Append($"<td>{HttpUtility.UrlEncode(cookie.Value)}</td>");
+                    cookieText.Append("</tr>");
+                }
+
+                cookieText.Append("</table>");
+                return Html(cookieText.ToString());
+            }
+
+            var cookies = new CookieCollection();
+            cookies.Add("My-Cookie", "My-Value");
+            cookies.Add("My-Second-Cookie", "My-Second-Value");
+
+            return Html("<h1>Cookies Set!</h1>", cookies);
+        }
+
+        public Response Session()
+        {
+            string currentDateKey = "CurrentDate";
+            var sessionExists = Request.Session.ContainsKey(currentDateKey);
+
+            if (sessionExists)
+            {
+                var currentDate = Request.Session[currentDateKey];
+
+                return Text($"Stored date: {currentDate}");
+            }
+
+            return Text("Current date stored!");
         }
 
         private static async Task DownloadSitesAsTextFileAsync(string fileName, string[] urls)
