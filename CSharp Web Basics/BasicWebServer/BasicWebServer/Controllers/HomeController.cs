@@ -1,19 +1,12 @@
 ﻿namespace BasicWebServer.Server.Controllers
 {
+    using BasicWebServer.Models;
     using BasicWebServer.Server.HTTP;
     using System.Text;
     using System.Web;
 
     public class HomeController : Controller
     {
-        private const string HtmlForm = @"<form action='/HTML' method='POST'>
-    Name: <input type='text' name='Name' />
-    Age: <input type='number' name='Age' />
-    <input type='submit' value='Save' />
-</form>";
-        private const string DownLoadForm = @"<form action='/Content' method='POST'>
-   <input type='submit' value ='Download Sites Content' /> 
-</form>";
         private const string FileName = "content.txt";
 
         public HomeController(Request request) : base(request)
@@ -25,32 +18,31 @@
 
         public Response Redirect() => Redirect("https://softuni.bg");
 
-        public Response Html() => Html(HtmlForm);
+        public Response Html() => View();
 
         public Response HtmlFormPost()
         {
-            var data = "";
-
-            foreach (var (key, value) in Request.Form)
+            var model = new FormViewModel()
             {
-                data += $"{key} - {value}" + Environment.NewLine;
-            }
+                Name = this.Request.Form["Name"],
+                Age = this.Request.Form["Age"],
+            };
 
-            return Text(data);
+            return View(model);
         }
 
-        public Response Content() => Html(DownLoadForm);
+        public Response Content() => View();
 
         public Response DownloadContent()
         {
             DownloadSitesAsTextFileAsync(FileName, new string[] { "http://claudi.bg" }).Wait();
 
-           return File(FileName);
+            return File(FileName);
         }
 
         public Response Cookies()
         {
-            if(Request.Cookies.Any(c => c.Name != HTTP.Session.SessionCookieName))
+            if (Request.Cookies.Any(c => c.Name != HTTP.Session.SessionCookieName))
             {
                 var cookieText = new StringBuilder();
                 cookieText.AppendLine("<h1>Cookies</h1>");
