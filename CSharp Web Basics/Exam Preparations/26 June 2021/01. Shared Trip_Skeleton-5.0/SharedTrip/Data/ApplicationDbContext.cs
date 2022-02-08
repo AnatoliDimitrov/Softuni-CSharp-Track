@@ -1,15 +1,11 @@
 ﻿namespace SharedTrip.Data
 {
     using Microsoft.EntityFrameworkCore;
+
     using SharedTrip.Models;
 
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext()
-        {
-            
-        }
-
         public DbSet<User> Users { get; set; }
 
         public DbSet<Trip> Trips { get; set; }

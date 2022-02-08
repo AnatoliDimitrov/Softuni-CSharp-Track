@@ -15,22 +15,22 @@
         public string Id { get; init; } = Guid.NewGuid().ToString();
 
         [Required]
-        public string StartPoint { get; set; }
+        public string StartPoint { get; init; }
 
         [Required]
-        public string EndPoint { get; set; }
+        public string EndPoint { get; init; }
 
         [Required]
-        public DateTime DepartureTime { get; set; }
+        public DateTime DepartureTime { get; init; }
 
         [Required]
         public int Seats { get; set; }
 
         [Required]
         [MaxLength(80)]
-        public string Description { get; set; }
+        public string Description { get; init; }
 
-        public string ImagePath { get; set; }
+        public string ImagePath { get; init; }
 
         public ICollection<UserTrip> UserTrips { get; set; }
     }

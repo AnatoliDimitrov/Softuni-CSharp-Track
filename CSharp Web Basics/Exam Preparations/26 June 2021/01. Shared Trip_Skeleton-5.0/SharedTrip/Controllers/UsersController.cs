@@ -4,6 +4,7 @@
 
     using MyWebServer.Controllers;
     using MyWebServer.Http;
+
     using SharedTrip.Data;
     using SharedTrip.Models;
     using SharedTrip.Models.Users;
@@ -98,6 +99,7 @@
             return this.Redirect("/Users/Login");
         }
 
+        [Authorize]
         public HttpResponse Logout()
         {
             this.SignOut();

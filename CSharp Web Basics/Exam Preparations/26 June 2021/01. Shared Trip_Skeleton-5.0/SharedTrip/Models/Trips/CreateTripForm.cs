@@ -1,19 +1,17 @@
-﻿using System;
-
-namespace SharedTrip.Models.Trips
+﻿namespace SharedTrip.Models.Trips
 {
     public class CreateTripForm
     {
-        public string StartPoint { get; set; }
+        public string StartPoint { get; init; }
 
-        public string EndPoint { get; set; }
+        public string EndPoint { get; init; }
 
-        public string DepartureTime { get; set; }
+        public string DepartureTime { get; init; }
 
-        public int Seats { get; set; }
+        public int Seats { get; init; }
 
-        public string Description { get; set; }
+        public string Description { get; init; }
 
-        public string ImagePath { get; set; }
+        public string ImagePath { get; init; }
     }
 }
