@@ -5,22 +5,16 @@
     using MyWebServer.Controllers;
     using MyWebServer.Http;
 
-    using SharedTrip.Data;
-    using SharedTrip.Models;
     using SharedTrip.Models.Users;
-    using SharedTrip.Services;
+    using SharedTrip.Services.UsersService;
 
     public class UsersController : Controller
     {
-        private readonly IValidator validator;
-        private readonly ApplicationDbContext context;
-        private readonly IPasswordHasher passwordHasher;
+        private readonly IUserService userService;
 
-        public UsersController(IValidator _validator, ApplicationDbContext _context, IPasswordHasher _passwordHasher)
+        public UsersController(IUserService _service)
         {
-            this.validator = _validator;
-            this.context = _context;
-            this.passwordHasher = _passwordHasher;
+            this.userService = _service;
         }
 
         public HttpResponse Login()
@@ -36,13 +30,7 @@
         [HttpPost]
         public HttpResponse Login(LoginUserForm user)
         {
-            var hashedPassword = passwordHasher.Hash(user.Password);
-
-            var userId = this.context
-                .Users
-                .Where(u => u.Username == user.Username && u.Password == hashedPassword)
-                .Select(u => u.Id)
-                .FirstOrDefault();
+            var userId = userService.Login(user);
 
             if (userId == null)
             {
@@ -67,34 +55,13 @@
         [HttpPost]
         public HttpResponse Register(UserRegisterForm user)
         {
-            var errors = validator.ValidateRegistration(user);
-
-            if (this.context.Users.Any(u => u.Username == user.Username))
-            {
-                errors.Add("Username is already taken.");
-            }
-
-            if (this.context.Users.Any(u => u.Email == user.Email))
-            {
-                errors.Add("Email already registered.");
-            }
+            var errors = userService.Register(user);
 
             if (errors.Any())
             {
+                //return this.Error(errors);
                 return this.Redirect("/Users/Register");
             }
-
-
-            this.context
-                .Users
-                .Add(new User()
-                {
-                    Username = user.Username,
-                    Email = user.Email,
-                    Password = passwordHasher.Hash(user.Password),
-                });
-
-            context.SaveChanges();
 
             return this.Redirect("/Users/Login");
         }

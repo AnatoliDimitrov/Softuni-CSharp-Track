@@ -4,10 +4,13 @@
 
     using MyWebServer;
     using MyWebServer.Controllers;
-
     using MyWebServer.Results.Views;
+
     using SharedTrip.Data;
-    using SharedTrip.Services;
+    using SharedTrip.Repositories;
+    using SharedTrip.Services.ModelsValidatorService;
+    using SharedTrip.Services.TripsService;
+    using SharedTrip.Services.UsersService;
 
     public class Startup
     {
@@ -20,8 +23,10 @@
                     .Add<IViewEngine, CompilationViewEngine>()
                     .Add<ApplicationDbContext>())
                 .WithServices(s => s
-                    .Add<IValidator, Validator>()
-                    .Add<IPasswordHasher, PasswordHasher>())
+                    .Add<IUserService, UserService>()
+                    .Add<ITripService, TripService>()
+                    .Add<IRepository, Repository>()
+                    .Add<IModelValidatorService, ModelValidatorService>())
                 .WithConfiguration<ApplicationDbContext>(c => c.Database.EnsureCreated())
                 .Start();
     }
