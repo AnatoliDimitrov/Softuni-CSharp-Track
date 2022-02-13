@@ -4,62 +4,54 @@
 
     using MyWebServer.Controllers;
     using MyWebServer.Http;
-    using SMS.Data;
+
+    using SMS.Services.CartsService;
 
     [Authorize]
     public class CartsController : Controller
     {
-        private readonly SMSDbContext context;
+        private readonly ICartService service;
 
-        public CartsController(SMSDbContext _context)
+        public CartsController( ICartService _service)
         {
-            this.context = _context;
+            this.service = _service;
         }
 
         public HttpResponse AddProduct(string productId)
         {
-            var product = this.context
-                .Products
-                .FirstOrDefault(p => p.Id == productId);
+            var errors = service.AddProduct(productId, this.User.Id);
 
-            var user = this.context
-                .Users
-                .FirstOrDefault(p => p.Id == this.User.Id);
-
-            product.CartId = user.CartId;
-
-            context.SaveChanges();
+            if (errors.Any())
+            {
+                return this.Error(errors);
+                //return this.View();
+            }
 
             return this.Details();
         }
 
         public HttpResponse Details()
         {
-            var user = this.context
-                .Users
-                .FirstOrDefault(p => p.Id == this.User.Id);
+            var (errors, products) = service.CartDetails(this.User.Id);
 
-            var products = this.context
-                .Products
-                .Where(p => p.CartId == user.CartId)
-                .ToList();
+            if (errors.Any())
+            {
+                return this.Error(errors);
+                //return this.View();
+            }
 
             return this.View(products);
         }
 
         public HttpResponse Buy()
         {
-            var user = this.context
-                .Users
-                .FirstOrDefault(p => p.Id == this.User.Id);
+            var errors = service.BuyProducts(this.User.Id);
 
-            this.context
-                .Products
-                .Where(p => p.CartId == user.CartId)
-                .ToList()
-                .ForEach(p => p.CartId = null);
-
-            this.context.SaveChanges();
+            if (errors.Any())
+            {
+                return this.Error(errors);
+                //return this.View();
+            }
 
             return Redirect("/Home/Index");
         }

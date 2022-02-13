@@ -1,12 +1,17 @@
 ﻿namespace SMS
 {
     using System.Threading.Tasks;
-    using Microsoft.EntityFrameworkCore;
+
     using MyWebServer;
     using MyWebServer.Controllers;
     using MyWebServer.Results.Views;
+
     using SMS.Data;
-    using SMS.Services;
+    using SMS.Repositories;
+    using SMS.Services.CartsService;
+    using SMS.Services.ModelsValidatorService;
+    using SMS.Services.ProductsService;
+    using SMS.Services.UsersService;
 
     public class StartUp
     {
@@ -19,8 +24,11 @@
                     .Add<IViewEngine, CompilationViewEngine>()
                     .Add<SMSDbContext>())
                 .WithServices(s => s
-                    .Add<IValidator, Validator>()
-                    .Add<IPasswordHasher, PasswordHasher>())
+                    .Add<IModelValidatorService, ModelValidatorService>()
+                    .Add<IRepository, Repository>()
+                    .Add<IUserService, UserService>()
+                    .Add<IProductService, ProductService>()
+                    .Add<ICartService, CartService>())
                 .WithConfiguration<SMSDbContext>(c => c.Database.EnsureCreated())
                 .Start();
     }

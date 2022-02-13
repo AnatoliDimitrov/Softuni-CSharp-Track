@@ -5,20 +5,17 @@
     using MyWebServer.Controllers;
     using MyWebServer.Http;
     using SMS.Data;
-    using SMS.Models;
     using SMS.Models.Products;
-    using SMS.Services;
+    using SMS.Services.ProductsService;
 
     [Authorize]
     public class ProductsController : Controller
     {
-        private readonly IValidator validator;
-        private readonly SMSDbContext context;
+        private readonly IProductService productService;
 
-        public ProductsController(IValidator _validator, SMSDbContext _context)
+        public ProductsController(IProductService _productService)
         {
-            this.validator = _validator;
-            this.context = _context;
+            this.productService = _productService;
         }
 
         public HttpResponse Create()
@@ -29,25 +26,13 @@
         [HttpPost]
         public HttpResponse Create(CreateProductForm model)
         {
-            var errors = validator.ValidateProduct(model);
+            var errors = productService.CreateProduct(model);
 
             if (errors.Any())
             {
-                return Error(errors);
+                return this.Error(errors);
+               // return this.View();
             }
-
-
-            this.context
-                .Products
-                .Add(new Product() 
-                {
-                    Name = model.Name,
-                    Price = model.Price,
-                    Cart = null
-                });
-
-
-            context.SaveChanges();
 
             return this.Redirect("/Home/Index");
         }
