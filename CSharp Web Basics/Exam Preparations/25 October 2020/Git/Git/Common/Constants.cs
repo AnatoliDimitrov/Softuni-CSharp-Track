@@ -1,9 +1,11 @@
-﻿namespace CarShop.Common.Constants
+﻿namespace Git.Common
 {
     public static class Constants
     {
         public const int LENGTH_100 = 100;
         public const int LENGTH_20 = 20;
+        public const int LENGTH_10 = 10;
+        public const int LENGTH_9 = 9;
         public const int LENGTH_8 = 8;
         public const int LENGTH_7 = 7;
         public const int LENGTH_6 = 6;

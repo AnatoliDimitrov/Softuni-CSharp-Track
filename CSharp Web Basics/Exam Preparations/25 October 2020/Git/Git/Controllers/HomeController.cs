@@ -7,6 +7,11 @@
     {
         public HttpResponse Index()
         {
+            if (this.User.IsAuthenticated)
+            {
+                return this.Redirect("/Repositories/All");
+            }
+
             return this.View();
         }
     }
