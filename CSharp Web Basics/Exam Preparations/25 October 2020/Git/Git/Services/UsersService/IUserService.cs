@@ -1,8 +1,9 @@
-﻿using Git.ViewModels;
-using System.Collections.Generic;
-
-namespace Git.Services.UsersService
+﻿namespace Git.Services.UsersService
 {
+
+    using System.Collections.Generic;
+
+    using Git.ViewModels;
     public interface IUserService
     {
         ICollection<string> Register(UserRegisterForm model);

@@ -1,7 +1,8 @@
 ﻿namespace Git.Data
 {
-    using Git.Models;
     using Microsoft.EntityFrameworkCore;
+
+    using Git.Models;
 
     public class ApplicationDbContext : DbContext
     {

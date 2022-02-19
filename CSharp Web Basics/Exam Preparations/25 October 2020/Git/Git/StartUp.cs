@@ -11,6 +11,7 @@
     using Git.Services.UsersService;
     using Git.Services.RepositoriesService;
     using Git.Data;
+    using Git.Services.CommitsService;
 
     public class Startup
     {
@@ -26,6 +27,7 @@
                     .Add<IModelValidatorService, ModelValidatorService>()
                     .Add<IRepository, Repository>()
                     .Add<IRepositoryService, RepositoryService>()
+                    .Add<ICommitService, CommitService>()
                     .Add<IUserService, UserService>())
                 .WithConfiguration<ApplicationDbContext>(context => context
                     .Database.EnsureCreated())

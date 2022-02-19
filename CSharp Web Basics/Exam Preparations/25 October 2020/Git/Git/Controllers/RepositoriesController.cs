@@ -6,7 +6,6 @@
     using MyWebServer.Controllers;
     using MyWebServer.Http;
 
-    [Authorize]
     public class RepositoriesController : Controller
     {
         private readonly IRepositoryService service;
@@ -23,6 +22,7 @@
             return this.View(repos);
         }
 
+        [Authorize]
         public HttpResponse Create()
         {
             if (!this.User.IsAuthenticated)
@@ -33,6 +33,7 @@
             return this.View();
         }
 
+        [Authorize]
         [HttpPost]
         public HttpResponse Create(CreateRepositoryViewModel model)
         {

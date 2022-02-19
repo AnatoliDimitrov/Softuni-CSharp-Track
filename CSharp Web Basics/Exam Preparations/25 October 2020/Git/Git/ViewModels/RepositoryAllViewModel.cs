@@ -1,9 +1,7 @@
-﻿using Git.Models;
-using System;
-using System.Collections.Generic;
-
-namespace Git.ViewModels
+﻿namespace Git.ViewModels
 {
+    using System;
+
     public class RepositoryAllViewModel
     {
         public string Id { get; init; }

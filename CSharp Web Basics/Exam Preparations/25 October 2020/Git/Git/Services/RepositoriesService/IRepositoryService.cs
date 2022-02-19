@@ -1,8 +1,9 @@
-﻿using Git.ViewModels;
-using System.Collections.Generic;
-
-namespace Git.Services.RepositoriesService
+﻿namespace Git.Services.RepositoriesService
 {
+    using System.Collections.Generic;
+
+    using Git.ViewModels;
+
     public interface IRepositoryService
     {
         ICollection<RepositoryAllViewModel> AllRepositories(string userId);

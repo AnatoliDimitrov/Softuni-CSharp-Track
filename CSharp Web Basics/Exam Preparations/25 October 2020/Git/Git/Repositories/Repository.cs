@@ -1,8 +1,10 @@
 ﻿namespace Git.Repositories
 {
-    using Git.Data;
-    using Microsoft.EntityFrameworkCore;
     using System.Linq;
+
+    using Microsoft.EntityFrameworkCore;
+
+    using Git.Data;
 
     public class Repository : IRepository
     {

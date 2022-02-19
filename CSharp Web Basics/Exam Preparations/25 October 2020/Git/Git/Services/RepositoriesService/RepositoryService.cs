@@ -1,14 +1,15 @@
-﻿using Git.Common;
-using Git.Data;
-using Git.Repositories;
-using Git.Services.ModelsValidatorService;
-using Git.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Git.Services.RepositoriesService
+﻿namespace Git.Services.RepositoriesService
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Git.Common;
+    using Git.Data;
+    using Git.Repositories;
+    using Git.Services.ModelsValidatorService;
+    using Git.ViewModels;
+
     public class RepositoryService : IRepositoryService
     {
         private readonly IRepository repository;
