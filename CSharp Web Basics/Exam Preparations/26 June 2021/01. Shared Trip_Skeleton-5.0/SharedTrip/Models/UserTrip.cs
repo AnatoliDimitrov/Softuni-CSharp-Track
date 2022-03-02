@@ -1,4 +1,4 @@
-﻿namespace SharedTrip.Models
+namespace SharedTrip.Models
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,3 +13,5 @@
         public Trip Trip { get; set; }
     }
 }
+
+apdimitrov@yahoooooooooooooooooooooooooooooooooooooooooo.com
