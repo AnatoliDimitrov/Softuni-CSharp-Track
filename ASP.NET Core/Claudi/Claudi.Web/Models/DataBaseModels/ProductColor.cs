@@ -22,9 +22,7 @@
         [StringLength(20)]
         public string? Real { get; init; }
 
-        [Required]
-        [StringLength(20)]
-        public string Group { get; init; }
+        public string? Group { get; init; }
 
         [Required]
         public string ImageUrl { get; init; }

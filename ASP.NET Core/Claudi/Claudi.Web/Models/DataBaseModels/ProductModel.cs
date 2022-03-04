@@ -20,6 +20,8 @@
         [StringLength(50)]
         public string EnglishName { get; init; }
 
+        public bool OnCalculator { get; set; }
+
         [Required]
         public int ProductTypeId { get; init; }
         public virtual ProductType Type { get; set; }

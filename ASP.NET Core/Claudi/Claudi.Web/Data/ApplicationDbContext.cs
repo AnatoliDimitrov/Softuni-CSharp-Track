@@ -6,10 +6,6 @@ namespace Claudi.Web.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
-        //public DbSet<ConfiguredProductExtra> ConfiguredProductExtras { get; set; }
-        //public DbSet<ConfiguredProductUser> ConfiguredProductUsers { get; set; }
-        //public DbSet<ModelColor> ModelColors { get; set; }
-        //public DbSet<ModelExtra> ModelExtras { get; set; }
         public DbSet<ProductCatalogue> ProductCatalogues { get; set; }
         public DbSet<ProductColor> ProductColors { get; set; }
         public DbSet<ProductExtra> ProductExtras { get; set; }

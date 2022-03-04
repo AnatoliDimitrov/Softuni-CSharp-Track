@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 using Claudi.Web.Data;
 using Claudi.Web.Services;
+using Claudi.Web.Data.Repositories;
+using Claudi.Web.Data.Seeding;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +32,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
+
+builder.Services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
+builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
 builder.Services.ConfigureApplicationCookie(o => {
     o.ExpireTimeSpan = TimeSpan.FromDays(30);
@@ -84,5 +89,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+await Seeder.Seed(app);
 
 app.Run();

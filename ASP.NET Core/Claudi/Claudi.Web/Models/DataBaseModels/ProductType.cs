@@ -6,6 +6,7 @@
     {
         public ProductType()
         {
+
             this.Models = new HashSet<ProductModel>();
             this.Catalogues = new HashSet<ProductCatalogue>();
             this.ConfiguredProducts = new HashSet<ConfiguredProduct>();

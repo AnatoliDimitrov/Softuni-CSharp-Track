@@ -78,6 +78,10 @@ namespace Claudi.Web.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Group")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -116,9 +120,7 @@ namespace Claudi.Web.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Group")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -216,6 +218,9 @@ namespace Claudi.Web.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("OnCalculator")
+                        .HasColumnType("bit");
 
                     b.Property<int>("ProductTypeId")
                         .HasColumnType("int");
