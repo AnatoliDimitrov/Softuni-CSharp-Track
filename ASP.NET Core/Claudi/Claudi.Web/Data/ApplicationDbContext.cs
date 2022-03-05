@@ -30,10 +30,10 @@ namespace Claudi.Web.Data
                .WithMany(e => e.Catalogues)
                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<ProductCatalogue>()
-                .HasOne(e => e.Model)
-                .WithMany(e => e.Catalogues)
-                .OnDelete(DeleteBehavior.Restrict);
+            //builder.Entity<ProductCatalogue>()
+            //    .HasOne(e => e.Model)
+            //    .WithMany(e => e.Catalogues)
+            //    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<ConfiguredProduct>()
                 .HasOne(e => e.Type)

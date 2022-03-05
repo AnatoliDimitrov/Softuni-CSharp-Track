@@ -16,7 +16,9 @@
 
         public virtual ICollection<ProductModel> Models { get; set; }
 
-        public int RowNumber { get; init; }
+        public string CssClass { get; set; }
+
+        public int Number { get; init; }
 
         [Required]
         public string ImageUrl { get; init; }

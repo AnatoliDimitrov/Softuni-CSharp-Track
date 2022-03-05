@@ -4,13 +4,17 @@
 
     public class Seeder
     {
+        private readonly List<ProductCatalogue> catalogues = new List<ProductCatalogue>();
+
         public static async Task Seed(IApplicationBuilder builder)
         {
             using var serviceScope = builder.ApplicationServices.CreateScope();
 
             var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
 
-            context.Database.EnsureCreated();
+            //context.Database.EnsureCreated();
+
+            Crowel("wwwroot/storage/catalogue");
 
             //// ProductTypes
             var horizontalBlinds = new ProductType()
@@ -797,41 +801,146 @@
             {
                 await context.ProductCatalogues.AddRangeAsync(new List<ProductCatalogue>()
                 {
-                    new ProductCatalogue()
-                    {
-                        Type = horizontalBlinds,
-                        Models = horizontalModels,
-                        RowNumber = 1,
-                        ImageUrl = "",
-                        Group = "Пред Съкло",
-                    },
-                    new ProductCatalogue()
-                    {
-                        Type = horizontalBlinds,
-                        Models = horizontalModels,
-                        RowNumber = 2,
-                        ImageUrl = "",
-                        Group = "Пред Съкло",
-                    },
-                    new ProductCatalogue()
-                    {
-                        Type = horizontalBlinds,
-                        Models = horizontalModels,
-                        RowNumber = 3,
-                        ImageUrl = "",
-                        Group = "Пред Съкло",
-                    },
-                    new ProductCatalogue()
-                    {
-                        Type = horizontalBlinds,
-                        Models = horizontalModels,
-                        RowNumber = 4,
-                        ImageUrl = "",
-                        Group = "Пред Съкло",
-                    },
+
+
+                    //////Пред Стъкло
+                    //new ProductCatalogue()
+                    //{
+                    //    Type = horizontalBlinds,
+                    //    Models = horizontalModels,
+                    //    RowNumber = 1,
+                    //    CssClass = "pred-staklo",
+                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/1.jpg",
+                    //    Group = "Пред Съкло",
+                    //},
+                    //new ProductCatalogue()
+                    //{
+                    //    Type = horizontalBlinds,
+                    //    Models = horizontalModels,
+                    //    RowNumber = 2,
+                    //    CssClass = "pred-staklo",
+                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/2.jpg",
+                    //    Group = "Пред Съкло",
+                    //},
+                    //new ProductCatalogue()
+                    //{
+                    //    Type = horizontalBlinds,
+                    //    Models = horizontalModels,
+                    //    RowNumber = 3,
+                    //    CssClass = "pred-staklo",
+                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/3.jpg",
+                    //    Group = "Пред Съкло",
+                    //},
+                    //new ProductCatalogue()
+                    //{
+                    //    Type = horizontalBlinds,
+                    //    Models = horizontalModels,
+                    //    RowNumber = 4,
+                    //    CssClass = "pred-staklo",
+                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/4.jpg",
+                    //    Group = "Пред Съкло",
+                    //},
+                    //////Макси
+                    //new ProductCatalogue()
+                    //{
+                    //    Type = horizontalBlinds,
+                    //    Models = horizontalModels,
+                    //    RowNumber = 5,
+                    //    CssClass = "maxi",
+                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/5.jpg",
+                    //    Group = "Макси",
+                    //},
+                    //new ProductCatalogue()
+                    //{
+                    //    Type = horizontalBlinds,
+                    //    Models = horizontalModels,
+                    //    RowNumber = 6,
+                    //    CssClass = "maxi",
+                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/6.jpg",
+                    //    Group = "Макси",
+                    //},
+                    //new ProductCatalogue()
+                    //{
+                    //    Type = horizontalBlinds,
+                    //    Models = horizontalModels,
+                    //    RowNumber = 7,
+                    //    CssClass = "maxi",
+                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/7.jpg",
+                    //    Group = "Макси",
+                    //},
+                    //new ProductCatalogue()
+                    //{
+                    //    Type = horizontalBlinds,
+                    //    Models = horizontalModels,
+                    //    RowNumber = 8,
+                    //    CssClass = "maxi",
+                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/8.jpg",
+                    //    Group = "Макси",
+                    //},
+                    //////Ultimate
+                    //new ProductCatalogue()
+                    //{
+                    //    Type = horizontalBlinds,
+                    //    Models = horizontalModels,
+                    //    RowNumber = 9,
+                    //    CssClass = "ultimate",
+                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/9.jpg",
+                    //    Group = "UltiMate",
+                    //},
+                    //new ProductCatalogue()
+                    //{
+                    //    Type = horizontalBlinds,
+                    //    Models = horizontalModels,
+                    //    RowNumber = 10,
+                    //    CssClass = "ultimate",
+                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/10.jpg",
+                    //    Group = "UltiMate",
+                    //},
+                    //new ProductCatalogue()
+                    //{
+                    //    Type = horizontalBlinds,
+                    //    Models = horizontalModels,
+                    //    RowNumber = 11,
+                    //    CssClass = "ultimate",
+                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/11.jpg",
+                    //    Group = "UltiMate",
+                    //},
+                    //new ProductCatalogue()
+                    //{
+                    //    Type = horizontalBlinds,
+                    //    Models = horizontalModels,
+                    //    RowNumber = 12,
+                    //    CssClass = "ultimate",
+                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/12.jpg",
+                    //    Group = "UltiMate",
+                    //},
                 });
 
                 await context.SaveChangesAsync();
+            }
+        }
+
+        private static void Crowel(string path)
+        {
+            //var root = Directory.GetDirectoryRoot();
+
+            var directories = Directory.GetDirectories(path);
+
+            if (directories.Any())
+            {
+                foreach (var directory in directories)
+                {
+                    Crowel(directory);
+                }
+            }
+            else
+            {
+                var files = Directory.GetFiles(path);
+
+                foreach (var file in files)
+                {
+                    var url = "/" + file.Replace("\\", "/");
+                }
             }
         }
     }
