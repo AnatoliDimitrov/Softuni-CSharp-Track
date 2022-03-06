@@ -4,17 +4,26 @@
 
     public class Seeder
     {
-        private readonly List<ProductCatalogue> catalogues = new List<ProductCatalogue>();
+        private static List<ProductCatalogue> catalogues = new List<ProductCatalogue>();
+        private static List<ProductColor> samples = new List<ProductColor>();
+
+        private static List<ProductModel> horizontalModels;
+        private static List<ProductModel> verticalModels;
+        private static List<ProductModel> woodenModels;
+        private static List<ProductModel> rollerModels;
+        private static List<ProductModel> romanModels;
+        private static List<ProductModel> bambooModels;
+        private static List<ProductModel> pleatsModels;
+        private static List<ProductModel> externalRollersModels;
+        private static List<ProductModel> externalVenetiansModels;
+        private static List<ProductModel> tentsModels;
+        private static List<ProductModel> netsModels;
 
         public static async Task Seed(IApplicationBuilder builder)
         {
             using var serviceScope = builder.ApplicationServices.CreateScope();
 
             var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
-
-            //context.Database.EnsureCreated();
-
-            Crowel("wwwroot/storage/catalogue");
 
             //// ProductTypes
             var horizontalBlinds = new ProductType()
@@ -655,7 +664,7 @@
                 CreatedOn = DateTime.UtcNow,
             };
 
-            var horizontalModels = new List<ProductModel>()
+            horizontalModels = new List<ProductModel>()
             {
                 infrontGlasses,
                 infrontGlassesBO,
@@ -667,18 +676,18 @@
                 megaview,
                 varioflex,
             };
-            var verticalModels = new List<ProductModel>()
+            verticalModels = new List<ProductModel>()
             {
                 mm89,
                 mm127,
                 al89,
             };
-            var woodenModels = new List<ProductModel>()
+            woodenModels = new List<ProductModel>()
             {
                  mm25,
                     mm50,
             };
-            var rollerModels = new List<ProductModel>()
+            rollerModels = new List<ProductModel>()
             {
                 mini,
                 standart,
@@ -691,17 +700,17 @@
                 dnElegance,
                 dnComfort,
             };
-            var romanModels = new List<ProductModel>()
+            romanModels = new List<ProductModel>()
             {
                 elegante,
                 aura,
             };
-            var bambooModels = new List<ProductModel>()
+            bambooModels = new List<ProductModel>()
             {
                 asha,
                 feba,
             };
-            var pleatsModels = new List<ProductModel>()
+            pleatsModels = new List<ProductModel>()
             {
                 bb10,
                 bb15,
@@ -719,7 +728,7 @@
                 bo75,
                 ao40,
             };
-            var externalRollersModels = new List<ProductModel>()
+            externalRollersModels = new List<ProductModel>()
             {
                 pvc,
                 h39,
@@ -727,13 +736,13 @@
                 h40,
                 h52,
             };
-            var externalVenetiansModels = new List<ProductModel>()
+            externalVenetiansModels = new List<ProductModel>()
             {
                 c50,
                 c80,
                 z90,
             };
-            var tentsModels = new List<ProductModel>()
+            tentsModels = new List<ProductModel>()
             {
                 tentStandart,
                 tentElegance,
@@ -745,7 +754,7 @@
                 crystal,
                 crystalRido,
             };
-            var netsModels = new List<ProductModel>()
+            netsModels = new List<ProductModel>()
             {
                 hingedNet,
                 fixNet,
@@ -799,138 +808,162 @@
 
             if (!context.ProductCatalogues.Any())
             {
-                await context.ProductCatalogues.AddRangeAsync(new List<ProductCatalogue>()
+                CatalogueCrowler("wwwroot/storage/catalogue");
+
+                await context.ProductCatalogues.AddRangeAsync(catalogues);
+
+                await context.SaveChangesAsync();
+            }
+
+            if (!context.ProductColors.Any())
+            {
+                SampleCrowler("wwwroot/storage/samples");
+
+                await context.ProductColors.AddRangeAsync(samples);
+
+                await context.SaveChangesAsync();
+            }
+
+            if (!context.ProductExtras.Any())
+            {
+                var extras = new List<ProductExtra>()
                 {
+                    new ProductExtra()
+                    {
+                        Name = "Странично Водене",
+                        EnglishName = "Side Driving",
+                        Group = 1,
+                        Models = new List<ProductModel>()
+                        {
+                            infrontGlasses,
+                            infrontGlassesBO,
+                            betweenGlasses,
+                            maxiStandart,
+                            maxiStandartBO,
+                            maxiLux,
+                            ultimate,
+                            megaview,
+                            varioflex,
+                            elegante,
+                            aura,
+                            mm25, 
+                            mm50,
+                            standart,
+                            comfort,
+                        }
+                    },
+                    new ProductExtra()
+                    {
+                        Name = "Фиксатор",
+                        EnglishName = "Fixer",
+                        Group = 1,
+                        Models = new List<ProductModel>()
+                        {
+                            infrontGlasses,
+                            infrontGlassesBO,
+                            betweenGlasses,
+                            maxiStandart,
+                            maxiStandartBO,
+                            maxiLux,
+                            ultimate,
+                            megaview,
+                            varioflex,
+                        }
+                    },
+                    new ProductExtra()
+                    {
+                        Name = "Планки Лукс",
+                        EnglishName = "Lux",
+                        Group = 2,
+                        Models = new List<ProductModel>()
+                        {
+                            infrontGlasses,
+                            infrontGlassesBO,
+                            betweenGlasses,
+                            maxiStandart,
+                            maxiStandartBO,
+                            maxiLux,
+                            ultimate,
+                            megaview,
+                            varioflex,
+                        }
+                    },
+                    new ProductExtra()
+                    {
+                        Name = "Мотор с дистанционно",
+                        EnglishName = "Remote Controll",
+                        Group = 3,
+                        Models = new List<ProductModel>()
+                        {
+                            pvc,
+                            h39,
+                            h39r,
+                            h40,
+                            h52,
+                            c50,
+                            c80,
+                            z90,
+                            tentStandart,
+                            tentElegance,
+                            vera,
+                            prestige,
+                            classic,
+                            smart,
 
+                        }
+                    },
+                    new ProductExtra()
+                    {
+                        Name = "Мотор с Бутон",
+                        EnglishName = "Button Controll",
+                        Group = 3,
+                        Models = new List<ProductModel>()
+                        {
+                            pvc,
+                            h39,
+                            h39r,
+                            h40,
+                            h52,
+                            c50,
+                            c80,
+                            z90,
+                            tentStandart,
+                            tentElegance,
+                            vera,
+                            prestige,
+                            classic,
+                            smart,
+                        }
+                    },
+                    new ProductExtra()
+                    {
+                        Name = "Декортативен Капак",
+                        EnglishName = "Decoration",
+                        Group = 4,
+                        Models = new List<ProductModel>()
+                        {
+                            c50,
+                            c80,
+                            z90,
+                        }
+                    },
+                };
 
-                    //////Пред Стъкло
-                    //new ProductCatalogue()
-                    //{
-                    //    Type = horizontalBlinds,
-                    //    Models = horizontalModels,
-                    //    RowNumber = 1,
-                    //    CssClass = "pred-staklo",
-                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/1.jpg",
-                    //    Group = "Пред Съкло",
-                    //},
-                    //new ProductCatalogue()
-                    //{
-                    //    Type = horizontalBlinds,
-                    //    Models = horizontalModels,
-                    //    RowNumber = 2,
-                    //    CssClass = "pred-staklo",
-                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/2.jpg",
-                    //    Group = "Пред Съкло",
-                    //},
-                    //new ProductCatalogue()
-                    //{
-                    //    Type = horizontalBlinds,
-                    //    Models = horizontalModels,
-                    //    RowNumber = 3,
-                    //    CssClass = "pred-staklo",
-                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/3.jpg",
-                    //    Group = "Пред Съкло",
-                    //},
-                    //new ProductCatalogue()
-                    //{
-                    //    Type = horizontalBlinds,
-                    //    Models = horizontalModels,
-                    //    RowNumber = 4,
-                    //    CssClass = "pred-staklo",
-                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/4.jpg",
-                    //    Group = "Пред Съкло",
-                    //},
-                    //////Макси
-                    //new ProductCatalogue()
-                    //{
-                    //    Type = horizontalBlinds,
-                    //    Models = horizontalModels,
-                    //    RowNumber = 5,
-                    //    CssClass = "maxi",
-                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/5.jpg",
-                    //    Group = "Макси",
-                    //},
-                    //new ProductCatalogue()
-                    //{
-                    //    Type = horizontalBlinds,
-                    //    Models = horizontalModels,
-                    //    RowNumber = 6,
-                    //    CssClass = "maxi",
-                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/6.jpg",
-                    //    Group = "Макси",
-                    //},
-                    //new ProductCatalogue()
-                    //{
-                    //    Type = horizontalBlinds,
-                    //    Models = horizontalModels,
-                    //    RowNumber = 7,
-                    //    CssClass = "maxi",
-                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/7.jpg",
-                    //    Group = "Макси",
-                    //},
-                    //new ProductCatalogue()
-                    //{
-                    //    Type = horizontalBlinds,
-                    //    Models = horizontalModels,
-                    //    RowNumber = 8,
-                    //    CssClass = "maxi",
-                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/8.jpg",
-                    //    Group = "Макси",
-                    //},
-                    //////Ultimate
-                    //new ProductCatalogue()
-                    //{
-                    //    Type = horizontalBlinds,
-                    //    Models = horizontalModels,
-                    //    RowNumber = 9,
-                    //    CssClass = "ultimate",
-                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/9.jpg",
-                    //    Group = "UltiMate",
-                    //},
-                    //new ProductCatalogue()
-                    //{
-                    //    Type = horizontalBlinds,
-                    //    Models = horizontalModels,
-                    //    RowNumber = 10,
-                    //    CssClass = "ultimate",
-                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/10.jpg",
-                    //    Group = "UltiMate",
-                    //},
-                    //new ProductCatalogue()
-                    //{
-                    //    Type = horizontalBlinds,
-                    //    Models = horizontalModels,
-                    //    RowNumber = 11,
-                    //    CssClass = "ultimate",
-                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/11.jpg",
-                    //    Group = "UltiMate",
-                    //},
-                    //new ProductCatalogue()
-                    //{
-                    //    Type = horizontalBlinds,
-                    //    Models = horizontalModels,
-                    //    RowNumber = 12,
-                    //    CssClass = "ultimate",
-                    //    ImageUrl = "/storage/Catalogue/HorizontalCatalogue/12.jpg",
-                    //    Group = "UltiMate",
-                    //},
-                });
+                await context.ProductExtras.AddRangeAsync(extras);
 
                 await context.SaveChangesAsync();
             }
         }
 
-        private static void Crowel(string path)
+        private static void CatalogueCrowler(string path)
         {
-            //var root = Directory.GetDirectoryRoot();
-
             var directories = Directory.GetDirectories(path);
 
             if (directories.Any())
             {
                 foreach (var directory in directories)
                 {
-                    Crowel(directory);
+                    CatalogueCrowler(directory);
                 }
             }
             else
@@ -940,6 +973,126 @@
                 foreach (var file in files)
                 {
                     var url = "/" + file.Replace("\\", "/");
+                    var cssClass = string.Empty;
+                    var group = string.Empty;
+
+                    var parts = url.Split('/');
+                    var number = int.Parse(parts.Last().Split(".")[0]);
+                    var modelString = parts[parts.Length - 3];
+
+                    var lastFolder = parts[parts.Length - 2];
+
+                    if (lastFolder.Contains("_"))
+                    {
+                        var folderParts = lastFolder.Split('_');
+                        cssClass = folderParts[0];
+                        group = folderParts[1];
+                    }
+                    else
+                    {
+                        cssClass = lastFolder;
+                        group = lastFolder;
+                    }
+
+                    var modelGroup = modelString switch
+                    {
+                        "HorizontalCatalogue" => horizontalModels,
+                        "VerticalCatalogue" => verticalModels,
+                        "WoodenCatalogue" => woodenModels,
+                        "RollerCatalogue" => rollerModels,
+                        "RomanCatalogue" => romanModels,
+                        "PliseCatalogue" => pleatsModels,
+                        "BambooCatalogue" => bambooModels,
+                        "ExteriorRollersCatalogue" => externalRollersModels,
+                        "ExteriorHorizontalCatalogue" => externalVenetiansModels,
+                        "AwningCatalogue" => tentsModels,
+                        "NetsCatalogue" => netsModels,
+                        _ => throw new ArgumentNullException("Folder not found!")
+                    };
+
+                    url = url.Replace("/wwwroot", "");
+
+                    catalogues.Add(new ProductCatalogue()
+                    {
+                        ImageUrl = url,
+                        CssClass = cssClass,
+                        Group = group,
+                        Number = number,
+                        Models = modelGroup,
+                        Type = modelGroup[0].Type,
+                    });
+                }
+            }
+        }
+
+        private static void SampleCrowler(string path)
+        {
+            var directories = Directory.GetDirectories(path);
+
+            if (directories.Any())
+            {
+                foreach (var directory in directories)
+                {
+                    SampleCrowler(directory);
+                }
+            }
+            else
+            {
+                var files = Directory.GetFiles(path);
+
+                foreach (var file in files)
+                {
+                    var url = "/" + file.Replace("\\", "/");
+                    var cssClass = string.Empty;
+                    var group = string.Empty;
+
+                    var parts = url.Split('/');
+                    var number = parts.Last().Split(".")[0];
+                    var modelString = parts[parts.Length - 3];
+
+                    var lastFolder = parts[parts.Length - 2];
+
+                    if (lastFolder.Contains("_"))
+                    {
+                        var folderParts = lastFolder.Split('_');
+                        cssClass = folderParts[0];
+                        group = folderParts[1];
+                    }
+                    else
+                    {
+                        cssClass = lastFolder;
+                        group = lastFolder;
+                    }
+
+                    var modelGroup = modelString switch
+                    {
+                        "horizontal" => horizontalModels,
+                        "89mm" => new List<ProductModel>() { verticalModels[0] },
+                        "127mm" => new List<ProductModel>() { verticalModels[1] },
+                        "al" => new List<ProductModel>() { verticalModels[2] },
+                        "wooden" => woodenModels,
+                        "roller" => rollerModels,
+                        "roman" => romanModels,
+                        "pleats" => pleatsModels,
+                        "bamboo" => bambooModels,
+                        "externalRoller" => externalRollersModels,
+                        "external" => externalVenetiansModels,
+                        "awning" => tentsModels,
+                        "nets" => netsModels,
+                        _ => throw new ArgumentNullException("Folder not found!")
+                    };
+
+                    url = url.Replace("/wwwroot", "");
+
+                    samples.Add(new ProductColor()
+                    {
+                        Number = number,
+                        Group = group,
+                        Name = modelString,
+                        CssClass = cssClass,
+                        ImageUrl = url,
+                        Models = modelGroup,
+                    });
                 }
             }
         }

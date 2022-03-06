@@ -1,5 +1,5 @@
 ﻿@using Claudi.Web.Models.DataBaseModels
-@model List<ProductCatalogue>
+@model List<ProductColor>
 
 @{
     ViewData["Title"] = "Цветове";
@@ -27,10 +27,11 @@
         <div class="sortable-masonry">
             <div class="filters">
                 <ul class="filter-tabs filter-btns centred clearfix">
-                    <li class="active filter" data-role="button" data-filter=".all">Всички</li>
-                    <li class="filter" data-role="button" data-filter=".pred-staklo">Пред Стъкло</li>
-                    <li class="filter" data-role="button" data-filter=".maxi">Макси</li>
-                    <li class="filter" data-role="button" data-filter=".ultimate">Ultimate</li>
+                    @*<li class="active filter" data-role="button" data-filter=".all">Всички</li>*@
+                    <li class="filter" data-role="button" data-filter=".25mm">25mm</li>
+                    <li class="filter" data-role="button" data-filter=".16mm">16mm</li>
+                    <li class="filter" data-role="button" data-filter=".profils">Профили</li>
+                    <li class="filter" data-role="button" data-filter=".maxiProfils">Макси Профили</li>
                 </ul>
             </div>
             <div class="items-container row clearfix">
@@ -40,7 +41,7 @@
                         <div class="project-block-one">
                             <div class="inner-box">
                                 <figure class="image-box">
-                                    <img src="..@item.ImageUrl" alt="@item.Group">
+                                    <img src="..@item.ImageUrl" alt="@item.Number">
                                 </figure>
                                 <div class="content-box">
                                     <div class="view-btn"><a href="..@item.ImageUrl" class="lightbox-image" data-fancybox="gallery">+</a></div>

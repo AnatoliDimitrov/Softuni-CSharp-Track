@@ -18,8 +18,9 @@ namespace Claudi.Web.Controllers
 
         public IActionResult Horizontal()
         {
-            var catalogues = context.ProductCatalogues
-                //.OrderBy(c => c.RowNumber)
+            var catalogues = context.ProductColors
+                .Where(p => p.Name == "horizontal")
+                .OrderBy(p => p.CssClass)
                 .ToList();
 
             return View("Multiple", catalogues);

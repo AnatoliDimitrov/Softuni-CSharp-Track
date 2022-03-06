@@ -17,7 +17,7 @@
         [StringLength(50)]
         public string? EnglishName { get; init; }
 
-        public string Group { get; set; }
+        public int? Group { get; set; }
 
         public virtual ICollection<ProductModel> Models { get; set; }
 

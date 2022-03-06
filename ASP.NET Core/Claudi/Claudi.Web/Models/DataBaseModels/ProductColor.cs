@@ -24,6 +24,8 @@
 
         public string? Group { get; init; }
 
+        public string CssClass { get; set; }
+
         [Required]
         public string ImageUrl { get; init; }
 
