@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-using Claudi.Web.Data;
 using Claudi.Web.Services;
-using Claudi.Web.Data.Repositories;
+using Claudi.Infrastructure.Repositories;
 using Claudi.Web.Data.Seeding;
+using Claudi.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

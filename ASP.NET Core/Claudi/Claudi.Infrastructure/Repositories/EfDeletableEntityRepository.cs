@@ -1,8 +1,10 @@
-﻿using Claudi.Web.Models;
-using Microsoft.EntityFrameworkCore;
-
-namespace Claudi.Web.Data.Repositories
+﻿namespace Claudi.Infrastructure.Repositories
 {
+    using Claudi.Infrastructure.Data;
+    using Claudi.Infrastructure.Data.Models;
+
+    using Microsoft.EntityFrameworkCore;
+
     public class EfDeletableEntityRepository<TEntity> : EfRepository<TEntity>, IDeletableEntityRepository<TEntity>
         where TEntity : class, IDeletableEntity
     {

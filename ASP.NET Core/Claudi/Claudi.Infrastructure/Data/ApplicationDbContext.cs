@@ -1,9 +1,10 @@
-﻿using Claudi.Web.Models.DataBaseModels;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-
-namespace Claudi.Web.Data
+﻿namespace Claudi.Infrastructure.Data
 {
+    using Claudi.Infrastructure.Data.Models.DataBaseModels;
+
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
+
     public class ApplicationDbContext : IdentityDbContext
     {
         public DbSet<ProductCatalogue> ProductCatalogues { get; set; }

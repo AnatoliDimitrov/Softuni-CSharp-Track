@@ -1,4 +1,5 @@
-﻿using Claudi.Web.Data;
+﻿using Claudi.Infrastructure.Data;
+using Claudi.Web.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Claudi.Web.Controllers

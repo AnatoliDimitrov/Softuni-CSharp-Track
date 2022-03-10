@@ -1,5 +1,7 @@
-﻿namespace Claudi.Web.Data.Repositories
+﻿namespace Claudi.Infrastructure.Repositories
 {
+    using Claudi.Infrastructure.Data;
+
     using Microsoft.EntityFrameworkCore;
 
     public class EfRepository<TEntity> : IRepository<TEntity>

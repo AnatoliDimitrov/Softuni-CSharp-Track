@@ -1,4 +1,4 @@
-﻿namespace Claudi.Web.Models
+﻿namespace Claudi.Infrastructure.Data.Models
 {
     public interface IAuditInfo
     {

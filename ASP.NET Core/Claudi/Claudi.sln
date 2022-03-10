@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Claudi.Web", "Claudi.Web\Claudi.Web.csproj", "{1DAAC9CB-2B70-4B72-9DCA-B6CC2A0DEB13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Claudi.Web", "Claudi.Web\Claudi.Web.csproj", "{1DAAC9CB-2B70-4B72-9DCA-B6CC2A0DEB13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Claudi.Core", "Claudi.Core\Claudi.Core.csproj", "{D8863F80-2B82-4CD8-923E-09BF8B892310}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Claudi.Infrastructure", "Claudi.Infrastructure\Claudi.Infrastructure.csproj", "{7ED3E94D-1913-4F17-9987-2941F95749FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{1DAAC9CB-2B70-4B72-9DCA-B6CC2A0DEB13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DAAC9CB-2B70-4B72-9DCA-B6CC2A0DEB13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DAAC9CB-2B70-4B72-9DCA-B6CC2A0DEB13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8863F80-2B82-4CD8-923E-09BF8B892310}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8863F80-2B82-4CD8-923E-09BF8B892310}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8863F80-2B82-4CD8-923E-09BF8B892310}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8863F80-2B82-4CD8-923E-09BF8B892310}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ED3E94D-1913-4F17-9987-2941F95749FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ED3E94D-1913-4F17-9987-2941F95749FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ED3E94D-1913-4F17-9987-2941F95749FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ED3E94D-1913-4F17-9987-2941F95749FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

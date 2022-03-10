@@ -1,4 +1,4 @@
-﻿namespace Claudi.Web.Data.Repositories
+﻿namespace Claudi.Infrastructure.Repositories
 {
     public interface IRepository<TEntity> : IDisposable
         where TEntity : class

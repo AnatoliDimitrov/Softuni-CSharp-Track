@@ -1,4 +1,4 @@
-﻿namespace Claudi.Web.Models.DataBaseModels
+﻿namespace Claudi.Infrastructure.Data.Models.DataBaseModels
 {
     using System.ComponentModel.DataAnnotations;
 

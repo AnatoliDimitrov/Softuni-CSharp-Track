@@ -1,4 +1,4 @@
-﻿namespace Claudi.Web.Models
+﻿namespace Claudi.Infrastructure.Data.Models
 {
     public abstract class BaseDeletableModel<TKey> : BaseModel<TKey>, IDeletableEntity
     {

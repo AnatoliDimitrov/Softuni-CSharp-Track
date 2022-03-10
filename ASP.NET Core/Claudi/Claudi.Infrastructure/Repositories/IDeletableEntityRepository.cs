@@ -1,7 +1,7 @@
-﻿using Claudi.Web.Models;
-
-namespace Claudi.Web.Data.Repositories
+﻿namespace Claudi.Infrastructure.Repositories
 {
+    using Claudi.Infrastructure.Data.Models;
+
     public interface IDeletableEntityRepository<TEntity> : IRepository<TEntity>
         where TEntity : class, IDeletableEntity
     {
