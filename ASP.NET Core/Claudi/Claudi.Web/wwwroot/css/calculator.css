@@ -69,6 +69,15 @@ label {
     -webkit-transition: all 0.25s linear;
 }
 
+.sample-image {
+    width: 20px !important;
+    height: 20px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 2px;
+}
+
 @keyframes animate {
     from {
         opacity: 0;

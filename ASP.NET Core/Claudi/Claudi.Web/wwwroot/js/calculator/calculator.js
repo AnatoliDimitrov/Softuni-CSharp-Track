@@ -26,7 +26,7 @@ async function chooseOption(option) {
     }
     else if (answer.id == 'modelChoice') {
         let result = await auth.getColorsWithId(option.value);
-        modelType = option.value;
+        productModel = option.value;
         renderRadios(result, 'color');
     }
     var element = answer.closest('.element');
@@ -50,9 +50,32 @@ function renderRadios(options, id) {
         label.className = 'radio-button-label';
         label.setAttribute('for', 'model' + option.id);
         label.textContent = option.name;
+        if (id == 'color') {
+            label.textContent = option.number;
+        }
 
         div.appendChild(radio);
         div.appendChild(label);
+
+        if (id == 'color') {
+
+            let span = document.createElement('span');
+            span.className = 'float-right';
+            span.textContent = option.group;
+            let image = document.createElement('img');
+            image.setAttribute('src', option.url);
+            let imgSpan = document.createElement('span');
+            let a = document.createElement('a');
+            a.href = option.url;
+            a.setAttribute('data-fancybox', 'gallery');
+            a.appendChild(image);
+            a.classList.toggle('lightbox-image');
+            imgSpan.classList.toggle('sample-image');
+            imgSpan.appendChild(a)
+
+            div.appendChild(span);
+            div.appendChild(imgSpan);
+        }
 
         container.appendChild(div);
     }
