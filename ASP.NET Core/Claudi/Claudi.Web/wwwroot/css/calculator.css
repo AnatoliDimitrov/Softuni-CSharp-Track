@@ -1,0 +1,82 @@
+﻿.calculator-container {
+    height: auto;
+    padding: 10px;
+}
+
+.element {
+    padding: 1px;
+    background: lightgray;
+    margin: 1px 0;
+    border-radius: 2px;
+}
+
+.element > .question > h3 {
+    color: darkgray;
+}
+
+.element .question {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.question > h3 {
+    font-family: sans-serif;
+    text-transform: capitalize;
+    font-size: 17px;
+    text-align: center;
+    color: white;
+}
+
+.question button {
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+}
+
+.question i {
+    color: darkgrey;
+    font-size: 20px;
+}
+
+.element .answer {
+    padding: 10px 20px;
+    animation: animate .1s;
+    background: white;
+}
+
+.element .answer .radio-button-label {
+    color: black;
+}
+
+p {
+    font-family: sans-serif;
+}
+
+.hideText {
+    display: none;
+}
+
+radio {
+    cursor: pointer;
+}
+
+label {
+    padding-left: 10px !important;
+    z-index: 9;
+    cursor: pointer;
+    -webkit-transition: all 0.25s linear;
+}
+
+@keyframes animate {
+    from {
+        opacity: 0;
+        transform: scale(0.6);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

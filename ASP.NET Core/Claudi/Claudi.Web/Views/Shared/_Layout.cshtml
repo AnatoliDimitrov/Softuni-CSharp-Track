@@ -42,6 +42,8 @@
     <link href="~/css/style.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/responsive.css" rel="stylesheet" asp-append-version="true" />
 
+    @await RenderSectionAsync("Head", false)
+
 </head>
 
 
@@ -168,11 +170,11 @@
                                     </li>
                                     @*<li class="dropdown">
                                         <a href="index.html">Blog</a>
-                                    </li>*@
+                                        </li>*@
                                     <li>
                                         <a href="contact.html">Контакти</a>
                                     </li>
-                                    <partial name="_LoginPartial"/>
+                                    <partial name="_LoginPartial" />
                                 </ul>
                             </div>
                         </nav>
@@ -198,7 +200,7 @@
                             <!--Keep This Empty / Menu will come through Javascript-->
                         </nav>
                         <ul class="menu-right-content clearfix">
-                            
+
                             <li class="support-box">
                                 <i class="icon-phone"></i>
                                 <p>Безплатен размер</p>
@@ -233,7 +235,7 @@
                         <li><a href="index.html"><span class="fab fa-pinterest-p"></span></a></li>
                         <li><a href="index.html"><span class="fab fa-instagram"></span></a></li>
                         <li><a href="index.html"><span class="fab fa-youtube"></span></a></li>
-                    </ul>*@
+                        </ul>*@
                 </div>
             </nav>
         </div><!-- End Mobile Menu -->
@@ -366,10 +368,11 @@
     <script src="~/js/scrollbar.js"></script>
     <script src="~/js/bxslider.js"></script>
     <script src="~/js/isotope.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.esm.min.js"></script>
+
+   
 
     <!-- main-js -->
     <script src="~/js/script.js"></script>

@@ -198,6 +198,7 @@
             {
                 Name = "89 мм",
                 EnglishName = "89 mm",
+                OnCalculator = true,
                 Type = verticalBlinds,
                 CreatedOn = DateTime.UtcNow,
             };
@@ -205,6 +206,7 @@
             {
                 Name = "127 мм",
                 EnglishName = "127 mm",
+                OnCalculator = true,
                 Type = verticalBlinds,
                 CreatedOn = DateTime.UtcNow,
             };
@@ -212,6 +214,7 @@
             {
                 Name = "89 мм Al",
                 EnglishName = "89 mm Al",
+                OnCalculator = true,
                 Type = verticalBlinds,
                 CreatedOn = DateTime.UtcNow,
             };
