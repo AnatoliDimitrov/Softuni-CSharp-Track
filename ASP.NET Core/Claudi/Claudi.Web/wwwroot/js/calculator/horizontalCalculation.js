@@ -133,8 +133,8 @@
     ];
     getModel(model);
     getColor(color);
-    let error = checkBoundorieshs(modelCode, width, height);
-    return printFinalPricehs(error);
+    let error = checkBoundories(modelCode, width, height);
+    return printFinalPrice(error);
 
     // When clicked on the select menu
     function getColor(color) {
@@ -155,7 +155,7 @@
 
     }
 
-    function findPrizeHorizontal(arg) {
+    function findPriceHorizontal(arg) {
         var local = Math.round(Math.ceil(arg) / 10);
 
         //local = local / 10;
@@ -168,7 +168,7 @@
     }
 
     // checkes the width and hitght
-    function checkBoundorieshs(model, width, height) {
+    function checkBoundories(model, width, height) {
         var errorMSG = "Зададените размери са извън позволената ширина/височина на продукта";
         var isThereError = false;
         switch (model) {
@@ -224,15 +224,16 @@
         }
     }
 
-    function printFinalPricehs(error) {
+    function printFinalPrice(error) {
         if (error !== undefined) {
             return error
         }
+
         var sizeWidthRaw = width;
         var sizeHeightRaw = height;
 
-        let sizeWidth = findPrizeHorizontal(sizeWidthRaw);
-        let sizeHeight = findPrizeHorizontal(sizeHeightRaw);
+        let sizeWidth = findPriceHorizontal(sizeWidthRaw);
+        let sizeHeight = findPriceHorizontal(sizeHeightRaw);
         sizeWidth -= 3;
         sizeHeight -= 2;
 

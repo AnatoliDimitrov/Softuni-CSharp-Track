@@ -1,6 +1,8 @@
 import auth from "./authService.js";
 import horizontalCalculator from "./horizontalCalculation.js";
 import verticalCalculator from "./verticalCalculation.js";
+import woodenCalculator from "./woodenCalculation.js";
+import rollerCalculator from "./rollerCalculation.js";
 
 let container = document.querySelector('#calculator-container');
 container.addEventListener('click', hidePanel);
@@ -234,6 +236,12 @@ function calculate(e) {
     else if (productType == 2) {
         calculateVerticalBlinds();
     }
+    else if (productType == 3) {
+        calculateWoodenBlinds();
+    }
+    else if (productType == 4) {
+        calculateRollerBlinds();
+    }
 }
 
 function renderResult(info) {
@@ -446,4 +454,51 @@ function calculateVerticalBlinds() {
 
     renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
         [], price]);
+}
+
+function calculateWoodenBlinds() {
+    let driving = document.getElementById('extra1');
+    let drivingIsChecked = driving.checked;
+
+    price = woodenCalculator.calculate(productModel, productColor, productWidth, productHeight, drivingIsChecked)
+    if (isNaN(price)) {
+        var span = document.getElementById('quantityError');
+        span.classList.toggle('col-md-12');
+        span.textContent = price;
+        return;
+    }
+    price = productQuantity * price;
+    price = price.toFixed(2) + " лв.";
+
+    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
+
+    renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
+        [{ name: driving.name, isChecked: drivingIsChecked }], price]);
+}
+
+function calculateRollerBlinds() {
+
+    let drivingIsChecked = false;
+    let driving = document.getElementById('extra1');
+    let extras = []
+
+    if (driving !== undefined && driving !== null) {
+        drivingIsChecked = driving.checked;
+        extras = [{ name: driving.name, isChecked: drivingIsChecked }];
+    }
+
+    price = rollerCalculator.calculate(productModel, productColorGroup, productWidth, productHeight, drivingIsChecked)
+    if (isNaN(price)) {
+        var span = document.getElementById('quantityError');
+        span.classList.toggle('col-md-12');
+        span.textContent = price;
+        return;
+    }
+    price = productQuantity * price;
+    price = price.toFixed(2) + " лв.";
+
+    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
+
+    renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
+       extras, price]);
 }
