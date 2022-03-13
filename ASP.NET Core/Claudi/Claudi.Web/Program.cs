@@ -52,6 +52,8 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Lockout.AllowedForNewUsers = true;
 });
 
+
+
 builder.Services.Configure<IdentityOptions>(options =>
 {
     // Default Password settings.

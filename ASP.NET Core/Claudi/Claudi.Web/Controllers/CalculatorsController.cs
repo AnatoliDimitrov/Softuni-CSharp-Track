@@ -47,6 +47,7 @@
         public async Task<List<ColorViewModel>> ProductColors(int Id)
         {
             var externalRollers = new int[] { 44, 45, 46 };
+
             var model = await context
                 .ProductModels
                 .FirstOrDefaultAsync(p => p.Id == Id);
@@ -87,6 +88,25 @@
             }
 
             return colors;
+        }
+
+        public async Task<List<ExtraViewModel>> ProductExtras(int Id)
+        {
+
+            var model = await context
+                .ProductModels
+                .FirstOrDefaultAsync(p => p.Id == Id);
+
+            return await context
+                .ProductExtras
+                .Where(e =>e.OnClaculator == true && e.Models.Contains(model))
+                .Select(e => new ExtraViewModel()
+                {
+                    Id = e.Id,
+                    Name = e.Name,
+                    Group = e.Group,
+                })
+                .ToListAsync();
         }
     }
 }

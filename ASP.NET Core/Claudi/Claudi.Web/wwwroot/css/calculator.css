@@ -5,12 +5,28 @@
 
 .element {
     padding: 1px;
-    background: lightgray;
+    background: #f7f7f7;
     margin: 1px 0;
-    border-radius: 2px;
+    border-radius: 6px 2px 2px 2px;
+    border: 1px solid #4a3b9f;
+    border-width: 1px 1px 1px 5px;
 }
 
 .element > .question > h3 {
+    color: darkgray;
+}
+
+.element > .question > h4 {
+    font-family: sans-serif;
+    color: #ffc107;
+}
+h1 {
+    font-family: sans-serif;
+    color: darkgray;
+}
+
+h2 {
+    font-family: sans-serif;
     color: darkgray;
 }
 
@@ -27,6 +43,14 @@
     text-align: center;
     color: white;
 }
+
+#result{
+    margin: 10px;
+}
+
+input[type=checkbox] + label {
+    margin-left: 2px !important;
+} 
 
 .question button {
     border: none;
@@ -76,6 +100,14 @@ label {
     left: 50%;
     transform: translateX(-50%);
     padding: 2px;
+}
+
+.hide{
+    display: none;
+}
+
+.show{
+    display: block;
 }
 
 @keyframes animate {

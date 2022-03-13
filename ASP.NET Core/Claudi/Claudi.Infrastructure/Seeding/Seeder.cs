@@ -839,6 +839,7 @@
                         Name = "Странично Водене",
                         EnglishName = "Side Driving",
                         Group = 1,
+                        OnClaculator = true,
                         Models = new List<ProductModel>()
                         {
                             infrontGlasses,
@@ -863,6 +864,7 @@
                         Name = "Фиксатор",
                         EnglishName = "Fixer",
                         Group = 1,
+                        OnClaculator = false,
                         Models = new List<ProductModel>()
                         {
                             infrontGlasses,
@@ -881,14 +883,12 @@
                         Name = "Планки Лукс",
                         EnglishName = "Lux",
                         Group = 2,
+                        OnClaculator = true,
                         Models = new List<ProductModel>()
                         {
                             infrontGlasses,
                             infrontGlassesBO,
                             betweenGlasses,
-                            maxiStandart,
-                            maxiStandartBO,
-                            maxiLux,
                             ultimate,
                             megaview,
                             varioflex,
@@ -899,6 +899,7 @@
                         Name = "Мотор с дистанционно",
                         EnglishName = "Remote Controll",
                         Group = 3,
+                        OnClaculator = false,
                         Models = new List<ProductModel>()
                         {
                             pvc,
@@ -923,6 +924,7 @@
                         Name = "Мотор с Бутон",
                         EnglishName = "Button Controll",
                         Group = 3,
+                        OnClaculator = false,
                         Models = new List<ProductModel>()
                         {
                             pvc,
@@ -946,6 +948,7 @@
                         Name = "Декортативен Капак",
                         EnglishName = "Decoration",
                         Group = 4,
+                        OnClaculator = true,
                         Models = new List<ProductModel>()
                         {
                             c50,

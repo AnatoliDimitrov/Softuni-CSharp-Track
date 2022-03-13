@@ -27,12 +27,20 @@ async function getColorsWithId(id) {
     }
 }
 
-
+async function getExtrasWithId(id) {
+    try {
+        let result = await jsonRequest(`${constants.productExtras}/${id}`, 'get');
+        return result;
+    } catch (err) {
+        alert(err);
+    }
+}
 
 let auth = {
     get,
     getModelsWithId,
     getColorsWithId,
+    getExtrasWithId,
 };
 
 export default auth;
