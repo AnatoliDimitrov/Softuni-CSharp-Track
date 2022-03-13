@@ -1,5 +1,6 @@
 import auth from "./authService.js";
 import horizontalCalculator from "./horizontalCalculation.js";
+import verticalCalculator from "./verticalCalculation.js";
 
 let container = document.querySelector('#calculator-container');
 container.addEventListener('click', hidePanel);
@@ -406,7 +407,7 @@ function showContent(id) {
     }
 }
 
-function calculateVerticalBlinds() {
+function calculateHorizontalBlinds() {
     let driving = document.getElementById('extra1');
     let drivingIsChecked = driving.checked;
 
@@ -422,7 +423,6 @@ function calculateVerticalBlinds() {
     }
     price = productQuantity * price;
     price = price.toFixed(2) + " лв.";
-    console.log(price);
 
     let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
 
@@ -430,9 +430,9 @@ function calculateVerticalBlinds() {
         [{ name: driving.name, isChecked: drivingIsChecked }, { name: planks.name, isChecked: planksIsChecked }], price]);
 }
 
-function calculateHorizontalBlinds() {
+function calculateVerticalBlinds() {
 
-    price = horizontalCalculator.calculate(productModel, productColor, productWidth, productHeight,)
+    price = verticalCalculator.calculate(productModel, productColorGroup, productWidth, productHeight,)
     if (isNaN(price)) {
         var span = document.getElementById('quantityError');
         span.classList.toggle('col-md-12');
@@ -441,7 +441,6 @@ function calculateHorizontalBlinds() {
     }
     price = productQuantity * price;
     price = price.toFixed(2) + " лв.";
-    console.log(price);
 
     let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
 

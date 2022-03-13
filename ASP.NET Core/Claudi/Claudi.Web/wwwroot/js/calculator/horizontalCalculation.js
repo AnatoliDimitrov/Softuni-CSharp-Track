@@ -245,7 +245,6 @@
         }
 
         var squareMeters;
-        var pricePerSquareMeter = 0;
         var discount = 6;	//precent discount
         var colorGroup;
         var errorMSG = "Зададените размери са извън позволената площ на продукта";
@@ -341,8 +340,6 @@
                 return errorMSG;
             }
         }
-
-        checkBoundorieshs(modelCode, sizeWidthRaw, sizeHeightRaw);
 
         var StrVodeneChk = driving;
         var PlankiLux = planks;

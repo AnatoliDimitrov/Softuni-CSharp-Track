@@ -1,76 +1,73 @@
-﻿function calculate(model, color, group, width, height) {
-	var selectedVerticalType;
+﻿function calculate(model, group, width, height) {
 	//Gettign values ffrom sizes form for Horizontals and Verticals and Prints the result
-	var colorCodevs = 0;	//default color
+	var colorCode = 0;	//default color
 	var modelCode = 0; // default model
 	var totalPrice = 0;
-	var selctedVerical = 0;
-	var selctedVerical = 0;
 
 	// Vertical MODELS ----------------------------
-	var verticalModels = ["89 мм", "127 мм", "AL 89"];
-	// VEtical COLORS
+	var verticalModels = ["89 мм", "127 мм", "89 мм Al"];
+	// Vertical COLORS
 	var verticalColors = [
-		["Rococo (12**)",
-			"Polly (94**)",
-			"Beata (96**)",
-			"Melisa (15**)",
-			"Moon (35*)",
-			"Vanessa (55**)",
-			"Sandra (82**)",
-			"Jenny (92**)",
-			"Ray (34*)",
-			"Van Gogh (45**)",
-			"Silk (21**)",
-			"Pasifico (115***)",
-			"Lima (56*****)",
-			"Melisa BO (54**) BlackOut",
-			"Metalic (57*****)",
-			"Lumina (255****)",
-			"Guardian (720**)",
-			"Juno (97****)",
-			"Tundra (759**)",
-			"Porto(51****)",
-			"Albery (757**)",
-			"Carina BO (102****) BlackOut",
-			"Jacquard Natalie (085****)",
-			"Banbury (728**)",
-			"Strata SPC (715**)",
-			"Juno BO (112****) BlackOut",
-			"Monterey (756**)",
-			"Blossom Print (741**)",
-			"Green Screen ECO (965****)",
-			"Oslo (729**)",
-			"Monroe (758**)",
-			"Jacquard Cube (695****)",
-			"Hampton (736**)",],	//89
-		["Corra(50**)",
-			"Creppe(51**)",
-			"Jenny(97**)",
-			"Shantung(SH**)",
-			"Fiesta(52**)",
-			"Vanesa(57**)",
-			"Ray(66**)",
-			"Aneta(65**)",
-			"Itaca(14**)",
-			"Van Gogh(69**)",
-			"Patricia(19**)",
-			"Mountain(74**)",
-			"Carina BlackOut(578****)",
-			"Screen(10***)",
-			"Green Screen ECO(960****)"],	//127
+		["rococo",
+			"polly",
+			"beata",
+			"melisa",
+			"moon",
+			"vanessa",
+			"sandra",
+			"jenny",
+			"ray",
+			"van gogh",
+			"silk",
+			"pasifico",
+			"lima",
+			"melisa bo",
+			"metalic",
+			"lumina",
+			"guardian",
+			"juno",
+			"tundra",
+			"porto",
+			"albery",
+			"carina bo",
+			"jacquard natalie",
+			"banbury",
+			"strata spc",
+			"juno bo",
+			"monterey",
+			"blossom print",
+			"green screen eco",
+			"oslo",
+			"monroe",
+			"jacquard cube",
+			"hampton",],	//89
+		["corra",
+			"creppe",
+			"jenny",
+			"shantung",
+			"fiesta",
+			"vanesa",
+			"ray",
+			"aneta",
+			"itaca",
+			"van gogh",
+			"patricia",
+			"mountain",
+			"carina bo",
+			"screen",
+			"green screen eco"],	//127
 		["Бяла(0150)",
-			"Слонова кост(4459)",
-			"Сребриста(7113)",
-			"Сива(7010)",
-			"Крем(4451)",
-			"Мед(7418)",
-			"Бяла перф.(0150P)",
-			"Черна перф.(1858P)",
-			"Слонова кост перф.(4459P)",
-			"Сребриста перф.(7113P)",
-			"Сива перф.(7010P)",
-			"Крем перф.(4451P)"]	//AL
+			"4459",
+			"7113",
+			"7010",
+			"4451",
+			"7418",
+			"0150P",
+			"1858P",
+			"4459P",
+			"7113P",
+			"7010P",
+			"4451P"]	//AL
 	];
 
 	var verticalTable = [
@@ -79,33 +76,38 @@
 		[58, 63, 59, 88, 59, 88, 59, 88, 59, 88, 59, 88, 89, 37, 93, 13, 93, 13, 93, 13, 93, 13, 93, 13]	//AL
 	]
 
-	//Prints an option TAG whit argument gived
-	function printElement(array, index) {
-		document.write(array[index]);
+	getModel();
+	getColor();
+	let error = checkBoundories(modelCode, width, height);
+	return printFinalPrice(error);
+
+
+	//////Prints an option TAG whit argument gived
+	//////function printElement(array, index) {
+	//////	document.write(array[index]);
+	//////}
+
+	//////function getVerticalType(model) {
+
+	//////	$('#selectColorvs').find('option').remove();
+	//////	var type = model.selectedIndex;
+	//////	option = verticalColors[type];
+	//////	for (var i = 0; i < option.length; i++) {
+	//////		$('#selectColorvs').append("<option value=" + 'option[i]' + ">" + option[i] + "</option>");
+	//////	}
+	//////}
+
+
+	function getColor() {
+		colorCode = verticalColors[modelCode].indexOf(group);
 	}
 
-	function getVerticalType(model) {
-
-		$('#selectColorvs').find('option').remove();
-		var type = model.selectedIndex;
-		option = verticalColors[type];
-		for (var i = 0; i < option.length; i++) {
-			$('#selectColorvs').append("<option value=" + 'option[i]' + ">" + option[i] + "</option>");
-		}
-	}
-
-
-	function getColor(color) {
-		colorCodevs = verticalColors.indexOf(color.toLowerCase());
-	}
-
-	function getModel(model) {
-		modelCode = model.selectedIndex;	//models are the rows in  horizontalTable
-		selctedVerical = model;
+	function getModel() {
+		modelCode = verticalModels.indexOf(model);	//models are the rows in  horizontalTable
 	}
 
 	// checkes the width and hitght
-	function checkBoundoriesvs(model, width, height) {
+	function checkBoundories(model, width, height) {
 		var errorMSG = "Зададените размери са извън позволената ширина/височина на продукта";
 		var errorMSG_ = "Зададените размери са извън позволената площ на продукта";
 
@@ -113,46 +115,44 @@
 			case 0:
 			case 2:
 			case 1:
-				if (width < 20 || width > 600 || height < 20 || height > 500) {
-					alert(errorMSG);
+				if (width < 20 || width > 400 || height < 20 || height > 400) {
+					return errorMSG;
 				} break;
 		}
 
-		if ((width * height) / 10000 > 20) {
-			alert(errorMSG_);
+		if ((width * height) / 10000 > 16) {
+			return errorMSG_;
 		}
+
+		return undefined;
 	}
 
-	function printFinalPrice(fromModels) {
-		var sizeWidth = document.getElementById("sunblindWidthvs").value;
-		var sizeHeight = document.getElementById("sunblindHeightvs").value;
+	function printFinalPrice(error) {
+
+		if (error !== undefined) {
+			return error
+		}
+
 		var squareMeters;
 		var pricePerSquareMeter = 0;
 		var discount = 6;	//precent discount
-		var colorGroup;
 
-		squareMeters = sizeWidth * sizeHeight / 10000;
+		squareMeters = width * height / 10000;
 		if (squareMeters < 0.5) {
 			squareMeters = 0.5;
 		}
-		// checking the boundories
 
-		checkBoundoriesvs(modelCode, sizeWidth, sizeHeight);
-
-		pricePerSquareMeter = fromModels[modelCode][colorCodevs];
+		pricePerSquareMeter = verticalTable[modelCode][colorCode];
 		totalPrice = totalPrice + (squareMeters * pricePerSquareMeter);
-		totalPrice = totalPrice + (25.08 * sizeWidth / 100);
+		totalPrice = totalPrice + (25.08 * width / 100);
 		totalPrice -= totalPrice * (discount / 100);
 
 		if (totalPrice == 0) {
-			totalPrice = "Неподдържан цвят за този модел";
-			document.getElementById("finalPricevs").innerHTML = totalPrice;
+			return "Неподдържан цвят за този модел";
 		}
 		else {
-			document.getElementById("finalPricevs").innerHTML = totalPrice.toFixed(2) + " лв.";
+			return totalPrice;
 		}
-		totalPrice = 0;
-		return false;
 	}
 }
 
