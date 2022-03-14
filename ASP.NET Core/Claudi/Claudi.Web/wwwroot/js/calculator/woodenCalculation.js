@@ -1,9 +1,9 @@
 ﻿function calculate(model, color, width, height, driving) {
 	//wooden MODELS ---------------------------
-	var woodModels = new Array("25 мм", "50 мм");
+	let woodModels = new Array("25 мм", "50 мм");
 	//var woodColordur = new Array("CLASSIC", "CITY");
-	var modelCode = 0; // default model
-	var totalPrice = 0;
+	let modelCode = 0; // default model
+	let totalPrice = 0;
 
 	getModel();
 	let error = checkBoundories(modelCode, width, height);
@@ -14,8 +14,8 @@
 	}
 
 	function checkBoundories(model, width, height) {
-		var errorMSG = "Зададените размери са извън позволената площ на продукта";
-		var sqrtMeters = width * height / 10000;
+		let errorMSG = "Зададените размери са извън позволената площ на продукта";
+		let sqrtMeters = width * height / 10000;
 		if (model == 0) {
 			if (width < 30 || width > 240 || height < 30 || height > 300) {
 				alert(errorMSG);
@@ -49,14 +49,14 @@
 			return error
 		}
 
-		var squareMeters;
-		var discount = 6;	//precent discount
-		var StrVodeneChk = driving;
+		let squareMeters;
+		let discount = 6;	//precent discount
+		let StrVodeneChk = driving;
 
-		var sizeWidth = ConvertSizesWoodenBlinds(width);
-		var sizeHeight = ConvertSizesWoodenBlinds(height);
+		let sizeWidth = ConvertSizesWoodenBlinds(width);
+		let sizeHeight = ConvertSizesWoodenBlinds(height);
 
-		var woodenBlindsPrices = [
+		let woodenBlindsPrices = [
 			[61, 61, 68, 76, 83, 90, 97, 104, 113, 120, 127, 133, 141, 148, 156, 163, 170, 178, 185, 192, 199, 207],
 			[61, 61, 68, 76, 83, 90, 97, 104, 113, 120, 127, 133, 141, 148, 173, 181, 190, 197, 207, 214, 222, 230],
 			[64, 64, 74, 82, 90, 99, 107, 114, 122, 131, 139, 147, 156, 164, 190, 198, 208, 216, 227, 236, 245, 254],

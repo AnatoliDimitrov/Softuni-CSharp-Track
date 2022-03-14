@@ -1,13 +1,13 @@
 ﻿function calculate(model, group, width, height) {
 	//Gettign values ffrom sizes form for Horizontals and Verticals and Prints the result
-	var colorCode = 0;	//default color
-	var modelCode = 0; // default model
-	var totalPrice = 0;
+	let colorCode = 0;	//default color
+	let modelCode = 0; // default model
+	let totalPrice = 0;
 
 	// Vertical MODELS ----------------------------
-	var verticalModels = ["89 мм", "127 мм", "89 мм Al"];
+	let verticalModels = ["89 мм", "127 мм", "89 мм Al"];
 	// Vertical COLORS
-	var verticalColors = [
+	let verticalColors = [
 		["rococo",
 			"polly",
 			"beata",
@@ -70,7 +70,7 @@
 			"4451P"]	//AL
 	];
 
-	var verticalTable = [
+	let verticalTable = [
 		[10.44, 11.16, 12.72, 12.72, 13.08, 13.56, 13.56, 13.80, 13.80, 13.80, 15.00, 21.24, 25.08, 26.28, 29.16, 32.76, 32.76, 36.60, 38.28, 41.88, 43.80, 43.80, 49.08, 49.08, 49.08, 50.28, 50.28, 57.48, 59.40, 61.09, 62.29, 68.29, 71.86],	// 89mm
 		[10.44, 11.16, 13.08, 12.49, 13.80, 14.28, 14.28, 16.68, 16.68, 16.68, 20.28, 39.59, 43.80, 50.28, 57.48],	//127mm
 		[58, 63, 59, 88, 59, 88, 59, 88, 59, 88, 59, 88, 89, 37, 93, 13, 93, 13, 93, 13, 93, 13, 93, 13]	//AL
@@ -108,8 +108,8 @@
 
 	// checkes the width and hitght
 	function checkBoundories(model, width, height) {
-		var errorMSG = "Зададените размери са извън позволената ширина/височина на продукта";
-		var errorMSG_ = "Зададените размери са извън позволената площ на продукта";
+		let errorMSG = "Зададените размери са извън позволената ширина/височина на продукта";
+		let errorMSG_ = "Зададените размери са извън позволената площ на продукта";
 
 		switch (model) {
 			case 0:
@@ -133,9 +133,9 @@
 			return error
 		}
 
-		var squareMeters;
-		var pricePerSquareMeter = 0;
-		var discount = 6;	//precent discount
+		let squareMeters;
+		let pricePerSquareMeter = 0;
+		let discount = 6;	//precent discount
 
 		squareMeters = width * height / 10000;
 		if (squareMeters < 0.5) {

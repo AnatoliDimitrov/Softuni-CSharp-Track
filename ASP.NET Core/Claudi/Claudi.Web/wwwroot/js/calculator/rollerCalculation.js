@@ -169,6 +169,7 @@
 		if (error !== undefined) {
 			return error
 		}
+
 		let discount = 6;	//precent discount
 
 		width = findPrizerulo(width);

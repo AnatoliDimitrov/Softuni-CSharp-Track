@@ -3,6 +3,8 @@ import horizontalCalculator from "./horizontalCalculation.js";
 import verticalCalculator from "./verticalCalculation.js";
 import woodenCalculator from "./woodenCalculation.js";
 import rollerCalculator from "./rollerCalculation.js";
+import romanCalculator from "./romanCalculation.js";
+import bambooCalculator from "./bambooCalculation.js";
 
 let container = document.querySelector('#calculator-container');
 container.addEventListener('click', hidePanel);
@@ -241,6 +243,12 @@ function calculate(e) {
     }
     else if (productType == 4) {
         calculateRollerBlinds();
+    }
+    else if (productType == 5) {
+        calculateRomanBlinds();
+    }
+    else if (productType == 6) {
+        calculateBambooBlinds();
     }
 }
 
@@ -501,4 +509,42 @@ function calculateRollerBlinds() {
 
     renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
        extras, price]);
+}
+
+function calculateRomanBlinds() {
+    let driving = document.getElementById('extra1');
+    let drivingIsChecked = driving.checked;
+
+    price = romanCalculator.calculate(productModel, productColor, productWidth, productHeight, drivingIsChecked)
+    if (isNaN(price)) {
+        var span = document.getElementById('quantityError');
+        span.classList.toggle('col-md-12');
+        span.textContent = price;
+        return;
+    }
+    price = productQuantity * price;
+    price = price.toFixed(2) + " лв.";
+
+    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
+
+    renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
+        [{ name: driving.name, isChecked: drivingIsChecked }], price]);
+}
+
+function calculateBambooBlinds() {
+
+    price = bambooCalculator.calculate(productModel, productColor, productWidth, productHeight)
+    if (isNaN(price)) {
+        var span = document.getElementById('quantityError');
+        span.classList.toggle('col-md-12');
+        span.textContent = price;
+        return;
+    }
+    price = productQuantity * price;
+    price = price.toFixed(2) + " лв.";
+
+    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
+
+    renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
+        [], price]);
 }

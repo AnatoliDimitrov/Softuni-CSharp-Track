@@ -1,17 +1,17 @@
 ﻿function calculate(model, color, width, height, driving = false, planks = false) {
 
     //Gettign values from sizes form for Horizontals and Verticals and Prints the result
-    var colorCode = 0;	//default color
-    var modelCode = 0; // default model
-    var totalPrice = 0;
+    let colorCode = 0;	//default color
+    let modelCode = 0; // default model
+    let totalPrice = 0;
     //var selectedVerticalType;
 
 
     //Horizontals MODELS ---------------------------
-    var horizontalModels = ["пред стъкло", "пред стъкло bo", "между стъкло", "макси стандарт", "макси bo", "макси лукс", "ultimate", "megaview", "varioflex"];
+    let horizontalModels = ["пред стъкло", "пред стъкло bo", "между стъкло", "макси стандарт", "макси bo", "макси лукс", "ultimate", "megaview", "varioflex"];
 
     //Horizontal COLORS
-    var horizontalColors = [
+    let horizontalColors = [
         "18", 	                                                       // price group 0 - to 0
         "7", "27", "58", "62", "63", "144", "302", "315", "24", "570", "378", "698", "700", "705", "707", "711", "712", "713", "714", "715", "872", "866", "716", "717", "266", "279", "1037", "103", "718", "870", "814", // price group 1 - to 31
         "1000", "027", "738", "695", "441", "43", "241", "330", "1pr", "285pr", "58pr", // price 2 - 42
@@ -23,7 +23,7 @@
         "0150p", "4459p", "7010p"                                     // price group 8 - to 75
     ];
 
-    var CoeficientHorizontal = [
+    let CoeficientHorizontal = [
         [1.00, 1.07, 1.35, 1.60, 1.80, 1.30, 1.60, 2.50, 2.50],	// Pred Styklo
         [1.10, 1.20, 1.45, 1.70, 1.90, 1.40, 1.70, 2.60, 2.60],	// BlackOut
         [1.00, 1.07, 1.35, 1.60, 1.80, 1.30, 1.60, 2.50, 2.50],	// Mejdu Styklo
@@ -35,7 +35,7 @@
         [0.00, 0.00, 0.00, 0.00, 1.90, 1.65, 1.85, 2.25, 2.25]  // VarioFlex
     ];
 
-    var predStykloTable = [
+    let predStykloTable = [
         [16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 17, 17, 20, 20, 21, 22, 22, 24, 26, 26, 27, 28, 28, 29, 29, 31, 32, 34],
         [16, 16, 16, 16, 16, 16, 16, 16, 17, 18, 20, 20, 22, 24, 24, 26, 27, 28, 29, 29, 31, 32, 34, 34, 35, 37, 38, 39],
         [16, 16, 16, 16, 16, 16, 17, 18, 20, 21, 22, 24, 26, 27, 28, 29, 31, 32, 34, 34, 35, 37, 38, 39, 40, 43, 44, 46],
@@ -67,7 +67,7 @@
         [26, 32, 38, 45, 50, 59, 65, 72, 77, 83, 90, 96, 105, 111, 118, 123, 129, 136, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     ];
 
-    var maxiTable = [
+    let maxiTable = [
         [17, 17, 17, 17, 17, 17, 17, 17, 19, 21, 21, 22, 23, 25, 26, 27, 28, 30, 31, 31, 32, 33, 36, 37, 38, 38, 39, 41],
         [17, 17, 17, 17, 17, 17, 19, 19, 21, 22, 23, 25, 27, 28, 30, 31, 32, 33, 36, 37, 38, 39, 41, 42, 43, 44, 46, 48],
         [17, 17, 17, 17, 17, 19, 21, 22, 23, 25, 27, 28, 30, 31, 32, 36, 37, 38, 39, 41, 42, 43, 44, 48, 49, 50, 52, 54],
@@ -99,7 +99,7 @@
         [28, 36, 42, 49, 55, 64, 70, 77, 82, 90, 97, 104, 112, 119, 125, 133, 139, 145, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     ];
 
-    var megaViewTable = [
+    let megaViewTable = [
 
         [30, 30, 30, 31, 33, 39, 42, 43, 46, 49, 52, 54, 60, 63, 65, 68, 69, 71, 75, 77, 79, 81, 84, 85, 87, 91, 93, 100],
         [30, 30, 31, 33, 36, 42, 44, 48, 50, 53, 55, 58, 65, 68, 70, 73, 76, 79, 81, 84, 86, 90, 91, 93, 96, 98, 102, 109],
@@ -143,7 +143,6 @@
 
     function getModel(model) {
         modelCode = horizontalModels.indexOf(model.toLowerCase());	//models are the rows in  horizontalTable
-        selctedVerical = model;
 
         //if (modelCode > 1) {
         //    plankiCheck = document.getElementById("luxPlankiTd");
@@ -156,7 +155,7 @@
     }
 
     function findPriceHorizontal(arg) {
-        var local = Math.round(Math.ceil(arg) / 10);
+        let local = Math.round(Math.ceil(arg) / 10);
 
         //local = local / 10;
 
@@ -169,8 +168,8 @@
 
     // checkes the width and hitght
     function checkBoundories(model, width, height) {
-        var errorMSG = "Зададените размери са извън позволената ширина/височина на продукта";
-        var isThereError = false;
+        let errorMSG = "Зададените размери са извън позволената ширина/височина на продукта";
+        let isThereError = false;
         switch (model) {
             case 0:
             case 2:
@@ -229,8 +228,8 @@
             return error
         }
 
-        var sizeWidthRaw = width;
-        var sizeHeightRaw = height;
+        let sizeWidthRaw = width;
+        let sizeHeightRaw = height;
 
         let sizeWidth = findPriceHorizontal(sizeWidthRaw);
         let sizeHeight = findPriceHorizontal(sizeHeightRaw);
@@ -245,13 +244,13 @@
             sizeHeight = 0
         }
 
-        var squareMeters;
-        var discount = 6;	//precent discount
-        var colorGroup;
-        var errorMSG = "Зададените размери са извън позволената площ на продукта";
-
-        var normalMaxSquareMeters = 6;
-        var ultimateMegaMaxSqareMeters = 4;
+        let squareMeters;
+        let discount = 6;	//precent discount
+        let colorGroup;
+        let errorMSG = "Зададените размери са извън позволената площ на продукта";
+        
+        let normalMaxSquareMeters = 6;
+        let ultimateMegaMaxSqareMeters = 4;
 
         //finding The colors
         if (colorCode == 0) {
@@ -342,8 +341,8 @@
             }
         }
 
-        var StrVodeneChk = driving;
-        var PlankiLux = planks;
+        let StrVodeneChk = driving;
+        let PlankiLux = planks;
 
         if (StrVodeneChk == 1 && totalPrice > 0) {
 
