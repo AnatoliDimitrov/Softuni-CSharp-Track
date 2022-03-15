@@ -22,6 +22,18 @@
         public string ColorId { get; set; }
         public virtual ProductColor Color { get; set; }
 
+        [Required]
+        public decimal Width { get; set; }
+
+        [Required]
+        public decimal Height { get; set; }
+
+        [Required]
+        public int Quantity { get; set; }
+
+        [Required]
+        public decimal SquareMeters { get; set; }
+
         public virtual ICollection<ProductExtra> Extras { get; set; }
 
         [Required]

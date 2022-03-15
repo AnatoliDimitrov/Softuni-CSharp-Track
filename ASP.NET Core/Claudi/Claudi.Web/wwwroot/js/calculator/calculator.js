@@ -286,6 +286,7 @@ function renderResult(info) {
     container.innerHTML = '';
 
     var keys = ['Продукт', 'Модел', 'Цвят', 'Ширина - СМ', 'Височина - СМ', 'Брой', 'Кв.М', 'Екстри', 'Цена'];
+    var properties = ['TypeId', 'ModelId', 'ColorId', 'Width', 'Height', 'Quantity', 'SquareMeters','UserId', 'Extras', 'Price'];
 
     for (var i = 0; i < keys.length; i++) {
 
@@ -306,33 +307,11 @@ function renderResult(info) {
                 haveExtras = true;
                 let li = document.createElement('li');
                 let input = document.createElement('input');
-                input.value = info[i][j].name;
+                input.setAttribute('value', info[i][j].name);
                 input.disabled = true;
                 input.classList.toggle('form-control');
-                input.name = `extras[]`;
+                input.name = `extras[${j}]`;
                 li.appendChild(input);
-
-                //let div = document.createElement('div');
-                //div.className = 'form-floating';
-
-                //let input = document.createElement('input');
-                //input.id = 'extra' + i + j;
-                //input.type = 'text';
-                //input.name = info[i][j].name;
-                //input.classList.toggle('form-control');
-                //input.classList.toggle('col-md-6');
-                //input.value = info[i][j].isChecked ? 'Да' : 'Не';
-                //input.disabled = true;
-
-                //let label = document.createElement('label');
-                //label.setAttribute('for', 'extra' + i + j);
-                //label.classList.toggle('form-label');
-                //label.textContent = info[i][j].name;
-
-                //div.appendChild(input);
-                //div.appendChild(label);
-
-                //container.appendChild(div);
 
                 ul.appendChild(li);
             }
@@ -348,12 +327,12 @@ function renderResult(info) {
         div.className = 'form-floating';
 
         let input = document.createElement('input');
-        input.id = 'resilt' + i;
+        input.id = properties[i];
         input.type = 'text';
-        input.name = keys[i];
+        input.name = properties[i];
         input.classList.toggle('form-control');
         input.classList.toggle('col-md-6');
-        input.value = info[i];
+        input.setAttribute('value', info[i]);
         input.disabled = true;
 
         let label = document.createElement('label');
@@ -370,7 +349,8 @@ function renderResult(info) {
     if (true) {
         let divButton = document.createElement('div');
         let button = document.createElement('button');
-        button.type = 'submit';
+        button.type = 'Submit';
+        button.value = 'Save';
         button.classList.toggle('col-md-6');
         button.classList.toggle('btn');
         button.classList.toggle('btn-lg');
@@ -379,6 +359,14 @@ function renderResult(info) {
 
         divButton.appendChild(button);
 
+        let input = document.createElement('input');
+        input.id = 'idid';
+        input.name = 'UserId';
+        input.value = 'idvalue';
+        input.disabled = true;
+        input.type = 'hidden';
+
+        container.appendChild(input);
         container.appendChild(divButton);
     }
 }
@@ -481,10 +469,10 @@ function showContent(id) {
 }
 
 function calculateHorizontalBlinds() {
-    let driving = document.getElementById('extra1');
+    let driving = document.getElementById('1');
     let drivingIsChecked = driving.checked;
 
-    let planks = document.getElementById('extra2');
+    let planks = document.getElementById('3');
     let planksIsChecked = planks.checked;
 
     price = horizontalCalculator.calculate(productModel, productColor, productWidth, productHeight, drivingIsChecked, planksIsChecked)

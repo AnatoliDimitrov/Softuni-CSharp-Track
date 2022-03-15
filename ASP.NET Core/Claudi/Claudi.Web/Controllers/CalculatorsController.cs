@@ -142,5 +142,11 @@
                 })
                 .ToListAsync();
         }
+
+        [HttpPost]
+        public void Save(SaveProductViewModel model)
+        {
+            ;
+        }
     }
 }
