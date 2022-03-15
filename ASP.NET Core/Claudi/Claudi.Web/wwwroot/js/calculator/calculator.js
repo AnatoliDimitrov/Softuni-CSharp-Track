@@ -5,6 +5,11 @@ import woodenCalculator from "./woodenCalculation.js";
 import rollerCalculator from "./rollerCalculation.js";
 import romanCalculator from "./romanCalculation.js";
 import bambooCalculator from "./bambooCalculation.js";
+import pleatsCalculator from "./pleatsCalculation.js";
+import externalRollerCalculator from "./externalRollerCalculation.js";
+import externalVenetianCalculator from "./externalVenetianCalculation.js";
+import awningCalculator from "./awningCalculation.js";
+import netsCalculator from "./netsCalculation.js";
 
 let container = document.querySelector('#calculator-container');
 container.addEventListener('click', hidePanel);
@@ -104,6 +109,11 @@ function renderSizes() {
     heightInput.classList.toggle('form-control');
     heightInput.classList.toggle('col-md-6');
 
+    if (productModelId == 59) {
+        heightInput.value = 200;
+        heightInput.disabled = true;
+    }
+
     let heightLabel = document.createElement('label');
     heightLabel.setAttribute('for', 'width');
     heightLabel.classList.toggle('form-label');
@@ -187,7 +197,7 @@ async function renderExtras(container) {
         input.type = 'checkbox';
         input.name = extras[i].name;
         input.setAttribute('extraId', extras[i].id);
-        input.id = 'extra' + (i + 1);
+        input.id = extras[i].id;
 
         let label = document.createElement('label');
         label.classList.toggle('form-check-label');
@@ -208,6 +218,10 @@ function calculate(e) {
     productWidth = formData.get('width');
     productHeight = formData.get('height');
     productQuantity = formData.get('quantity');
+
+    if (productModelId == 59) {
+        productHeight = 200;
+    }
 
     let isValidInput = true;
 
@@ -250,6 +264,21 @@ function calculate(e) {
     else if (productType == 6) {
         calculateBambooBlinds();
     }
+    else if (productType == 7) {
+        calculatePleatsBlinds();
+    }
+    else if (productType == 8) {
+        calculateExternalRollerBlinds();
+    }
+    else if (productType == 9) {
+        calculateExternalVenetianBlinds();
+    }
+    else if (productType == 10) {
+        calculateAwning();
+    }
+    else if (productType == 11) {
+        calculateNets();
+    }
 }
 
 function renderResult(info) {
@@ -260,31 +289,59 @@ function renderResult(info) {
 
     for (var i = 0; i < keys.length; i++) {
 
-        if (keys[i] == 'Екстри') {
+        if (keys[i] == 'Екстри' && info[i].length > 0) {
+            let haveExtras = false;
+            let div = document.createElement('div');
+            div.id = 'extras';
+            div.classList.toggle('col-md-6');
+            div.textContent = 'Екстри';
+            let ul = document.createElement('ul');
+
             for (var j = 0; j < info[i].length; j++) {
-                let div = document.createElement('div');
-                div.className = 'form-floating';
 
+                if (!info[i][j].isChecked) {
+                    continue;
+                }
+
+                haveExtras = true;
+                let li = document.createElement('li');
                 let input = document.createElement('input');
-                input.id = 'extra' + i + j;
-                input.type = 'text';
-                input.name = info[i][j].name;
-                input.classList.toggle('form-control');
-                input.classList.toggle('col-md-6');
-                input.value = info[i][j].isChecked ? 'Да' : 'Не';
+                input.value = info[i][j].name;
                 input.disabled = true;
+                input.classList.toggle('form-control');
+                input.name = `extras[]`;
+                li.appendChild(input);
 
-                let label = document.createElement('label');
-                label.setAttribute('for', 'extra' + i + j);
-                label.classList.toggle('form-label');
-                label.textContent = info[i][j].name;
+                //let div = document.createElement('div');
+                //div.className = 'form-floating';
 
-                div.appendChild(input);
-                div.appendChild(label);
+                //let input = document.createElement('input');
+                //input.id = 'extra' + i + j;
+                //input.type = 'text';
+                //input.name = info[i][j].name;
+                //input.classList.toggle('form-control');
+                //input.classList.toggle('col-md-6');
+                //input.value = info[i][j].isChecked ? 'Да' : 'Не';
+                //input.disabled = true;
 
-                container.appendChild(div);
+                //let label = document.createElement('label');
+                //label.setAttribute('for', 'extra' + i + j);
+                //label.classList.toggle('form-label');
+                //label.textContent = info[i][j].name;
+
+                //div.appendChild(input);
+                //div.appendChild(label);
+
+                //container.appendChild(div);
+
+                ul.appendChild(li);
             }
 
+            if (!haveExtras) {
+                continue;
+            }
+            div.appendChild(ul);
+            container.appendChild(div);
             continue;
         }
         let div = document.createElement('div');
@@ -515,7 +572,7 @@ function calculateRomanBlinds() {
     let driving = document.getElementById('extra1');
     let drivingIsChecked = driving.checked;
 
-    price = romanCalculator.calculate(productModel, productColor, productWidth, productHeight, drivingIsChecked)
+    price = romanCalculator.calculate(productModel, productColorGroup, productWidth, productHeight, drivingIsChecked)
     if (isNaN(price)) {
         var span = document.getElementById('quantityError');
         span.classList.toggle('col-md-12');
@@ -534,6 +591,98 @@ function calculateRomanBlinds() {
 function calculateBambooBlinds() {
 
     price = bambooCalculator.calculate(productModel, productColor, productWidth, productHeight)
+    if (isNaN(price)) {
+        var span = document.getElementById('quantityError');
+        span.classList.toggle('col-md-12');
+        span.textContent = price;
+        return;
+    }
+    price = productQuantity * price;
+    price = price.toFixed(2) + " лв.";
+
+    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
+
+    renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
+        [], price]);
+}
+
+function calculatePleatsBlinds() {
+
+    price = pleatsCalculator.calculate(productModel, productColorGroup, productWidth, productHeight)
+    if (isNaN(price)) {
+        var span = document.getElementById('quantityError');
+        span.classList.toggle('col-md-12');
+        span.textContent = price;
+        return;
+    }
+    price = productQuantity * price;
+    price = price.toFixed(2) + " лв.";
+
+    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
+
+    renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
+        [], price]);
+}
+
+function calculateExternalRollerBlinds() {
+
+    price = externalRollerCalculator.calculate(productModel, productColor, productWidth, productHeight)
+    if (isNaN(price)) {
+        var span = document.getElementById('quantityError');
+        span.classList.toggle('col-md-12');
+        span.textContent = price;
+        return;
+    }
+    price = productQuantity * price;
+    price = price.toFixed(2) + " лв.";
+
+    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
+
+    renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
+        [], price]);
+}
+
+function calculateExternalVenetianBlinds() {
+    let driving = document.getElementById('extra1');
+    let drivingIsChecked = driving.checked;
+
+    price = externalVenetianCalculator.calculate(productModel, productColorGroup, productWidth, productHeight, drivingIsChecked)
+    if (isNaN(price)) {
+        var span = document.getElementById('quantityError');
+        span.classList.toggle('col-md-12');
+        span.textContent = price;
+        return;
+    }
+    price = productQuantity * price;
+    price = price.toFixed(2) + " лв.";
+
+    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
+
+    renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
+        [{ name: driving.name, isChecked: drivingIsChecked }], price]);
+}
+
+function calculateAwning() {
+
+    price = awningCalculator.calculate(productModel, productColorGroup, productWidth, productHeight,)
+    if (isNaN(price)) {
+        var span = document.getElementById('quantityError');
+        span.classList.toggle('col-md-12');
+        span.textContent = price;
+        return;
+    }
+    price = productQuantity * price;
+    price = price.toFixed(2) + " лв.";
+
+    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
+
+    renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
+        [], price]);
+}
+
+function calculateNets() {
+
+    price = netsCalculator.calculate(productModel, productColor, productWidth, productHeight,)
     if (isNaN(price)) {
         var span = document.getElementById('quantityError');
         span.classList.toggle('col-md-12');

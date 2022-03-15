@@ -1,40 +1,40 @@
-﻿function calculate() {
+﻿function calculate(model, color, width, height) {
 	let colorCode = 0;	//default color
 	let modelCode = 0; // default model
 	let totalPrice = 0;
 
-	let models = ["BB 10", "BB 15", "BB 30", "A0 10", "A0 30", "A0 70", "BF 50", "BF 51",
-		"BB 20", "BB 24", "A0 20", "B0 10", "B0 75", "BB 40", "A0 40"];
+	let models = ["BB 10", "BB 15", "BB 30", "AO 10", "AO 30", "AO 70", "BF 50", "BF 51",
+		"BB 20", "BB 24", "AO 20", "BO 10", "BO 75", "BB 40", "AO 40"];
 
 	let colors = [
-		"Crepe FR(536****)",
-		"Tendence(44****)",
-		"Flush(65****)",
-		"Venezia(65****)", //group 0 from 0 - 3
+		"Crepe FR",
+		"Tendence",
+		"Flush",
+		"Venezia", //group 0 from 0 - 3
 
-		"CrepeTopar®FR(548****)",
-		"Juno(41****)",
-		"CrushPearlFR(622****)",
-		"Porto(58****)",
-		"Blossom(820726*)",//group 1 from 4 - 8
+		"Crepe Topar FR",
+		"Juno",
+		"Crush Pearl FR",
+		"Porto",
+		"Blossom",//group 1 from 4 - 8
 
-		"Shade(143****)",
-		"California(671**)",
-		"Onda(64***)",
-		"Scala BO Color(80232**)", //group 2 from 9 - 12
+		"Shade",
+		"California",
+		"Onda",
+		"Scala BO Color", //group 2 from 9 - 12
 
-		"Strata(771**)",
-		"CrushDustBlock™(521****)",
-		"Attia(480****)",
-		"Georgette(739****)",
-		"Duette®UnixDuotone(070****)", //group3 from 13 - 17
+		"Strata",
+		"Crush DustBlock",
+		"Attia",
+		"Georgette",
+		"Duette Unix Duotone", //group3 from 13 - 17
 
-		"CrushTopar®Plus(522****)",
-		"Duette®Classic25mmBlackout(021****)", //group 4 from 18 - 19
+		"Crush Topar Plus",
+		"Duette Classic 25mm BO", //group 4 from 18 - 19
 
-		"Ardeche(774****)",
-		"Duette®Fixe25mmBO(072****)",
-		"Duette®Montana25mmBO(605****)"];//group 5 from 20 - 22
+		"Ardeche",
+		"Duette Fixe 25mm BO",
+		"Duette Montana 25mm BO"];//group 5 from 20 - 22
 
 	let pliseTable10 = [
 		[59, 65, 74, 83, 90, 98, 105, 113, 123, 128, 139, 145, 151, 161, 173, 177, 185, 193, 202],
@@ -88,13 +88,17 @@
 
 	let Coeficient = [1.00, 1.10, 1.30, 1.40, 1.60, 2.10];
 
-	//Receving Info from dropdown menu
-	function getColor(color) {
-		colorCode = color.selectedIndex;
+	getColor();
+	getModel();
+	let error = checkBoundories();
+	return printFinalPrice(error);
+
+	function getColor() {
+		colorCode = colors.indexOf(color);
 	}
 
-	function getModel(model) {
-		modelCode = model.selectedIndex;
+	function getModel() {
+		modelCode = models.indexOf(model);
 	}
 
 	function convertSize(arg) {
@@ -108,21 +112,21 @@
 		return local;
 	}
 
-	function CheckBoundoriespls() {
-		let errMSG = "Зададените размери са извън позволената ширина/височина на продукта";
-
+	function checkBoundories() {
 		if (width > 220 || width < 20 || height > 250 || height < 20) {
-			alert(errMSG);
+			return "Зададените размери са извън позволената ширина/височина на продукта";
 		}
 	}
 
-	function printFinalPricepls() {
+	function printFinalPrice(error) {
+		if (error !== undefined) {
+			return error
+		}
+
 		let errMSG = "Зададените размери са извън позволената ширина/височина на продукта";
-		let width = document.getElementById("sunblindWidthpls").value;
-		let height = document.getElementById("sunblindHeightpls").value;
 		let discount = 6;	//precent discount
 
-		CheckBoundoriespls(modelCode, width, height);
+		checkBoundories(modelCode, width, height);
 
 		width = convertSize(width);
 		height = convertSize(height);
@@ -130,13 +134,13 @@
 		if (modelCode < 8) {
 			totalPrice += pliseTable10[height][width];
 			if (totalPrice == 0) {
-				alert(errMSG);
+				return errMSG;
 			}
 		}
 		else {
 			totalPrice += pliseTable20[height][width];
 			if (totalPrice == 0) {
-				alert(errMSG);
+				return errMSG;
 			}
 		}
 
@@ -192,9 +196,7 @@
 
 		totalPrice -= totalPrice * (discount / 100);
 
-		document.getElementById("finalPricepls").innerHTML = totalPrice.toFixed(2) + " лв.";
-		totalPrice = 0;
-		return false;
+		return totalPrice;
 	}
 }
 

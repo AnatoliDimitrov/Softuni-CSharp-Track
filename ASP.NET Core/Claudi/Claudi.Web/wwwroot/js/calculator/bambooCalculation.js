@@ -63,7 +63,7 @@
 
 	getColor();
 	getModel();
-	let error = CheckBoundories();
+	let error = CheckBoundories(modelCode, width, height);
 	return printFinalPrice(error);
 
 	function getColor() {
@@ -86,7 +86,7 @@
 		return local;
 	}
 
-	function CheckBoundories() {
+	function CheckBoundories(model, width, height) {
 		let errMSG = "Зададените размери са извън позволената ширина/височина на продукта";
 		let J1ErrEisha = "За бамбук J1, J2, J3, J4, J5 и J6 (за система Ейша) максималната ширина е 200 см.";
 		let B3ErrEisha = "За бамбук B3, B4, B5 и B6 (за система Ейша) максималната височина е 200 см.";

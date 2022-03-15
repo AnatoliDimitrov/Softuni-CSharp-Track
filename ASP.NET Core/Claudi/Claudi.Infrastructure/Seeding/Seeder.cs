@@ -595,6 +595,14 @@
                 OnCalculator = true,
                 CreatedOn = DateTime.UtcNow,
             };
+            var balkonski = new ProductModel()
+            {
+                Name = "Балконски",
+                EnglishName = "Balkonski",
+                Type = tents,
+                OnCalculator = true,
+                CreatedOn = DateTime.UtcNow,
+            };
             var crystal = new ProductModel()
             {
                 Name = "Кристал",
@@ -641,6 +649,14 @@
             {
                 Name = "Ролетен Комарник с вграден водач",
                 EnglishName = "Roller Net with built in driver",
+                Type = nets,
+                OnCalculator = true,
+                CreatedOn = DateTime.UtcNow,
+            };
+            var rollerHorizontal = new ProductModel()
+            {
+                Name = "Ролетен Хоризонтален Комарник",
+                EnglishName = "Roller Horizontal",
                 Type = nets,
                 OnCalculator = true,
                 CreatedOn = DateTime.UtcNow,
@@ -757,6 +773,7 @@
                 classic,
                 smart,
                 cabrio,
+                balkonski,
                 crystal,
                 crystalRido,
             };
@@ -766,6 +783,7 @@
                 fixNet,
                 rollerNet,
                 rollerNetBuiltInDriver,
+                rollerHorizontal,
                 doorNet,
                 pleatLite,
                 pleatStarla,

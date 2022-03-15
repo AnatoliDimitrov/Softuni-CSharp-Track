@@ -110,6 +110,18 @@ label {
     display: block;
 }
 
+div#extras {
+    background-color: #e9ecef;
+    border-radius: 3px;
+    border: 1px solid #ced4da;
+    color: #6c757d;
+    font-size: 0.85em;
+}
+
+div#extras > ul {
+    background-color: #e9ecef;
+}
+
 @keyframes animate {
     from {
         opacity: 0;

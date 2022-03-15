@@ -47,6 +47,7 @@
         public async Task<List<ColorViewModel>> ProductColors(int Id)
         {
             var externalRollers = new int[] { 44, 45, 46 };
+            var nets = new int[] { 61, 62, 63, 64, 65, 66, 67 };
 
             var model = await context
                 .ProductModels
@@ -57,12 +58,14 @@
                 var x when (x >= 1 && x <= 9) => "25mm",
                 13 => "25mm",
                 14 => "50mm",
+                58 => "Para",
                 _ => null
             };
 
             var colors = await context
                 .ProductColors
                 .Where(c => c.Models.Contains(model))
+                .Where(c => c.Group != "Профили" && c.Group != "profils")
                 .Select(p => new ColorViewModel()
                 {
                     Id = p.Id,
@@ -78,6 +81,37 @@
             {
                 colors = colors
                     .Where(c => c.Group == filter).ToList();
+            }
+
+            if (nets.Contains(Id))
+            {
+                return new List<ColorViewModel>()
+                {
+                    new ColorViewModel()
+                    {
+                        Number = "Бял",
+                        Group = "nets",
+                        Url = "/storage/samples/nets/single_Комарници/bial.jpg"
+                    },
+                    new ColorViewModel()
+                    {
+                        Number = "Кафяв",
+                        Group = "nets",
+                        Url = "/storage/samples/nets/single_Комарници/kafiav.jpg"
+                    },
+                    new ColorViewModel()
+                    {
+                        Number = "Имитация на дърво",
+                        Group = "nets",
+                        Url = "/storage/samples/nets/single_Комарници/zldab.jpg"
+                    },
+                    new ColorViewModel()
+                    {
+                        Number = "Цвят по RAL",
+                        Group = "nets",
+                        Url = "/storage/samples/nets/single_Комарници/bial.jpg"
+                    },
+                };
             }
 
             if (externalRollers.Contains(Id))
@@ -99,7 +133,7 @@
 
             return await context
                 .ProductExtras
-                .Where(e =>e.OnClaculator == true && e.Models.Contains(model))
+                .Where(e => e.OnClaculator == true && e.Models.Contains(model))
                 .Select(e => new ExtraViewModel()
                 {
                     Id = e.Id,

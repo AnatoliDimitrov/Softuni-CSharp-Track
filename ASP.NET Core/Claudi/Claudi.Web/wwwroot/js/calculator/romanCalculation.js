@@ -77,7 +77,7 @@
 
 	getColor();
 	getModel();
-	let error = CheckBounderies(model, width, height);
+	let error = checkBounderies(modelCode, width, height);
 	return printFinalPrice(error);
 
 	function convertSize(arg, deviation) {
@@ -99,7 +99,7 @@
 		modelCode = models.indexOf(model);
 	}
 
-	function CheckBounderies(model, w, h) {
+	function checkBounderies(model, w, h) {
 
 		let errMSG = "Зададените размери са извън позволената ширина/височина на продукта";
 		if (model == 0) {
@@ -118,7 +118,7 @@
 
 	}
 
-	function printFinalPrice() {
+	function printFinalPrice(error) {
 		if (error !== undefined) {
 			return error
 		}
@@ -126,7 +126,7 @@
 		let discount = 6;	//precent discount
 		let K = 0;	// multiplier
 
-		CheckBounderies(modelCode, width, height);
+		checkBounderies(modelCode, width, height);
 
 		width = convertSize(width, 4);
 		height = convertSize(height, 6);

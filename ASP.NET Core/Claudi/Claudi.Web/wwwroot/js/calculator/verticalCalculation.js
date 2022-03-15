@@ -81,23 +81,6 @@
 	let error = checkBoundories(modelCode, width, height);
 	return printFinalPrice(error);
 
-
-	//////Prints an option TAG whit argument gived
-	//////function printElement(array, index) {
-	//////	document.write(array[index]);
-	//////}
-
-	//////function getVerticalType(model) {
-
-	//////	$('#selectColorvs').find('option').remove();
-	//////	var type = model.selectedIndex;
-	//////	option = verticalColors[type];
-	//////	for (var i = 0; i < option.length; i++) {
-	//////		$('#selectColorvs').append("<option value=" + 'option[i]' + ">" + option[i] + "</option>");
-	//////	}
-	//////}
-
-
 	function getColor() {
 		colorCode = verticalColors[modelCode].indexOf(group);
 	}

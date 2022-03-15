@@ -18,17 +18,17 @@
 		let sqrtMeters = width * height / 10000;
 		if (model == 0) {
 			if (width < 30 || width > 240 || height < 30 || height > 300) {
-				alert(errorMSG);
+				return errorMSG;
 			}
 		}
 		else {
 			if (width < 50 || width > 240 || height < 50 || height > 300) {
-				alert(errorMSG);
+				return errorMSG;
 			}
 		}
 
 		if (sqrtMeters > 4) {
-			alert(errorMSG);
+			return errorMSG;
 		}
 	}
 
