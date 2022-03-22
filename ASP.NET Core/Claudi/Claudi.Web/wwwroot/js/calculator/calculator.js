@@ -24,8 +24,7 @@ let productWidth = '';
 let productHeight = '';
 let productQuantity = '';
 let price = '';
-let productExtras = [];
-
+let isLoggedIn = await auth.isUserAuthenticated();
 panels();
 
 function hidePanel(e) {
@@ -211,7 +210,7 @@ async function renderExtras(container) {
     }
 }
 
-function calculate(e) {
+async function calculate(e) {
     e.preventDefault();
     let form = e.currentTarget;
     let formData = new FormData(form);
@@ -279,6 +278,13 @@ function calculate(e) {
     else if (productType == 11) {
         calculateNets();
     }
+
+    let elem = document.getElementById('result');
+    elem.scrollIntoView({
+        behavior: 'smooth', // Defines the transition animation. default: auto
+        block: 'nearest', // Defines vertical alignment. default: start
+        inline: 'nearest' // Defines horizontal alignment. default: nearest
+    });
 }
 
 function renderResult(info) {
@@ -286,7 +292,7 @@ function renderResult(info) {
     container.innerHTML = '';
 
     var keys = ['Продукт', 'Модел', 'Цвят', 'Ширина - СМ', 'Височина - СМ', 'Брой', 'Кв.М', 'Екстри', 'Цена'];
-    var properties = ['TypeId', 'ModelId', 'ColorId', 'Width', 'Height', 'Quantity', 'SquareMeters','UserId', 'Extras', 'Price'];
+    var properties = ['Type', 'ModelId', 'ColorId', 'Width', 'Height', 'Quantity', 'SquareMeters', 'Extras', 'Price'];
 
     for (var i = 0; i < keys.length; i++) {
 
@@ -308,7 +314,7 @@ function renderResult(info) {
                 let li = document.createElement('li');
                 let input = document.createElement('input');
                 input.setAttribute('value', info[i][j].name);
-                input.disabled = true;
+                input.readOnly = true;
                 input.classList.toggle('form-control');
                 input.name = `extras[${j}]`;
                 li.appendChild(input);
@@ -333,7 +339,7 @@ function renderResult(info) {
         input.classList.toggle('form-control');
         input.classList.toggle('col-md-6');
         input.setAttribute('value', info[i]);
-        input.disabled = true;
+        input.readOnly = true;
 
         let label = document.createElement('label');
         label.setAttribute('for', 'resilt' + i);
@@ -356,17 +362,31 @@ function renderResult(info) {
         button.classList.toggle('btn-lg');
         button.classList.toggle('btn-success');
         button.textContent = 'Запази';
+        button.addEventListener('click', (e) => {
+            if (!isLoggedIn) {
+                e.preventDefault();
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+                toastr.error( 'Запазването на продукти е само за регистрирани потрбители');
+            }
+        })
 
         divButton.appendChild(button);
-
-        let input = document.createElement('input');
-        input.id = 'idid';
-        input.name = 'UserId';
-        input.value = 'idvalue';
-        input.disabled = true;
-        input.type = 'hidden';
-
-        container.appendChild(input);
         container.appendChild(divButton);
     }
 }
@@ -553,7 +573,7 @@ function calculateRollerBlinds() {
     let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
 
     renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
-       extras, price]);
+        extras, price]);
 }
 
 function calculateRomanBlinds() {

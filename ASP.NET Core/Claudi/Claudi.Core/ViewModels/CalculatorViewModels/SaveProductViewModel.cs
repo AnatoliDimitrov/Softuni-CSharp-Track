@@ -1,4 +1,4 @@
-﻿namespace Claudi.Web.ViewModels.CalculatorViewModels
+﻿namespace Claudi.Core.ViewModels.CalculatorViewModels
 {
     using System.ComponentModel.DataAnnotations;
 
@@ -10,7 +10,7 @@
         }
 
         [Required]
-        public string TypeId { get; set; }
+        public string Type { get; set; }
 
         [Required]
         public string ModelId { get; set; }
@@ -31,9 +31,6 @@
         public string SquareMeters { get; set; }
 
         public virtual ICollection<string> Extras { get; set; }
-
-        [Required]
-        public string UserId { get; set; }
 
         public string Price { get; set; }
     }

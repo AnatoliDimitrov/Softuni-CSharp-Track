@@ -1,4 +1,4 @@
-﻿namespace Claudi.Web.ViewModels.CalculatorViewModels
+﻿namespace Claudi.Core.ViewModels.CalculatorViewModels
 {
     public class TypeViewModel
     {

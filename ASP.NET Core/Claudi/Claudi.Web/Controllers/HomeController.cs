@@ -1,20 +1,39 @@
-﻿using Claudi.Web.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-
-namespace Claudi.Web.Controllers
+﻿namespace Claudi.Web.Controllers
 {
+    using System.Diagnostics;
+    using Claudi.Core.HomeServices;
+    using Claudi.Core.ViewModels;
+    using Claudi.Core.ViewModels.ContactsViewModel;
+    using Microsoft.AspNetCore.Mvc;
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ISHEmailSender sender;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ISHEmailSender _emailSender)
         {
             _logger = logger;
+            sender = _emailSender;
         }
 
         public IActionResult Index()
         {
+            return View();
+        }
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Contact(EmailContactViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                await sender.Send(model);
+            }
+
             return View();
         }
 

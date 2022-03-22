@@ -6,6 +6,8 @@ using Claudi.Web.Services;
 using Claudi.Infrastructure.Repositories;
 using Claudi.Web.Data.Seeding;
 using Claudi.Infrastructure.Data;
+using Claudi.Core.ClaculatorsServices;
+using Claudi.Core.HomeServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +32,8 @@ builder.Services.AddTransient<CustomEmailConfirmationTokenProvider<IdentityUser>
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.AddTransient<ISHEmailSender, SHEmailSender>();
+builder.Services.AddTransient<ISiteCalculatorService, SiteCalculatorService>();
 
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 

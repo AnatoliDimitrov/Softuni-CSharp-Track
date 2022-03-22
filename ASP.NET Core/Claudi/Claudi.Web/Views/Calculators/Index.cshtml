@@ -1,5 +1,6 @@
-﻿@using Claudi.Web.ViewModels.CalculatorViewModels
-@model List<TypeViewModel>
+﻿@using Claudi.Core.ViewModels.CalculatorViewModels
+@using Claudi.Infrastructure.Common
+@model IndexViewModel
 
 @{
     ViewData["Title"] = "Калкулатор";
@@ -8,12 +9,31 @@
 @section Head{
 <script type="module" src="~/js/calculator/calculator.js" charset="utf-8"></script>
 <link href="~/css/calculator.css" rel="stylesheet" asp-append-version="true" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
+}
+
+@section Scripts{
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 }
 
 <!-- first start -->
 
 
 <div class="container">
+    @if (Model.Saved == Constants.SUCCESS)
+    {
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <div><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
+            <p>Продуктът е запазен в профила Ви.</p>
+        </div>
+    }
+    else if (Model.Saved == Constants.FAILD)
+    {
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <div><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
+            <p>Възникна грешка. Моля опитайте по-късно.</p>
+        </div>
+    }
     <div class="row"><h1>Калкулатор</h1></div>
     <div class="row">
         <div id="calculator-container" class="col">
@@ -24,7 +44,7 @@
                 </div>
                 <div id="productChoice" class="answer">
                     <fieldset id="product">
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.Products)
                         {
                             <div class="raduo-button-container">
                                 <input id="@item.ShortName" type="radio" name="@item.Name" value="@item.Id">
@@ -67,12 +87,8 @@
                 </div>
             </div>
         </div>
-
-
-
         <div class="row">
-            <form id="result" class="default-form" method="post" asp-action="Save">
-                
+            <form id="result" class="default-form" method="post">
             </form>
         </div>
 

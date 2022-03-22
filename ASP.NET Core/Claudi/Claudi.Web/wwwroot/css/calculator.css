@@ -122,6 +122,14 @@ div#extras > ul {
     background-color: #e9ecef;
 }
 
+.alert-dismissible > p{
+    margin: 2px 20px;
+}
+
+.alert-dismissible{
+    margin: 10px 0px 0px 0px;
+}
+
 @keyframes animate {
     from {
         opacity: 0;

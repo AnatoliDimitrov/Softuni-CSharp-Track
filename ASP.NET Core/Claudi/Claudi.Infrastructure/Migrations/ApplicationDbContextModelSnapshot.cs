@@ -37,6 +37,9 @@ namespace Claudi.Infrastructure.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("Height")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -49,12 +52,21 @@ namespace Claudi.Infrastructure.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("SquareMeters")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("TypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Width")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

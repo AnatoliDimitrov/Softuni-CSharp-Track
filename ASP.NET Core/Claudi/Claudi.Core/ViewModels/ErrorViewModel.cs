@@ -1,4 +1,4 @@
-namespace Claudi.Web.Models
+namespace Claudi.Core.ViewModels
 {
     public class ErrorViewModel
     {

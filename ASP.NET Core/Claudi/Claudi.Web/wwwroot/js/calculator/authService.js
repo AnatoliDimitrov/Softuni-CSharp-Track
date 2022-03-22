@@ -36,11 +36,21 @@ async function getExtrasWithId(id) {
     }
 }
 
+async function isUserAuthenticated() {
+    try {
+        let result = await jsonRequest(`${constants.user}`, 'get');
+        return result;
+    } catch (err) {
+        alert(err);
+    }
+}
+
 let auth = {
     get,
     getModelsWithId,
     getColorsWithId,
     getExtrasWithId,
+    isUserAuthenticated,
 };
 
 export default auth;

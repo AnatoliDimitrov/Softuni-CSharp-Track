@@ -1008,3 +1008,26 @@
 
 
 }
+
+@media only screen and (max-width: 1860px) and (min-width: 1680px) {
+
+    .outer-box.clearfix {
+        display: -webkit-box !important;
+    }
+}
+
+
+@media only screen and (max-width: 1560px) {
+    .main-menu li > a {
+         /*font-size: 12px !important;*/
+    }
+
+    .main-menu li {
+        padding: 5px !important;
+    }
+
+    #navbarSupportedContent > ul {
+        display: grid;
+        grid-template-columns: 150px 150px 150px 150px;
+    }
+}
