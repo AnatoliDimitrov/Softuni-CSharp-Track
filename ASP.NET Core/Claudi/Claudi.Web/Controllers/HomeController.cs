@@ -4,26 +4,34 @@
     using Claudi.Core.HomeServices;
     using Claudi.Core.ViewModels;
     using Claudi.Core.ViewModels.ContactsViewModel;
+    using Claudi.Infrastructure.Common;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
 
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ISHEmailSender sender;
+        private readonly ISHEmailSender _sender;
+        private readonly IConfiguration _configoration;
 
-        public HomeController(ILogger<HomeController> logger, ISHEmailSender _emailSender)
+        public HomeController(ILogger<HomeController> logger, ISHEmailSender _emailSender, IConfiguration configoration)
         {
-            _logger = logger;
-            sender = _emailSender;
+            this._logger = logger;
+            this._sender = _emailSender;
+            this._configoration = configoration;
         }
 
         public IActionResult Index()
         {
-            return View();
+            return this.View();
         }
-        public IActionResult Contact()
+        public IActionResult Contact(string sent)
         {
-            return View();
+            ViewBag.Message = sent;
+            ViewBag.Phone = _configoration["Contacts:Phone"];
+            ViewBag.DisplayPhone = _configoration["Contacts:DisplayPhone"];
+            ViewBag.Email = _configoration[""];
+            return this.View();
         }
 
         [HttpPost]
@@ -31,21 +39,30 @@
         {
             if (ModelState.IsValid)
             {
-                await sender.Send(model);
+                try
+                {
+                    await _sender.Send(model);
+
+                    return this.RedirectToAction("Contact", new { sent = Constants.SUCCESS });
+                }
+                catch (Exception)
+                {
+                    return this.RedirectToAction("Contact", new { sent = Constants.FAILD });
+                }
             }
 
-            return View();
+            return this.View();
         }
 
         public IActionResult Privacy()
         {
-            return View();
+            return this.View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

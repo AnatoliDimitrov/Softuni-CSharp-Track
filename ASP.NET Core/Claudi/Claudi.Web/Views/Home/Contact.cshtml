@@ -1,115 +1,131 @@
-﻿@{
+﻿@using Claudi.Core.ViewModels.ContactsViewModel
+@using Claudi.Infrastructure.Common
+@model EmailContactViewModel
+
+@{
     ViewData["Title"] = "Контакти";
 }
 
 <!--Page Title-->
-        <section class="page-title" style="background-image: url(../images/background/page-title.jpg);">
-            <div class="auto-container">
-                <div class="content-box">
-                    <div class="title">
-                        <h1>Контакти</h1>
-                    </div>
-                    <ul class="bread-crumb clearfix">
-                        <li><a href="/Home/Index">Начало</a></li>
-                        <li class="shape"></li>
-                        <li>За контакт с нас</li>
-                    </ul>
-                </div>
+<section class="page-title" style="background-image: url(../images/background/page-title.jpg);">
+    <div class="auto-container">
+        <div class="content-box">
+            <div class="title">
+                <h1>Контакти</h1>
             </div>
-        </section>
-        <!--End Page Title-->
+            <ul class="bread-crumb clearfix">
+                <li><a href="/Home/Index">Начало</a></li>
+                <li class="shape"></li>
+                <li>За контакт с нас</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!--End Page Title-->
+<!-- google-map-section -->
+@* <section class="google-map-section">
+    <div class="map-inner">
+    <div class="google-map"
+    id="contact-google-map"
+    data-map-lat="40.712776"
+    data-map-lng="-74.005974"
+    data-icon-path="assets/images/icons/map-marker.png"
+    data-map-title="Brooklyn, New York, United Kingdom"
+    data-map-zoom="12"
+    data-markers='{
+    "marker-1": [40.712776, -74.005974, "<h4>Branch Office</h4><p>77/99 New York</p>","assets/images/icons/map-marker.png"]
+    }'>
 
-
-        <!-- google-map-section -->
-       @* <section class="google-map-section">
-            <div class="map-inner">
-                <div class="google-map" 
-                    id="contact-google-map" 
-                    data-map-lat="40.712776" 
-                    data-map-lng="-74.005974" 
-                    data-icon-path="assets/images/icons/map-marker.png"  
-                    data-map-title="Brooklyn, New York, United Kingdom" 
-                    data-map-zoom="12" 
-                    data-markers='{
-                        "marker-1": [40.712776, -74.005974, "<h4>Branch Office</h4><p>77/99 New York</p>","assets/images/icons/map-marker.png"]
-                    }'>
-
-                </div>
-            </div>
-        </section>*@
-        <!-- google-map-section -->
-
-
-        <!-- contact-style-two -->
-        <section class="contact-style-two">
-            <div class="outer-container">
-                <div class="auto-container">
-                    <div class="row clearfix">
-                        <div class="col-lg-6 col-md-12 col-sm-12 form-column">
-                            <div class="inner-box">
-                                <div class="sec-title light">
-                                    <p>Свържи се с нас</p>
-                                    <div class="shape"></div>
-                                    <h2>Изпрати Запитване</h2>
+    </div>
+    </div>
+    </section>*@
+<!-- google-map-section -->
+<!-- contact-style-two -->
+<section class="contact-style-two">
+    <div class="outer-container">
+        <div class="auto-container">
+            <div class="row clearfix">
+                <div class="col-lg-6 col-md-12 col-sm-12 form-column">
+                    <div class="inner-box">
+                        <div class="sec-title light">
+                            @if (ViewBag.Message == Constants.SUCCESS)
+                            {
+                                <div class="alert alert-success alert-dismissible" role="alert">
+                                    <p class="text-dark">Запитването е изпратено успешно.</p>
                                 </div>
-                                <div class="form-inner">
-                                    <form method="post" id="contact-form" class="default-form"> 
-                                        <div class="row clearfix">
-                                            @*<div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                <input type="text" name="username" placeholder="Your Name *" required="">
-                                            </div>*@
-                                            <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                                <input type="email" name="From" placeholder="Имейл *" required="">
-                                            </div>
-                                            @*<div class="col-lg-6 col-md-12 col-sm-12 form-group">
-                                                <input type="text" name="phone" required="" placeholder="Your Phone">
-                                            </div>*@
-                                            <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                                <input type="text" name="Subject" required="" placeholder="Относно">
-                                            </div>
-                                            <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                                <textarea name="message" placeholder="Съдържание ..."></textarea>
-                                            </div>
-                                            <div class="col-lg-12 col-md-12 col-sm-12 form-group message-btn">
-                                                <button class="theme-btn-one" type="submit" name="submit-form">Изпрати</button>
-                                            </div>
-                                        </div>
-                                    </form>
+                            }
+                            else if (ViewBag.Message == Constants.FAILD)
+                            {
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <p class="text-dark">Запитването не е изпратено. Моля опитайте по-късно.</p>
                                 </div>
-                            </div>
+                            }
+                            <p>Свържи се с нас</p>
+                            <div class="shape"></div>
+                            <h2>Изпрати Запитване</h2>
                         </div>
-                        <div class="col-lg-6 col-md-12 col-sm-12 info-column">
-                            <div class="info-box">
-                                <h3>За въпроси и записване на час</h3>
-                                <ul class="info clearfix">
-                                    @*<li>
-                                        <i class="fal fa-map-marker"></i>
-                                        <p>Visit The Store</p>
-                                        <h4>85 Twin City Towers Newyork, USA</h4>
-                                    </li>*@
-                                    <li>
-                                        <i class="fal fa-phone"></i>
-                                        <h4><span>Телефон</span><a href="tel:+359878770402">0878 77 04 02</a></h4>
-                                    </li>
-                                    <li>
-                                        <i class="fal fa-phone"></i>
-                                        <h4><span>За технически въпроси</span><a href="tel:+359895065360">0895 06 53 60</a></h4>
-                                    </li>
-                                    <li>
-                                        <i class="fal fa-envelope-open"></i>
-                                        <h4><span>Имейл</span><a href="mailto:info@claudi.bg">info@claudi.bg</a></h4>
-                                    </li>
-                                </ul>
-                                @*<ul class="social-links clearfix">
-                                    <li><a href="contact.html"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="contact.html"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="contact.html"><i class="fab fa-pinterest-p"></i></a></li>
-                                    <li><a href="contact.html"><i class="fab fa-google-plus-g"></i></a></li>
-                                </ul>*@
-                            </div>
+                        <div class="form-inner">
+                            <form method="post" id="contact-form" class="default-form">
+                                <div class="row clearfix">
+                                    @*<div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                        <input type="text" name="username" placeholder="Your Name *" required="">
+                                        </div>*@
+                                    @* <div class="text-danger" asp-validation-summary="All"></div>*@
+                                    <span asp-validation-for="From" class="text-danger"></span>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                        <input asp-for="From" type="email" name="From" placeholder="Имейл *" required="">
+                                    </div>
+                                    @*<div class="col-lg-6 col-md-12 col-sm-12 form-group">
+                                        <input type="text" name="phone" required="" placeholder="Your Phone">
+                                        </div>*@
+                                    <span asp-validation-for="Subject" class="text-danger"></span>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                        <input asp-for="Subject" type="text" name="Subject" required="" placeholder="Относно">
+                                    </div>
+                                    <span asp-validation-for="Message" class="text-danger"></span>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                        <textarea asp-for="Message" name="Message" placeholder="Съдържание ..."></textarea>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group message-btn">
+                                        <button class="theme-btn-one" type="submit" name="submit-form">Изпрати</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 info-column">
+                    <div class="info-box">
+                        <h3>За въпроси и записване на час</h3>
+                        <ul class="info clearfix">
+                            @*<li>
+                                <i class="fal fa-map-marker"></i>
+                                <p>Visit The Store</p>
+                                <h4>85 Twin City Towers Newyork, USA</h4>
+                                </li>*@
+                            <li>
+                                <i class="fal fa-phone"></i>
+                                <h4><span>Телефон</span><a href="tel:@ViewBag.Phone">@ViewBag.DisplayPhone</a></h4>
+                            </li>
+                            <li>
+                                <i class="fal fa-phone"></i>
+                                <h4><span>За технически въпроси</span><a href="tel:+359895065360">0895 06 53 60</a></h4>
+                            </li>
+                            <li>
+                                <i class="fal fa-envelope-open"></i>
+                                <h4><span>Имейл</span><a href="mailto:@(ViewBag.Email)">@ViewBag.Email</a></h4>
+                            </li>
+                        </ul>
+                        @*<ul class="social-links clearfix">
+                            <li><a href="contact.html"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="contact.html"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="contact.html"><i class="fab fa-pinterest-p"></i></a></li>
+                            <li><a href="contact.html"><i class="fab fa-google-plus-g"></i></a></li>
+                            </ul>*@
+                    </div>
+                </div>
             </div>
-        </section>
-        <!-- contact-style-two end -->
+        </div>
+    </div>
+</section>
+<!-- contact-style-two end -->
