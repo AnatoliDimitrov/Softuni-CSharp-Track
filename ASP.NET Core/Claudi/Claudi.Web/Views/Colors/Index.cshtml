@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Claudi.Core.ViewModels.CommonViewModels
+@model List<TypeViewModel>
+
+@{
     ViewData["Title"] = "Цветове";
 }
 
@@ -23,241 +26,38 @@
     <div class="auto-container">
         <div class="sortable-masonry">
             <div class="filters">
-                @*                <ul class="filter-tabs filter-btns centred clearfix">
-                    <li class="active filter" data-role="button" data-filter=".all">Щори</li>
-                    <li class="filter" data-role="button" data-filter=".curtains">Сенници</li>
-                    <li id="test" class="filter" data-role="button" data-filter=".blinds">Мрежи</li>
-                    </ul>*@
             </div>
             <div class="items-container row clearfix">
-                <div class="col-lg-3 col-md-6 col-sm-12 masonry-item small-column all shutters curtains blinds home_drcor">
+                @for (var i = 0; i < Model.Count; i++)
+                {
+                    <div class="col-lg-3 col-md-6 col-sm-12 masonry-item small-column all shutters curtains blinds home_drcor">
                     <div class="project-block-one">
                         <div class="inner-box">
                             <figure class="image-box">
-                                <img src="~/images/gallery/gallery-8.jpg" alt="">
+                                <img src="~/images/gallery/gallery-@(i+8).jpg" alt="@Model[i].Name">
                             </figure>
                             <div class="content-box">
-                                <div class="view-btn"><a href="/Colors/Horizontal">+</a></div>
+                                <div class="view-btn"><a href="/Colors/@Model[i].EnglishNameShort">+</a></div>
                                 <div class="text">
-                                    <h3>Хоризонтални щори</h3>
+                                    <h3>@Model[i].Name</h3>
                                     <ul>
-                                        <li><a href="index-2.html">Цени</a></li>
+                                        <li><a href="/Catalogues/@Model[i].EnglishNameShort">Цени</a></li>
                                         <li>/</li>
-                                        <li><a href="index-2.html">Калкулатор</a></li>
+                                        <li><a href="/Calculators/Index">Калкулатор</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 masonry-item small-column all curtains shutters">
-                    <div class="project-block-one">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <img src="~/images/gallery/gallery-9.jpg" alt="">
-                            </figure>
-                            <div class="content-box">
-                                <div class="view-btn"><a href="/images/gallery/gallery-9.jpg" class="lightbox-image" data-fancybox="gallery">+</a></div>
-                                <div class="text">
-                                    <h3>Вертикални щори</h3>
-                                    <ul>
-                                        <li><a href="index-2.html">Цени</a></li>
-                                        <li>/</li>
-                                        <li><a href="index-2.html">Калкулатор</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 masonry-item small-column all shutters blinds home_drcor">
-                    <div class="project-block-one">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <img src="~/images/gallery/gallery-10.jpg" alt="">
-                            </figure>
-                            <div class="content-box">
-                                <div class="view-btn"><a href="~/images/gallery/gallery-10.jpg" class="lightbox-image" data-fancybox="gallery">+</a></div>
-                                <div class="text">
-                                    <h3>Window Blinds</h3>
-                                    <ul>
-                                        <li><a href="index-2.html">Цени</a></li>
-                                        <li>/</li>
-                                        <li><a href="index-2.html">Калкулатор</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 masonry-item small-column all curtains shutters home_drcor">
-                    <div class="project-block-one">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <img src="~/images/gallery/gallery-11.jpg" alt="">
-                            </figure>
-                            <div class="content-box">
-                                <div class="view-btn"><a href="~/images/gallery/gallery-11.jpg" class="lightbox-image" data-fancybox="gallery">+</a></div>
-                                <div class="text">
-                                    <h3>Window Blinds</h3>
-                                    <ul>
-                                        <li><a href="index-2.html">Цени</a></li>
-                                        <li>/</li>
-                                        <li><a href="index-2.html">Калкулатор</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 masonry-item small-column all shutters curtains blinds home_drcor">
-                    <div class="project-block-one">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <img src="~/images/gallery/gallery-12.jpg" alt="">
-                            </figure>
-                            <div class="content-box">
-                                <div class="view-btn"><a href="~/images/gallery/gallery-12.jpg" class="lightbox-image" data-fancybox="gallery">+</a></div>
-                                <div class="text">
-                                    <h3>Window Blinds</h3>
-                                    <ul>
-                                        <li><a href="index-2.html">Цени</a></li>
-                                        <li>/</li>
-                                        <li><a href="index-2.html">Калкулатор</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 masonry-item small-column all curtains shutters home_drcor">
-                    <div class="project-block-one">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <img src="~/images/gallery/gallery-13.jpg" alt="">
-                            </figure>
-                            <div class="content-box">
-                                <div class="view-btn"><a href="~/images/gallery/gallery-13.jpg" class="lightbox-image" data-fancybox="gallery">+</a></div>
-                                <div class="text">
-                                    <h3>Window Blinds</h3>
-                                    <ul>
-                                        <li><a href="index-2.html">Цени</a></li>
-                                        <li>/</li>
-                                        <li><a href="index-2.html">Калкулатор</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 masonry-item small-column all curtains blinds home_drcor">
-                    <div class="project-block-one">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <img src="~/images/gallery/gallery-14.jpg" alt="">
-                            </figure>
-                            <div class="content-box">
-                                <div class="view-btn"><a href="~/images/gallery/gallery-14.jpg" class="lightbox-image" data-fancybox="gallery">+</a></div>
-                                <div class="text">
-                                    <h3>Window Blinds</h3>
-                                    <ul>
-                                        <li><a href="index-2.html">Цени</a></li>
-                                        <li>/</li>
-                                        <li><a href="index-2.html">Калкулатор</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 masonry-item small-column all curtains shutters">
-                    <div class="project-block-one">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <img src="~/images/gallery/gallery-15.jpg" alt="">
-                            </figure>
-                            <div class="content-box">
-                                <div class="view-btn"><a href="~/images/gallery/gallery-15.jpg" class="lightbox-image" data-fancybox="gallery">+</a></div>
-                                <div class="text">
-                                    <h3>Window Blinds</h3>
-                                    <ul>
-                                        <li><a href="index-2.html">Цени</a></li>
-                                        <li>/</li>
-                                        <li><a href="index-2.html">Калкулатор</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 masonry-item small-column all blinds home_drcor">
-                    <div class="project-block-one">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <img src="~/images/gallery/gallery-16.jpg" alt="">
-                            </figure>
-                            <div class="content-box">
-                                <div class="view-btn"><a href="~/images/gallery/gallery-16.jpg" class="lightbox-image" data-fancybox="gallery">+</a></div>
-                                <div class="text">
-                                    <h3>Window Blinds</h3>
-                                    <ul>
-                                        <li><a href="index-2.html">Цени</a></li>
-                                        <li>/</li>
-                                        <li><a href="index-2.html">Калкулатор</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 masonry-item small-column all curtains shutters">
-                    <div class="project-block-one">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <img src="~/images/gallery/gallery-17.jpg" alt="">
-                            </figure>
-                            <div class="content-box">
-                                <div class="view-btn"><a href="~/images/gallery/gallery-17.jpg" class="lightbox-image" data-fancybox="gallery">+</a></div>
-                                <div class="text">
-                                    <h3>Window Blinds</h3>
-                                    <ul>
-                                        <li><a href="index-2.html">Цени</a></li>
-                                        <li>/</li>
-                                        <li><a href="index-2.html">Калкулатор</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 masonry-item small-column all shutters curtains blinds home_drcor">
-                    <div class="project-block-one">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <img src="~/images/gallery/gallery-18.jpg" alt="">
-                            </figure>
-                            <div class="content-box">
-                                <div class="view-btn"><a href="~/images/gallery/gallery-18.jpg" class="lightbox-image" data-fancybox="gallery">+</a></div>
-                                <div class="text">
-                                    <h3>Window Blinds</h3>
-                                    <ul>
-                                        <li><a href="index-2.html">Цени</a></li>
-                                        <li>/</li>
-                                        <li><a href="index-2.html">Калкулатор</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>
 </section>
+    <partial name="_FreeFeatures" />
 <!-- gallery-page-section end -->
 <!--Scroll to top-->
 <button class="scroll-top scroll-to-target" data-target="html">
     <span class="far fa-long-arrow-alt-up"></span>
-</button>
-    </div>
-
+</button>  

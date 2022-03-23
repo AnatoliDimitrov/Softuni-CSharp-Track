@@ -1012,12 +1012,12 @@
                     if (lastFolder.Contains("_"))
                     {
                         var folderParts = lastFolder.Split('_');
-                        cssClass = folderParts[0];
+                        cssClass = folderParts[0].Replace(" ", "");
                         group = folderParts[1];
                     }
                     else
                     {
-                        cssClass = lastFolder;
+                        cssClass = lastFolder.Replace(" ", "");
                         group = lastFolder;
                     }
 
@@ -1082,12 +1082,12 @@
                     if (lastFolder.Contains("_"))
                     {
                         var folderParts = lastFolder.Split('_');
-                        cssClass = folderParts[0];
+                        cssClass = folderParts[0].Replace(" ", "");
                         group = folderParts[1];
                     }
                     else
                     {
-                        cssClass = lastFolder;
+                        cssClass = lastFolder.Replace(" ", "");
                         group = lastFolder;
                     }
 

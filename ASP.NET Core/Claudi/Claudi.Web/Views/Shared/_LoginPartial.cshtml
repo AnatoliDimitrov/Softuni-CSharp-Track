@@ -6,11 +6,11 @@
 {
         var user = User.Identity?.Name?.Substring(0, User.Identity.Name.IndexOf('@'));
     <li>
-        <a  asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@user</a>
+        <a  asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Профил</a>
     </li>
     <li>
         <form  asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="btn fadeIn">Изход</button>
+            <button  type="submit" class="btn text-warning">Изход</button>
         </form>
     </li>
 }

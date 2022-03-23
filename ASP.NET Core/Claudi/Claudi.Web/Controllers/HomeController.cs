@@ -30,7 +30,7 @@
             ViewBag.Message = sent;
             ViewBag.Phone = _configoration["Contacts:Phone"];
             ViewBag.DisplayPhone = _configoration["Contacts:DisplayPhone"];
-            ViewBag.Email = _configoration[""];
+            ViewBag.Email = _configoration["Contacts:Email"];
             return this.View();
         }
 

@@ -1019,7 +1019,7 @@
 
 @media only screen and (max-width: 1560px) {
     .main-menu li > a {
-         /*font-size: 12px !important;*/
+         font-size: 12px !important;
     }
 
     .main-menu li {
