@@ -13,6 +13,7 @@
         public DbSet<ProductModel> ProductModels { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<ConfiguredProduct> ConfiguredProducts { get; set; }
+        public DbSet<GalleryPicture> GalleryPictures { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

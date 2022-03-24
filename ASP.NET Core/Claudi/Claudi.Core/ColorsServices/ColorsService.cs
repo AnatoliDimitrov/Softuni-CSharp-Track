@@ -1,10 +1,12 @@
 ﻿namespace Claudi.Core.ColorsServices
 {
-    using Claudi.Core.ViewModels.ColorsViewModels;
-    using Claudi.Core.ViewModels.CommonViewModels;
-    using Claudi.Infrastructure.Data.Models.DataBaseModels;
-    using Claudi.Infrastructure.Repositories;
     using Microsoft.EntityFrameworkCore;
+
+    using ViewModels.ColorsViewModels;
+    using ViewModels.CommonViewModels;
+
+    using Infrastructure.Data.Models.DataBaseModels;
+    using Infrastructure.Repositories;
 
     public class ColorsService : IColorsService
     {

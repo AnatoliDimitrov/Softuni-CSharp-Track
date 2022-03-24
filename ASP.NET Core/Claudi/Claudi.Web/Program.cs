@@ -10,6 +10,7 @@ using Claudi.Infrastructure.Data;
 using Claudi.Core.ClaculatorsServices;
 using Claudi.Core.HomeServices;
 using Claudi.Core.ColorsServices;
+using Claudi.Core.ProductsServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +39,7 @@ builder.Services.AddTransient<ISHEmailSender, SHEmailSender>();
 builder.Services.AddTransient<ISiteCalculatorService, SiteCalculatorService>();
 builder.Services.AddTransient<IColorsService, ColorsService>();
 builder.Services.AddTransient<ICataloguesService, CataloguesService>();
+builder.Services.AddTransient<IProductsService, ProductsService>();
 
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 
