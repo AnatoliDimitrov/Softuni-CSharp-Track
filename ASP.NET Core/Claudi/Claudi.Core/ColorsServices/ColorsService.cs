@@ -35,6 +35,24 @@
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<ColorViewModel>> GetAllVerticalColorsAsync()
+        {
+            var models = new[] { "89mm", "127mm", "al"};
+
+            return await _allColors.All()
+                .Where(c => models.Contains(c.Name))
+                .Select(c => new ColorViewModel
+                {
+                    Number = c.Number,
+                    Name = c.Name,
+                    Real = c.Real,
+                    Group = c.Group,
+                    CssClass = c.Name,
+                    ImageUrl = c.ImageUrl,
+                })
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<ColorsGroupsViewModel>> GetAllGroupsAsync(string type)
         {
             return await _allColors.All()
@@ -44,6 +62,21 @@
                 {
                     Group = c.Group,
                     CssClass = c.CssClass,
+                })
+                .Distinct()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<ColorsGroupsViewModel>> GetAllVerticalGroupsAsync()
+        {
+            var models = new[] { "89mm", "127mm", "al" };
+
+            return await _allColors.All()
+                .Where(c => models.Contains(c.Name))
+                .Select(c => new ColorsGroupsViewModel
+                {
+                    Group = c.Name,
+                    CssClass = c.Name,
                 })
                 .Distinct()
                 .ToListAsync();

@@ -2,7 +2,7 @@
 @model List<TypeViewModel>
 
 @{
-    ViewData["Title"] = "Цветове";
+    ViewData["Title"] = "Цени";
 }
 
 <!--Page Title-->
@@ -10,12 +10,12 @@
     <div class="auto-container">
         <div class="content-box">
             <div class="title">
-                <h1>Мостри</h1>
+                <h1>Цени</h1>
             </div>
             <ul class="bread-crumb clearfix">
-                <li>Галерия</li>
+                <li>Каталози</li>
                 <li class="shape"></li>
-                <li>Цветове</li>
+                <li>Информация</li>
             </ul>
         </div>
     </div>
@@ -37,11 +37,11 @@
                                 <img src="~/images/gallery/gallery-@(i+8).jpg" alt="@Model[i].Name">
                             </figure>
                             <div class="content-box">
-                                <div class="view-btn"><a href="/Colors/@Model[i].EnglishNameShort">+</a></div> 
+                                <div class="view-btn"><a href="/Catalogues/@Model[i].EnglishNameShort">+</a></div> 
                                 <div class="text">
                                     <h3>@Model[i].Name</h3>
                                     <ul>
-                                        <li><a href="/Catalogues/@Model[i].EnglishNameShort">Цени</a></li>
+                                        <li><a href="/Colors/@Model[i].EnglishNameShort">Цветове</a></li>
                                         <li>/</li>
                                         <li><a href="/Calculators/Index">Калкулатор</a></li>
                                     </ul>
@@ -61,3 +61,4 @@
 <button class="scroll-top scroll-to-target" data-target="html">
     <span class="far fa-long-arrow-alt-up"></span>
 </button>  
+

@@ -10,5 +10,9 @@
         Task<IEnumerable<ColorsGroupsViewModel>> GetAllGroupsAsync(string type);
 
         Task<IEnumerable<TypeViewModel>> GetAllTypesAsync();
+
+        Task<IEnumerable<ColorViewModel>> GetAllVerticalColorsAsync();
+
+        Task<IEnumerable<ColorsGroupsViewModel>> GetAllVerticalGroupsAsync();
     }
 }

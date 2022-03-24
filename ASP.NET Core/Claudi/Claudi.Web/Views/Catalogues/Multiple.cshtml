@@ -1,12 +1,12 @@
-﻿@using Claudi.Core.ViewModels.ColorsViewModels
-@model ColorsViewModel
+﻿@using Claudi.Core.ViewModels.CataloguesViewModels
+@model CataloguesViewModel
 
 @{
-    ViewData["Title"] = "Цветове";
+    ViewData["Title"] = "Цени";
 }
 
 @section Head{
-    <link href="~/css/gallery.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/catalogues.css" rel="stylesheet" asp-append-version="true" />
 }
 
 <!--Page Title-->
@@ -17,9 +17,9 @@
                 <h1>@Model.Type</h1>
             </div>
             <ul class="bread-crumb clearfix">
-                <li>Галерия</li>
+                <li>Каталози</li>
                 <li class="shape"></li>
-                <li>Мостри</li>
+                <li>Информация</li>
             </ul>
         </div>
     </div>
@@ -42,18 +42,18 @@
                 </ul>
             </div>
             <div class="items-container row clearfix">
-                @foreach (var color in Model.Colors)
+                @foreach (var catalogue in Model.Catalogues)
                 {
-                    <div class="col-lg-3 col-md-6 col-sm-12 masonry-item small-column all @color.CssClass shutters">
+                    <div class="col-lg-3 col-md-6 col-sm-12 masonry-item small-column all @catalogue.CssClass shutters">
                         <div class="project-block-one">
                             <div class="inner-box">
                                 <figure class="image-box">
-                                    <img src="..@color.ImageUrl" alt="@color.Number">
+                                    <img src="..@catalogue.ImageUrl" alt="@catalogue.Number">
                                 </figure>
                                 <div class="content-box">
-                                    <div class="view-btn"><a href="..@color.ImageUrl" class="lightbox-image" data-fancybox="gallery">@color.Number</a></div>
+                                    <div class="view-btn"><a href="..@catalogue.ImageUrl" class="lightbox-image" data-fancybox="gallery">+</a></div>
                                     <div class="text">
-                                        <h3>@color.Group</h3>
+                                        <h3>@catalogue.Group</h3>
                                     </div>
                                 </div>
                             </div>

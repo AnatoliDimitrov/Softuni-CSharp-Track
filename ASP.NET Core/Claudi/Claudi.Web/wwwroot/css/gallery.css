@@ -1,0 +1,9 @@
+﻿.view-btn a {
+    font-size: 10px;
+    line-height: 10px;
+}
+
+.gallery-page-section .project-block-one .inner-box .content-box .view-btn a {
+    font-size: 35px;
+    line-height: 35px;
+}

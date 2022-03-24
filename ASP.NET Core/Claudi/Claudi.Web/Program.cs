@@ -1,3 +1,4 @@
+using Claudi.Core.CataloguesServices;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +37,7 @@ builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddTransient<ISHEmailSender, SHEmailSender>();
 builder.Services.AddTransient<ISiteCalculatorService, SiteCalculatorService>();
 builder.Services.AddTransient<IColorsService, ColorsService>();
+builder.Services.AddTransient<ICataloguesService, CataloguesService>();
 
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 
