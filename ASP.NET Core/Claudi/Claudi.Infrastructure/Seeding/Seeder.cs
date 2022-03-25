@@ -7,8 +7,9 @@
 
     public class Seeder
     {
-        private static List<ProductCatalogue> catalogues = new List<ProductCatalogue>();
-        private static List<ProductColor> samples = new List<ProductColor>();
+        private static List<ProductCatalogue> catalogues = new();
+        private static List<ProductColor> samples = new();
+        private static List<GalleryPicture> galleryPictures = new();
 
         private static List<ProductModel> horizontalModels;
         private static List<ProductModel> verticalModels;
@@ -848,6 +849,15 @@
                 await context.SaveChangesAsync();
             }
 
+            if (!context.GalleryPictures.Any())
+            {
+                GalleryCrowler("wwwroot/storage/gallery");
+
+                await context.GalleryPictures.AddRangeAsync(galleryPictures);
+
+                await context.SaveChangesAsync();
+            }
+
             if (!context.ProductExtras.Any())
             {
                 var extras = new List<ProductExtra>()
@@ -1119,6 +1129,56 @@
                         CssClass = cssClass,
                         ImageUrl = url,
                         Models = modelGroup,
+                    });
+                }
+            }
+        }
+
+        private static void GalleryCrowler(string path)
+        {
+            var directories = Directory.GetDirectories(path);
+
+            if (directories.Any())
+            {
+                foreach (var directory in directories)
+                {
+                    GalleryCrowler(directory);
+                }
+            }
+            else
+            {
+                var files = Directory.GetFiles(path);
+
+                foreach (var file in files)
+                {
+                    var url = "/" + file.Replace("\\", "/");
+                    var cssClass = string.Empty;
+                    var group = string.Empty;
+
+                    var parts = url.Split('/');
+                    var modelString = parts[parts.Length - 3];
+
+                    var lastFolder = parts[parts.Length - 2];
+
+                    if (lastFolder.Contains("_"))
+                    {
+                        var folderParts = lastFolder.Split('_');
+                        cssClass = folderParts[1].Replace(" ", "");
+                        group = folderParts[0];
+                    }
+                    else
+                    {
+                        cssClass = lastFolder.Replace(" ", "");
+                        group = lastFolder;
+                    }
+
+                    url = url.Replace("/wwwroot", "");
+
+                    galleryPictures.Add(new GalleryPicture()
+                    {
+                        ImageUrl = url,
+                        CssClass = cssClass,
+                        Group = group,
                     });
                 }
             }

@@ -79,6 +79,39 @@ namespace Claudi.Infrastructure.Migrations
                     b.ToTable("ConfiguredProducts");
                 });
 
+            modelBuilder.Entity("Claudi.Infrastructure.Data.Models.DataBaseModels.GalleryPicture", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CssClass")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Group")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GalleryPictures");
+                });
+
             modelBuilder.Entity("Claudi.Infrastructure.Data.Models.DataBaseModels.ProductCatalogue", b =>
                 {
                     b.Property<string>("Id")

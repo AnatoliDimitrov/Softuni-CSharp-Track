@@ -33,7 +33,7 @@
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("info@claudi.bg", "Email Confirmation"),
+                From = new EmailAddress("info@claudi.bg", "Имейл за потвърждение"),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message

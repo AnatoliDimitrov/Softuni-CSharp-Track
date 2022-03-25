@@ -1,10 +1,10 @@
-﻿using Claudi.Core.CataloguesServices;
-using Claudi.Core.ViewModels.CataloguesViewModels;
-using Claudi.Core.ViewModels.ColorsViewModels;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Claudi.Web.Controllers
+﻿namespace Claudi.Web.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
+    using Core.CataloguesServices;
+    using Core.ViewModels.CataloguesViewModels;
+
     public class CataloguesController : Controller
     {
         private readonly ICataloguesService _service;

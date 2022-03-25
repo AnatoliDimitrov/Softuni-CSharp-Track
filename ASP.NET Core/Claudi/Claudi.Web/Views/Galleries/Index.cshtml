@@ -1,0 +1,68 @@
+﻿@using Claudi.Core.ViewModels.GalleriesViewModels
+@model GalleriesViewModel
+
+@{
+    ViewData["Title"] = "Галерия";
+}
+
+@section Head{
+    <link href="~/css/catalogues.css" rel="stylesheet" asp-append-version="true" />
+}
+
+<!--Page Title-->
+<section class="page-title" style="background-image: url(/images/background/page-title.jpg);">
+    <div class="auto-container">
+        <div class="content-box">
+            <div class="title">
+                <h1>@Model.Type</h1>
+            </div>
+            <ul class="bread-crumb clearfix">
+                <li>Снимки</li>
+                <li class="shape"></li>
+                <li>Продукти</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!--End Page Title-->
+<!-- gallery-page-section -->
+<section class="gallery-page-section sec-pad-2">
+    <div class="auto-container">
+        <div class="sortable-masonry">
+            <div class="filters">
+                <ul class="filter-tabs filter-btns centred clearfix">
+                    @if (Model.Groups.Count() != 1)
+                    {
+                        <li class="active filter" data-role="button" data-filter=".all">Всички</li>
+                    }
+                    @foreach (var group in Model.Groups)
+                    {
+                        <li class="filter" data-role="button" data-filter=".@group.CssClass">@group.Group</li>
+                    }
+                </ul>
+            </div>
+            <div class="items-container row clearfix">
+                @foreach (var picture in Model.Pictures)
+                {
+                    <div class="col-lg-3 col-md-6 col-sm-12 masonry-item small-column all @picture.CssClass shutters">
+                        <div class="project-block-one">
+                            <div class="inner-box">
+                                <figure class="image-box">
+                                    <img src="..@picture.ImageUrl" alt="@picture.Group">
+                                </figure>
+                                <div class="content-box">
+                                    <div class="view-btn"><a href="..@picture.ImageUrl" class="lightbox-image" data-fancybox="gallery">+</a></div>
+                                    <div class="text">
+                                        <h3>@picture.Group</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<!-- gallery-page-section end -->
+<partial name="_FreeFeatures" />
