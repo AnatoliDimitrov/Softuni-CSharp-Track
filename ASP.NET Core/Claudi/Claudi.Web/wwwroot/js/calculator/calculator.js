@@ -180,7 +180,7 @@ function renderSizes() {
 async function renderExtras(container) {
     let extras = await auth.getExtrasWithId(productModelId);
 
-    if (extras == []) {
+    if (extras.length === 0) {
         return;
     }
 
@@ -210,83 +210,6 @@ async function renderExtras(container) {
     }
 }
 
-async function calculate(e) {
-    e.preventDefault();
-    let form = e.currentTarget;
-    let formData = new FormData(form);
-    productWidth = formData.get('width');
-    productHeight = formData.get('height');
-    productQuantity = formData.get('quantity');
-
-    if (productModelId == 59) {
-        productHeight = 200;
-    }
-
-    let isValidInput = true;
-
-    if (isNaN(productWidth) || productWidth == null || productWidth == '') {
-        document.getElementById('widthError').textContent = 'Въведете валидно число';
-        isValidInput = false;
-    }
-    if (isNaN(productHeight) || productHeight == null || productHeight == '') {
-        document.getElementById('heightError').textContent = 'Въведете валидно число';
-        isValidInput = false;
-    }
-    if (isNaN(productQuantity) || productQuantity == null || productQuantity == '' || productQuantity <= 0) {
-        document.getElementById('quantityError').textContent = 'Въведете валидно число';
-        isValidInput = false;
-    }
-
-    if (!isValidInput) {
-        return;
-    }
-
-    document.getElementById('widthError').textContent = '';
-    document.getElementById('heightError').textContent = '';
-    document.getElementById('quantityError').textContent = '';
-
-    if (productType == 1) {
-        calculateHorizontalBlinds();
-    }
-    else if (productType == 2) {
-        calculateVerticalBlinds();
-    }
-    else if (productType == 3) {
-        calculateWoodenBlinds();
-    }
-    else if (productType == 4) {
-        calculateRollerBlinds();
-    }
-    else if (productType == 5) {
-        calculateRomanBlinds();
-    }
-    else if (productType == 6) {
-        calculateBambooBlinds();
-    }
-    else if (productType == 7) {
-        calculatePleatsBlinds();
-    }
-    else if (productType == 8) {
-        calculateExternalRollerBlinds();
-    }
-    else if (productType == 9) {
-        calculateExternalVenetianBlinds();
-    }
-    else if (productType == 10) {
-        calculateAwning();
-    }
-    else if (productType == 11) {
-        calculateNets();
-    }
-
-    let elem = document.getElementById('result');
-    elem.scrollIntoView({
-        behavior: 'smooth', // Defines the transition animation. default: auto
-        block: 'nearest', // Defines vertical alignment. default: start
-        inline: 'nearest' // Defines horizontal alignment. default: nearest
-    });
-}
-
 function renderResult(info) {
     let container = document.getElementById('result');
     container.innerHTML = '';
@@ -296,7 +219,10 @@ function renderResult(info) {
 
     for (var i = 0; i < keys.length; i++) {
 
-        if (keys[i] == 'Екстри' && info[i].length > 0) {
+        if (keys[i] == 'Екстри') {
+            if (info[i].length === 0) {
+                continue;
+            }
             let haveExtras = false;
             let div = document.createElement('div');
             div.id = 'extras';
@@ -488,6 +414,85 @@ function showContent(id) {
     }
 }
 
+////////////////////////Calculation part/////////////////////////////////////////////////////
+
+async function calculate(e) {
+    e.preventDefault();
+    let form = e.currentTarget;
+    let formData = new FormData(form);
+    productWidth = formData.get('width');
+    productHeight = formData.get('height');
+    productQuantity = formData.get('quantity');
+
+    if (productModelId == 59) {
+        productHeight = 200;
+    }
+
+    let isValidInput = true;
+
+    if (isNaN(productWidth) || productWidth == null || productWidth == '') {
+        document.getElementById('widthError').textContent = 'Въведете валидно число';
+        isValidInput = false;
+    }
+    if (isNaN(productHeight) || productHeight == null || productHeight == '') {
+        document.getElementById('heightError').textContent = 'Въведете валидно число';
+        isValidInput = false;
+    }
+    if (isNaN(productQuantity) || productQuantity == null || productQuantity == '' || productQuantity <= 0) {
+        document.getElementById('quantityError').textContent = 'Въведете валидно число';
+        isValidInput = false;
+    }
+
+    if (!isValidInput) {
+        return;
+    }
+
+    document.getElementById('widthError').textContent = '';
+    document.getElementById('heightError').textContent = '';
+    document.getElementById('quantityError').textContent = '';
+
+    if (productType == 1) {
+        calculateHorizontalBlinds();
+    }
+    else if (productType == 2) {
+        calculateVerticalBlinds();
+    }
+    else if (productType == 3) {
+        calculateWoodenBlinds();
+    }
+    else if (productType == 4) {
+        calculateRollerBlinds();
+    }
+    else if (productType == 5) {
+        calculateRomanBlinds();
+    }
+    else if (productType == 6) {
+        calculateBambooBlinds();
+    }
+    else if (productType == 7) {
+        calculatePleatsBlinds();
+    }
+    else if (productType == 8) {
+        calculateExternalRollerBlinds();
+    }
+    else if (productType == 9) {
+        calculateExternalVenetianBlinds();
+    }
+    else if (productType == 10) {
+        calculateAwning();
+    }
+    else if (productType == 11) {
+        calculateNets();
+    }
+
+    let elem = document.getElementById('result');
+    elem.scrollIntoView({
+        behavior: 'smooth', // Defines the transition animation. default: auto
+        block: 'nearest', // Defines vertical alignment. default: start
+        inline: 'nearest' // Defines horizontal alignment. default: nearest
+    });
+}
+
 function calculateHorizontalBlinds() {
     let driving = document.getElementById('1');
     let drivingIsChecked = driving.checked;
@@ -495,7 +500,13 @@ function calculateHorizontalBlinds() {
     let planks = document.getElementById('3');
     let planksIsChecked = planks.checked;
 
-    price = horizontalCalculator.calculate(productModel, productColor, productWidth, productHeight, drivingIsChecked, planksIsChecked)
+    price = horizontalCalculator.calculate(productModel,
+        productColor,
+        productWidth,
+        productHeight,
+        drivingIsChecked,
+        planksIsChecked);
+
     if (isNaN(price)) {
         var span = document.getElementById('quantityError');
         span.classList.toggle('col-md-12');
@@ -505,7 +516,7 @@ function calculateHorizontalBlinds() {
     price = productQuantity * price;
     price = price.toFixed(2) + " лв.";
 
-    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
+    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2);
 
     renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
         [{ name: driving.name, isChecked: drivingIsChecked }, { name: planks.name, isChecked: planksIsChecked }], price]);
@@ -530,7 +541,7 @@ function calculateVerticalBlinds() {
 }
 
 function calculateWoodenBlinds() {
-    let driving = document.getElementById('extra1');
+    let driving = document.getElementById('1');
     let drivingIsChecked = driving.checked;
 
     price = woodenCalculator.calculate(productModel, productColor, productWidth, productHeight, drivingIsChecked)
@@ -552,8 +563,8 @@ function calculateWoodenBlinds() {
 function calculateRollerBlinds() {
 
     let drivingIsChecked = false;
-    let driving = document.getElementById('extra1');
-    let extras = []
+    let driving = document.getElementById('1');
+    let extras = [];
 
     if (driving !== undefined && driving !== null) {
         drivingIsChecked = driving.checked;
@@ -577,7 +588,7 @@ function calculateRollerBlinds() {
 }
 
 function calculateRomanBlinds() {
-    let driving = document.getElementById('extra1');
+    let driving = document.getElementById('1');
     let drivingIsChecked = driving.checked;
 
     price = romanCalculator.calculate(productModel, productColorGroup, productWidth, productHeight, drivingIsChecked)
@@ -651,7 +662,7 @@ function calculateExternalRollerBlinds() {
 }
 
 function calculateExternalVenetianBlinds() {
-    let driving = document.getElementById('extra1');
+    let driving = document.getElementById('1');
     let drivingIsChecked = driving.checked;
 
     price = externalVenetianCalculator.calculate(productModel, productColorGroup, productWidth, productHeight, drivingIsChecked)

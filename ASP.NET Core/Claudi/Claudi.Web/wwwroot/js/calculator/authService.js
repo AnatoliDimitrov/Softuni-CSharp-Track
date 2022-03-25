@@ -45,12 +45,22 @@ async function isUserAuthenticated() {
     }
 }
 
+async function getMyProducts() {
+    try {
+        let result = await jsonRequest(`${constants.myProducts}`, 'get');
+        return result;
+    } catch (err) {
+        alert(err);
+    }
+}
+
 let auth = {
     get,
     getModelsWithId,
     getColorsWithId,
     getExtrasWithId,
     isUserAuthenticated,
+    getMyProducts,
 };
 
 export default auth;

@@ -1,8 +1,10 @@
 const options = 'https://localhost:7205/Calculators/';
-const productModels = `${options}ProductModels`
-const productColors = `${options}ProductColors`
-const productExtras = `${options}ProductExtras`
-const user = `${options}IsLoggedIn`
+const productModels = `${options}ProductModels`;
+const productColors = `${options}ProductColors`;
+const productExtras = `${options}ProductExtras`;
+const user = `${options}IsLoggedIn`;
+
+const myProducts = 'https://localhost:7205/MyProducts/GetMyProducts';
 
 export default {
     options,
@@ -10,4 +12,5 @@ export default {
     productColors,
     productExtras,
     user,
+    myProducts,
 }

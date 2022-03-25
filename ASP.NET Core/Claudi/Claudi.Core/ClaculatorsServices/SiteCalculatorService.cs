@@ -175,6 +175,7 @@
                     Color = color,
                     UserId = userId,
                     Extras = currentExtras,
+                    CreatedOn = DateTime.UtcNow,
                     Price = decimal.Parse(price),
                     Height = decimal.Parse(model.Height),
                     Width = decimal.Parse(model.Width),

@@ -12,6 +12,7 @@ using Claudi.Core.HomeServices;
 using Claudi.Core.ColorsServices;
 using Claudi.Core.GalleriesServices;
 using Claudi.Core.ProductsServices;
+using Claudi.Core.MyProductsServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +43,7 @@ builder.Services.AddTransient<IColorsService, ColorsService>();
 builder.Services.AddTransient<ICataloguesService, CataloguesService>();
 builder.Services.AddTransient<IProductsService, ProductsService>();
 builder.Services.AddTransient<IGalleriesService, GalleriesService>();
+builder.Services.AddTransient<IMyProductsService, MyProductsService>();
 
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 

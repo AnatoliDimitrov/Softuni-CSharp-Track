@@ -1,17 +1,18 @@
-﻿namespace Claudi.Web.Controllers
-{
-    using Claudi.Core.ClaculatorsServices;
-    using Claudi.Core.ViewModels.CalculatorViewModels;
+﻿using Microsoft.AspNetCore.Authorization;
 
-    using Claudi.Infrastructure.Common;
-    using Claudi.Infrastructure.Data;
+namespace Claudi.Web.Controllers
+{
+    using Core.ClaculatorsServices;
+    using Core.ViewModels.CalculatorViewModels;
+
+    using Infrastructure.Common;
+    using Infrastructure.Data;
 
     using Microsoft.AspNetCore.Mvc;
     using System.Security.Claims;
 
     public class CalculatorsController : Controller
     {
-        private readonly ApplicationDbContext context;
         private readonly ISiteCalculatorService service;
 
         public CalculatorsController(ISiteCalculatorService _service)
@@ -53,6 +54,7 @@
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Index(SaveProductViewModel model)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);

@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Мои Продукти";
+}
+
+@section Head{
+    <script type="module" src="~/js/calculator/calculatorsService.js" charset="utf-8"></script>
+    <link href="~/css/myProducts.css" rel="stylesheet" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
+}
+
+<div class="container">
+    <div class="row">
+        <h1 class="text-uppercase">Запазени Продукти</h1>
+    </div>
+    <div id="table-container" class="row">
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <p>Нямате запазени продукти.</p>
+        </div>
+        <a class="display-6" id="calculator" href="/Calculators/Index">Калкулатор</a>
+    </div>
+</div>
+<partial name="_FreeFeatures" />
