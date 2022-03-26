@@ -25,3 +25,7 @@ li {
     font-weight: bold;
     margin: -10px;
 }
+
+.total {
+    background-color: #bee5eb !important;
+}

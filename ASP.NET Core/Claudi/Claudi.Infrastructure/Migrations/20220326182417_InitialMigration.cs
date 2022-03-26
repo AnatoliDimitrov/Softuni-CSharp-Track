@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Claudi.Infrastructure.Migrations
 {
-    public partial class InitialMigrate : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,6 +49,24 @@ namespace Claudi.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "GalleryPictures",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Group = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CssClass = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GalleryPictures", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProductColors",
                 columns: table => new
                 {
@@ -77,7 +95,8 @@ namespace Claudi.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     EnglishName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Group = table.Column<int>(type: "int", nullable: true),
+                    OnClaculator = table.Column<bool>(type: "bit", nullable: false),
+                    Group = table.Column<int>(type: "int", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -274,6 +293,10 @@ namespace Claudi.Infrastructure.Migrations
                     TypeId = table.Column<int>(type: "int", nullable: false),
                     ModelId = table.Column<int>(type: "int", nullable: false),
                     ColorId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Width = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Height = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    SquareMeters = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -400,6 +423,21 @@ namespace Claudi.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "0e8e18fb-65b5-4bf9-9926-628afdb1c465", "3d4175ab-4ff6-4860-8aab-3730633fb745", "Administrator", "ADMINISTRATOR" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "90b21bc9-9062-4142-b3f9-774e6797e080", 0, "0998371e-11dd-4b52-a770-ed4da59943e6", "apdimitrov@yahoo.com", true, false, null, "APDIMITROV@YAHOO.COM", "APDIMITROV@YAHOO.COM", "AQAAAAEAACcQAAAAEB3lmrEJJwrzHO6/1ipAEoIe3fjYg9L2KEhmme4jPg7eUT9HC19BGSjBv3djhE29bg==", null, false, "f34cc670-d0c4-439a-9f87-a990f6f26372", false, "apdimitrov@yahoo.com" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "0e8e18fb-65b5-4bf9-9926-628afdb1c465", "90b21bc9-9062-4142-b3f9-774e6797e080" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -504,6 +542,9 @@ namespace Claudi.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "ConfiguredProductProductExtra");
+
+            migrationBuilder.DropTable(
+                name: "GalleryPictures");
 
             migrationBuilder.DropTable(
                 name: "ProductCatalogueProductModel");

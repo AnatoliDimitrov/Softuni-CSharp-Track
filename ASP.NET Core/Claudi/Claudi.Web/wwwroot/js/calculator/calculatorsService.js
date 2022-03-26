@@ -11,6 +11,10 @@ import externalVenetianCalculator from "./externalVenetianCalculation.js";
 import awningCalculator from "./awningCalculation.js";
 import netsCalculator from "./netsCalculation.js";
 
+let totalPrice = 0;
+let totalSquareMeters = 0;
+let totalQuantity = 0;
+
 async function renderProducts() {
 
     let products = await auth.getMyProducts();
@@ -26,12 +30,21 @@ async function renderProducts() {
 
     let tbody;
     let counter = 0;
+    let tableCounter = 0;
 
     for (let product of products) {
         counter++;
 
         if (product.type !== typeGroup) {
+
+            if (tableCounter !== 0) {
+                createTotalRow(tbody);
+            }
+
             counter = 1;
+            totalPrice = 0;
+            totalSquareMeters = 0;
+            totalQuantity = 0;
 
             typeGroup = product.type;
             let heading = document.createElement('h3');
@@ -51,10 +64,14 @@ async function renderProducts() {
 
             container.appendChild(heading);
             container.appendChild(table);
+
+            tableCounter++;
         }
 
         createTableRows(product, tbody, counter);
     }
+
+    createTotalRow(tbody);
 };
 
 function createTableHeads(thead) {
@@ -76,8 +93,9 @@ function createTableRows(product, tbody, counter) {
 
     tr.appendChild(th);
 
+    let currentPrice = calculateCurrentPrice(product);
+
     for (let property in product) {
-        let currentPrice = calculateCurrentPrice(product);
 
         product.price = currentPrice;
 
@@ -109,6 +127,10 @@ function createTableRows(product, tbody, counter) {
         tr.appendChild(td);
     }
 
+    totalPrice += Number(currentPrice.split(" ")[0]);
+    totalSquareMeters += product.squareMeters;
+    totalQuantity += product.quantity;
+
     let deleteTd = document.createElement('td');
     let form = document.createElement('form');
     form.setAttribute('method', 'post');
@@ -129,6 +151,30 @@ function createTableRows(product, tbody, counter) {
     deleteTd.appendChild(form);
 
     tr.appendChild(deleteTd);
+
+    tbody.appendChild(tr);
+}
+
+function createTotalRow(tbody) {
+    let headsContents = ['#', 'Модел', 'цвят', 'Ширина', 'Височина', 'Кв.М.', 'Количество', 'Екстри', 'Цена', 'Опции'];
+
+    let tr = document.createElement('tr');
+    tr.classList.toggle('total');
+
+    for (const content of headsContents) {
+        let td = document.createElement('th');
+        if (content === 'Модел') {
+            td.textContent = 'Общо:';
+        } else if (content === 'Кв.М.') {
+            td.textContent = totalSquareMeters.toFixed(2);
+        } else if (content === 'Количество') {
+            td.textContent = totalQuantity;
+        } else if (content === 'Цена') {
+            td.textContent = totalPrice.toFixed(2) + " лв.";
+        }
+
+        tr.appendChild(td);
+    }
 
     tbody.appendChild(tr);
 }

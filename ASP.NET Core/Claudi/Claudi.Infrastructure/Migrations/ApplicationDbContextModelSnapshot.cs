@@ -370,6 +370,15 @@ namespace Claudi.Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "0e8e18fb-65b5-4bf9-9926-628afdb1c465",
+                            ConcurrencyStamp = "3d4175ab-4ff6-4860-8aab-3730633fb745",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -460,6 +469,24 @@ namespace Claudi.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "90b21bc9-9062-4142-b3f9-774e6797e080",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "0998371e-11dd-4b52-a770-ed4da59943e6",
+                            Email = "apdimitrov@yahoo.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "APDIMITROV@YAHOO.COM",
+                            NormalizedUserName = "APDIMITROV@YAHOO.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEB3lmrEJJwrzHO6/1ipAEoIe3fjYg9L2KEhmme4jPg7eUT9HC19BGSjBv3djhE29bg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "f34cc670-d0c4-439a-9f87-a990f6f26372",
+                            TwoFactorEnabled = false,
+                            UserName = "apdimitrov@yahoo.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -524,6 +551,13 @@ namespace Claudi.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "90b21bc9-9062-4142-b3f9-774e6797e080",
+                            RoleId = "0e8e18fb-65b5-4bf9-9926-628afdb1c465"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
