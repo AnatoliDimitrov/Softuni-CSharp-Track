@@ -1,8 +1,27 @@
 ﻿h1 {
     color: #0c2636;
     font-family: sans-serif;
+    margin: 20px
 }
 
-#calculator {
-    font
+#table-container > h3 {
+    font-family: Garamond, serif;
+    font-weight: bold;
+    color: darkgray;
+    margin: 10px;
+}
+
+.table > thead {
+    background-color: #ffeeba;
+}
+
+li {
+    font-size: 0.7em;
+    margin: -10px;
+}
+
+.delete {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin: -10px;
 }

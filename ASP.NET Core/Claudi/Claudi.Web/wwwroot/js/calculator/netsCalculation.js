@@ -4,7 +4,7 @@
 	var totalPrice = 0;
 
 	// Prices by different models and colors
-	var netsContent = ["Комарник на Панти", "Фиксиран Комарник", "Ролетен Комарник в рамка", "Ролетен Комарник с вграден водач", "Ролетен Хоризонтален Комарник", "Врата Мрежа"]
+	var netsContent = ["Фиксиран Комарник", "Комарник на Панти", "Ролетен Комарник в рамка", "Ролетен Комарник с вграден водач", "Ролетен Хоризонтален Комарник", "Врата Мрежа"]
 
 	var netsTable = [
 		[],	// Static
@@ -273,7 +273,7 @@
 	//Calc the final price
 	function printFinalPrice(error) {
 		if (error !== undefined) {
-			return error
+			return error;
 		}
 
 		let convertedWidth = undefined;

@@ -5,5 +5,7 @@
     public interface IMyProductsService
     {
         Task<List<MyProductViewModel>> GetProductsAsync(string userId);
+
+        Task DeleteProduct(string id);
     }
 }

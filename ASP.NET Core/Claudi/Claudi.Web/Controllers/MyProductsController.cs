@@ -21,6 +21,15 @@ namespace Claudi.Web.Controllers
             return this.View();
         }
 
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Index(DeleteViewModel model)
+        {
+            await _service.DeleteProduct(model.Id);
+
+            return this.View();
+        }
+
         [Authorize]
         public async Task<List<MyProductViewModel>> GetMyProducts()
         {

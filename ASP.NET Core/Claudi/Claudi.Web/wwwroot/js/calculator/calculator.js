@@ -288,29 +288,30 @@ function renderResult(info) {
         button.classList.toggle('btn-lg');
         button.classList.toggle('btn-success');
         button.textContent = 'Запази';
-        button.addEventListener('click', (e) => {
-            if (!isLoggedIn) {
-                e.preventDefault();
-                toastr.options = {
-                    "closeButton": true,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
+        button.addEventListener('click',
+            (e) => {
+                if (!isLoggedIn) {
+                    e.preventDefault();
+                    toastr.options = {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-full-width",
+                        "preventDuplicates": true,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+                    toastr.error('Запазването на продукти е само за регистрирани потрбители');
                 }
-                toastr.error( 'Запазването на продукти е само за регистрирани потрбители');
-            }
-        })
+            });
 
         divButton.appendChild(button);
         container.appendChild(divButton);
@@ -524,7 +525,7 @@ function calculateHorizontalBlinds() {
 
 function calculateVerticalBlinds() {
 
-    price = verticalCalculator.calculate(productModel, productColorGroup, productWidth, productHeight,)
+    price = verticalCalculator.calculate(productModel, productColorGroup, productWidth, productHeight,);
     if (isNaN(price)) {
         var span = document.getElementById('quantityError');
         span.classList.toggle('col-md-12');
@@ -534,7 +535,7 @@ function calculateVerticalBlinds() {
     price = productQuantity * price;
     price = price.toFixed(2) + " лв.";
 
-    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
+    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2);
 
     renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
         [], price]);
@@ -544,7 +545,7 @@ function calculateWoodenBlinds() {
     let driving = document.getElementById('1');
     let drivingIsChecked = driving.checked;
 
-    price = woodenCalculator.calculate(productModel, productColor, productWidth, productHeight, drivingIsChecked)
+    price = woodenCalculator.calculate(productModel, productColor, productWidth, productHeight, drivingIsChecked);
     if (isNaN(price)) {
         var span = document.getElementById('quantityError');
         span.classList.toggle('col-md-12');
@@ -554,7 +555,7 @@ function calculateWoodenBlinds() {
     price = productQuantity * price;
     price = price.toFixed(2) + " лв.";
 
-    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
+    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2);
 
     renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
         [{ name: driving.name, isChecked: drivingIsChecked }], price]);
@@ -571,7 +572,7 @@ function calculateRollerBlinds() {
         extras = [{ name: driving.name, isChecked: drivingIsChecked }];
     }
 
-    price = rollerCalculator.calculate(productModel, productColorGroup, productWidth, productHeight, drivingIsChecked)
+    price = rollerCalculator.calculate(productModel, productColorGroup, productWidth, productHeight, drivingIsChecked);
     if (isNaN(price)) {
         var span = document.getElementById('quantityError');
         span.classList.toggle('col-md-12');
@@ -581,7 +582,7 @@ function calculateRollerBlinds() {
     price = productQuantity * price;
     price = price.toFixed(2) + " лв.";
 
-    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
+    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2);
 
     renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
         extras, price]);
@@ -591,7 +592,7 @@ function calculateRomanBlinds() {
     let driving = document.getElementById('1');
     let drivingIsChecked = driving.checked;
 
-    price = romanCalculator.calculate(productModel, productColorGroup, productWidth, productHeight, drivingIsChecked)
+    price = romanCalculator.calculate(productModel, productColorGroup, productWidth, productHeight, drivingIsChecked);
     if (isNaN(price)) {
         var span = document.getElementById('quantityError');
         span.classList.toggle('col-md-12');
@@ -601,7 +602,7 @@ function calculateRomanBlinds() {
     price = productQuantity * price;
     price = price.toFixed(2) + " лв.";
 
-    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
+    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2);
 
     renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
         [{ name: driving.name, isChecked: drivingIsChecked }], price]);
@@ -609,7 +610,7 @@ function calculateRomanBlinds() {
 
 function calculateBambooBlinds() {
 
-    price = bambooCalculator.calculate(productModel, productColor, productWidth, productHeight)
+    price = bambooCalculator.calculate(productModel, productColor, productWidth, productHeight);
     if (isNaN(price)) {
         var span = document.getElementById('quantityError');
         span.classList.toggle('col-md-12');
@@ -619,7 +620,7 @@ function calculateBambooBlinds() {
     price = productQuantity * price;
     price = price.toFixed(2) + " лв.";
 
-    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
+    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2);
 
     renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
         [], price]);
@@ -627,7 +628,7 @@ function calculateBambooBlinds() {
 
 function calculatePleatsBlinds() {
 
-    price = pleatsCalculator.calculate(productModel, productColorGroup, productWidth, productHeight)
+    price = pleatsCalculator.calculate(productModel, productColorGroup, productWidth, productHeight);
     if (isNaN(price)) {
         var span = document.getElementById('quantityError');
         span.classList.toggle('col-md-12');
@@ -637,7 +638,7 @@ function calculatePleatsBlinds() {
     price = productQuantity * price;
     price = price.toFixed(2) + " лв.";
 
-    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
+    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2);
 
     renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
         [], price]);
@@ -645,7 +646,7 @@ function calculatePleatsBlinds() {
 
 function calculateExternalRollerBlinds() {
 
-    price = externalRollerCalculator.calculate(productModel, productColor, productWidth, productHeight)
+    price = externalRollerCalculator.calculate(productModel, productColor, productWidth, productHeight);
     if (isNaN(price)) {
         var span = document.getElementById('quantityError');
         span.classList.toggle('col-md-12');
@@ -655,17 +656,22 @@ function calculateExternalRollerBlinds() {
     price = productQuantity * price;
     price = price.toFixed(2) + " лв.";
 
-    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
+    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2);
 
     renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
         [], price]);
 }
 
 function calculateExternalVenetianBlinds() {
-    let driving = document.getElementById('1');
+    let driving = document.getElementById('6');
     let drivingIsChecked = driving.checked;
 
-    price = externalVenetianCalculator.calculate(productModel, productColorGroup, productWidth, productHeight, drivingIsChecked)
+    price = externalVenetianCalculator.calculate(productModel,
+        productColorGroup,
+        productWidth,
+        productHeight,
+        drivingIsChecked);
+
     if (isNaN(price)) {
         var span = document.getElementById('quantityError');
         span.classList.toggle('col-md-12');
@@ -675,7 +681,7 @@ function calculateExternalVenetianBlinds() {
     price = productQuantity * price;
     price = price.toFixed(2) + " лв.";
 
-    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
+    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2);
 
     renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
         [{ name: driving.name, isChecked: drivingIsChecked }], price]);
@@ -683,7 +689,7 @@ function calculateExternalVenetianBlinds() {
 
 function calculateAwning() {
 
-    price = awningCalculator.calculate(productModel, productColorGroup, productWidth, productHeight,)
+    price = awningCalculator.calculate(productModel, productColorGroup, productWidth, productHeight,);
     if (isNaN(price)) {
         var span = document.getElementById('quantityError');
         span.classList.toggle('col-md-12');
@@ -693,7 +699,7 @@ function calculateAwning() {
     price = productQuantity * price;
     price = price.toFixed(2) + " лв.";
 
-    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
+    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2);
 
     renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
         [], price]);
@@ -701,7 +707,7 @@ function calculateAwning() {
 
 function calculateNets() {
 
-    price = netsCalculator.calculate(productModel, productColor, productWidth, productHeight,)
+    price = netsCalculator.calculate(productModel, productColor, productWidth, productHeight,);
     if (isNaN(price)) {
         var span = document.getElementById('quantityError');
         span.classList.toggle('col-md-12');
@@ -711,7 +717,7 @@ function calculateNets() {
     price = productQuantity * price;
     price = price.toFixed(2) + " лв.";
 
-    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2)
+    let squareMeters = (((productHeight * productWidth) / 10000) * productQuantity).toFixed(2);
 
     renderResult([productName, productModel, productColor, productWidth, productHeight, productQuantity, squareMeters,
         [], price]);
