@@ -111,9 +111,18 @@
                         <nav class="main-menu navbar-light">
                             <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
-                                    <li>
-                                        <a href="/Home/index">Начало</a>
-                                    </li>
+                                    @if (User.IsInRole("Administrator"))
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("Dashboard","Administration")">Администрация</a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <a href="/Home/index">Начало</a>
+                                        </li>
+                                    }
                                     <li class="dropdown">
                                         <a href="/Catalogues/Index">Цени</a>
                                         <ul>
@@ -183,7 +192,7 @@
                                     <li>
                                         <a href="/Home/Contact">Контакти</a>
                                     </li>
-                                    <partial name="_LoginPartial" />
+                                    <partial name="_LoginPartial"/>
                                 </ul>
                             </div>
                         </nav>
@@ -325,7 +334,7 @@
             <div class="footer-bottom">
                 <div class="auto-container">
                     <div class="copyright centred">
-                        <p>(&copy;) 2022. Всички права запазени. <a href="index.html">Terms & Conditions</a>
+                        <p>(&copy;) 2022. Всички права запазени. <a href="/Home/Privacy">Поверителност</a> <a href="/Home/Cookies">Бисквитки</a></p>
                     </div>
                 </div>
             </div>

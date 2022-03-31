@@ -8,7 +8,7 @@
 
 
     //Horizontals MODELS ---------------------------
-    let horizontalModels = ["пред стъкло", "пред стъкло bo", "между стъкло", "макси стандарт", "макси bo", "макси лукс", "ultimate", "megaview", "varioflex"];
+    let horizontalModels = ["Пред Стъкло", "Пред Стъкло BlackOut", "Между Стъкло", "Макси Стандарт", "Макси Стандарт BlackOut", "Макси Лукс", "Ultimate", "Megaview", "Varioflex"];
 
     //Horizontal COLORS
     let horizontalColors = [
@@ -142,7 +142,7 @@
     }
 
     function getModel(model) {
-        modelCode = horizontalModels.indexOf(model.toLowerCase());	//models are the rows in  horizontalTable
+        modelCode = horizontalModels.indexOf(model);	//models are the rows in  horizontalTable
 
         //if (modelCode > 1) {
         //    plankiCheck = document.getElementById("luxPlankiTd");
@@ -225,7 +225,7 @@
 
     function printFinalPrice(error) {
         if (error !== undefined) {
-            return error
+            return error;
         }
 
         let sizeWidthRaw = width;
@@ -237,11 +237,11 @@
         sizeHeight -= 2;
 
         if (sizeWidth < 0) {
-            sizeWidth = 0
+            sizeWidth = 0;
         }
 
         if (sizeHeight < 0) {
-            sizeHeight = 0
+            sizeHeight = 0;
         }
 
         let squareMeters;
@@ -365,7 +365,7 @@
         }
         else {
 
-            return totalPrice
+            return totalPrice;
         }
     }
 }

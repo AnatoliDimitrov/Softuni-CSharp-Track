@@ -6,7 +6,6 @@ namespace Claudi.Web.Controllers
     using Core.ViewModels.CalculatorViewModels;
 
     using Infrastructure.Common;
-    using Infrastructure.Data;
 
     using Microsoft.AspNetCore.Mvc;
     using System.Security.Claims;

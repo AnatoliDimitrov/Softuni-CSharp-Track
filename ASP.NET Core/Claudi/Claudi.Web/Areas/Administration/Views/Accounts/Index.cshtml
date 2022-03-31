@@ -1,0 +1,57 @@
+﻿@using Claudi.Core.ViewModels.AdministrationViewModels.AccountsViewModels
+@model IndexUsersViewModel
+
+@{
+    ViewData["Title"] = "Акаунти";
+}
+
+@section Head{
+}
+
+<div class="container">
+    @foreach (var user in Model.Users)
+    {
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@user.Email</h5>
+                    @if (user.IsAdmin)
+                    {
+                        <p class="card-text">Administrator</p>
+                        <a href="/Administration/Accounts/DeleteAccount/@user.Id" class="btn btn-danger">Изтрий</a>
+                    }
+                    else
+                    {
+                        <p class="card-text">User</p>
+                        @if (!user.IsEmailConfirmed)
+                        {
+                            <a href="/Administration/Accounts/ConfirmEmail/@user.Id" class="btn btn-success" onclick="return confirm('Are you sure?')">Потвърди Имейл</a>
+                        }
+                        <a href="/Administration/Accounts/MakeAccountAdmin/@user.Id" class="btn btn-danger" onclick="return confirm('Are you sure?')">Направи администратор</a>
+                        <a href="/Administration/Accounts/DeleteAccount/@user.Id" class="btn btn-danger" onclick="return confirm('Are you sure?')">Изтрий</a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

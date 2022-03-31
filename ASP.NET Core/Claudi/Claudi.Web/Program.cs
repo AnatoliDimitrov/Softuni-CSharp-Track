@@ -1,18 +1,22 @@
-using Claudi.Core.CataloguesServices;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 using Claudi.Web.Services;
-using Claudi.Infrastructure.Repositories;
 using Claudi.Web.Data.Seeding;
+
 using Claudi.Infrastructure.Data;
+using Claudi.Infrastructure.Repositories;
+
 using Claudi.Core.ClaculatorsServices;
 using Claudi.Core.HomeServices;
 using Claudi.Core.ColorsServices;
 using Claudi.Core.GalleriesServices;
 using Claudi.Core.ProductsServices;
 using Claudi.Core.MyProductsServices;
+using Claudi.Core.Administration.DashboardServices;
+using Claudi.Core.Administration.AccountsServices;
+using Claudi.Core.CataloguesServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,9 +33,16 @@ builder.Services.AddDefaultIdentity<IdentityUser>(config =>
         new TokenProviderDescriptor(
             typeof(CustomEmailConfirmationTokenProvider<IdentityUser>)));
     config.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
-}).AddEntityFrameworkStores<ApplicationDbContext>();
+})
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddRazorPages();
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireManagerOnly", policy => policy.RequireRole("Administrator"));
+});
 
 builder.Services.AddTransient<CustomEmailConfirmationTokenProvider<IdentityUser>>();
 builder.Services.AddControllersWithViews();
@@ -44,13 +55,16 @@ builder.Services.AddTransient<ICataloguesService, CataloguesService>();
 builder.Services.AddTransient<IProductsService, ProductsService>();
 builder.Services.AddTransient<IGalleriesService, GalleriesService>();
 builder.Services.AddTransient<IMyProductsService, MyProductsService>();
+builder.Services.AddTransient<IDashboardService, DashboardService>();
+builder.Services.AddTransient<IAccountsService, AccountsService>();
 
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 
 builder.Services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
-builder.Services.ConfigureApplicationCookie(o => {
+builder.Services.ConfigureApplicationCookie(o =>
+{
     o.ExpireTimeSpan = TimeSpan.FromDays(30);
     o.SlidingExpiration = true;
 });
@@ -62,7 +76,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 {
     // Default Lockout settings.
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
-    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.MaxFailedAccessAttempts = 20;
     options.Lockout.AllowedForNewUsers = true;
 });
 
@@ -99,9 +113,26 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllerRoute(
+//        name: "areaRoute",
+//        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+//    );
+//    endpoints.MapControllerRoute(
+//        name: "default",
+//        pattern: "{controller=Home}/{action=Index}/{id?}"
+//    );
+//});
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
 app.MapRazorPages();
 
 await Seeder.Seed(app);

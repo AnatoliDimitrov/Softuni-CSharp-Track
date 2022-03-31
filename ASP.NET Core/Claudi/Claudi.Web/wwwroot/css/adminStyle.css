@@ -1,0 +1,19 @@
+﻿.outer-box {
+    background-color: black;
+}
+
+.row {
+    margin: 10px;
+}
+
+.card {
+    padding: 0;
+}
+
+.bg-info {
+    background-color: #0dcaf0 !important;
+}
+
+body {
+    background-color: lightgray !important;
+}

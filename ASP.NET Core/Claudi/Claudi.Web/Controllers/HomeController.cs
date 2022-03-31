@@ -1,27 +1,28 @@
 ﻿namespace Claudi.Web.Controllers
 {
-    using System.Diagnostics;
-    using Claudi.Core.HomeServices;
-    using Claudi.Core.ViewModels;
-    using Claudi.Core.ViewModels.ContactsViewModel;
-    using Claudi.Infrastructure.Common;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
 
+    using System.Diagnostics;
+
+    using Core.HomeServices;
+    using Core.ViewModels;
+    using Core.ViewModels.ContactsViewModel;
+
+    using Infrastructure.Common;
+
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly ISHEmailSender _sender;
         private readonly IConfiguration _configoration;
 
-        public HomeController(ILogger<HomeController> logger, ISHEmailSender _emailSender, IConfiguration configoration)
+        public HomeController(ISHEmailSender _emailSender, IConfiguration configoration)
         {
-            this._logger = logger;
             this._sender = _emailSender;
             this._configoration = configoration;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return this.View();
         }
@@ -55,6 +56,11 @@
         }
 
         public IActionResult Privacy()
+        {
+            return this.View();
+        }
+
+        public IActionResult Cookies()
         {
             return this.View();
         }
