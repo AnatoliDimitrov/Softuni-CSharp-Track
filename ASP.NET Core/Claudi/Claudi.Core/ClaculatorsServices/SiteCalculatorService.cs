@@ -2,9 +2,9 @@
 {
     using Microsoft.EntityFrameworkCore;
 
-    using Claudi.Core.ViewModels.CalculatorViewModels;
-    using Claudi.Infrastructure.Data.Models.DataBaseModels;
-    using Claudi.Infrastructure.Repositories;
+    using ViewModels.CalculatorViewModels;
+    using Infrastructure.Data.Models.DataBaseModels;
+    using Infrastructure.Repositories;
 
     public class SiteCalculatorService : ISiteCalculatorService
     {
@@ -43,7 +43,7 @@
 
         public async Task<List<ModelViewModel>> GetProductModelsAsync(int id)
         {
-            var productModels = await models.AllAsNoTracking()
+            var productModels = await models.All()
                 .Where(p => p.OnCalculator == true && p.ProductTypeId == id)
                 .Select(p => new ModelViewModel()
                 {
@@ -98,7 +98,6 @@
                     Group = p.Group,
                     Url = p.ImageUrl,
                 })
-                //.OrderBy(c => c.Group)
                 .OrderBy(c => c.Number.Length)
                 .ToListAsync();
 
@@ -142,6 +141,7 @@
             if (externalRollers.Contains(id))
             {
                 colors = colors
+                    .OrderBy(c => c.Number)
                     .Take(2)
                     .ToList();
             }

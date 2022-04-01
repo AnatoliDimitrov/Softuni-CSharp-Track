@@ -37,6 +37,13 @@ namespace Claudi.Web.Areas.Administration.Controllers
             return this.RedirectToAction("Accounts", "Administration");
         }
 
+        public async Task<IActionResult> RemoveAccountAdmin(string id)
+        {
+            var result = await _service.RemoveUserAdministratorRoleAsync(id);
+
+            return this.RedirectToAction("Accounts", "Administration");
+        }
+
         public async Task<IActionResult> DeleteAccount(string id)
         {
             await _service.DeleteUserAsync(id);

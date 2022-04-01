@@ -18,7 +18,8 @@
                     @if (user.IsAdmin)
                     {
                         <p class="card-text">Administrator</p>
-                        <a href="/Administration/Accounts/DeleteAccount/@user.Id" class="btn btn-danger">Изтрий</a>
+                        <a href="/Administration/Accounts/DeleteAccount/@user.Id" class="btn btn-danger" onclick="return confirm('Are you sure?')">Изтрий</a>
+                        <a href="/Administration/Accounts/RemoveAccountAdmin/@user.Id" class="btn btn-warning" onclick="return confirm('Are you sure?')">Премахни администратор</a>
                     }
                     else
                     {

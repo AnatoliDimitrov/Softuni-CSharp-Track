@@ -78,8 +78,8 @@ namespace Claudi.Web.Areas.Identity.Pages.Account
                 protocol: Request.Scheme);
             await _emailSender.SendEmailAsync(
                 Input.Email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                "Потвърждение на акаунт",
+                $"Моля потвърдете акаунта си чрез този <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>линк</a>.");
 
             ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
             return Page();

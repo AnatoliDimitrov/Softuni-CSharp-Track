@@ -419,6 +419,11 @@ function showContent(id) {
 
 async function calculate(e) {
     e.preventDefault();
+
+    let elem = document.getElementById('result');
+
+    elem.innerHTML = '';
+
     let form = e.currentTarget;
     let formData = new FormData(form);
     productWidth = formData.get('width');
@@ -439,8 +444,8 @@ async function calculate(e) {
         document.getElementById('heightError').textContent = 'Въведете валидно число';
         isValidInput = false;
     }
-    if (isNaN(productQuantity) || productQuantity == null || productQuantity == '' || productQuantity <= 0) {
-        document.getElementById('quantityError').textContent = 'Въведете валидно число';
+    if (isNaN(productQuantity) || productQuantity == null || productQuantity == '' || Number(productQuantity) <= 0 || Number(productQuantity) > 100) {
+        document.getElementById('quantityError').textContent = 'Въведете валидно число между 1 и 100';
         isValidInput = false;
     }
 
@@ -485,8 +490,6 @@ async function calculate(e) {
     else if (productType == 11) {
         calculateNets();
     }
-
-    let elem = document.getElementById('result');
     elem.scrollIntoView({
         behavior: 'smooth', // Defines the transition animation. default: auto
         block: 'nearest', // Defines vertical alignment. default: start

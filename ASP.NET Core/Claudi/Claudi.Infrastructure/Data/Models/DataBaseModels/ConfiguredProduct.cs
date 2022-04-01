@@ -11,10 +11,12 @@
         }
 
         [Required]
+        [Range(1, 11)]
         public int TypeId { get; set; }
         public virtual ProductType Type { get; set; }
 
         [Required]
+        [Range(1, 69)]
         public int ModelId { get; set; }
         public virtual ProductModel Model { get; set; }
 
@@ -23,12 +25,15 @@
         public virtual ProductColor Color { get; set; }
 
         [Required]
+        [Range(1, 7000)]
         public decimal Width { get; set; }
 
         [Required]
+        [Range(1, 4000)]
         public decimal Height { get; set; }
 
         [Required]
+        [Range(1, 100)]
         public int Quantity { get; set; }
 
         [Required]

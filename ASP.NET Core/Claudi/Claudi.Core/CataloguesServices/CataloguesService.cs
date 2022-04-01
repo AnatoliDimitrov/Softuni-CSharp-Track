@@ -1,13 +1,11 @@
-﻿using Claudi.Core.ViewModels.CataloguesViewModels;
-
-namespace Claudi.Core.CataloguesServices
+﻿namespace Claudi.Core.CataloguesServices
 {
-
     using Microsoft.EntityFrameworkCore;
 
     using Infrastructure.Data.Models.DataBaseModels;
     using Infrastructure.Repositories;
 
+    using ViewModels.CataloguesViewModels;
     using ViewModels.CommonViewModels;
 
     public class CataloguesService : ICataloguesService

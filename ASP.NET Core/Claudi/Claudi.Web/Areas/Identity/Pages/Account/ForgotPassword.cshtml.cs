@@ -72,8 +72,8 @@ namespace Claudi.Web.Areas.Identity.Pages.Account
 
                 await _emailSender.SendEmailAsync(
                     Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    "Промяна на парола",
+                    $"Моля потвърдете акаунта си чрез този <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>линк</a>.");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }
