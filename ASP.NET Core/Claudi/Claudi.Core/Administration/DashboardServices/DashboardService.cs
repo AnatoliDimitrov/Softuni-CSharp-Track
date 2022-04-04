@@ -28,7 +28,7 @@
 
         public async Task<DashboardVeiwModel> GetDashboardInfo()
         {
-            var accounts = await _userManager.Users.CountAsync();
+            var accounts = _userManager.Users.Count();
             var admins = await _userManager.GetUsersInRoleAsync("Administrator");
             var samples = await _colors.AllAsNoTracking().CountAsync();
             var catalogues = await _catalogues.AllAsNoTracking().CountAsync();

@@ -38,4 +38,8 @@
     <Folder Include="wwwroot\js\plugins\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="Claudi.Tests" />
+  </ItemGroup>
+
 </Project>

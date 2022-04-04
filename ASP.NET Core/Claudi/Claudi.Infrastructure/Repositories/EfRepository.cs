@@ -1,6 +1,6 @@
 ﻿namespace Claudi.Infrastructure.Repositories
 {
-    using Claudi.Infrastructure.Data;
+    using Data;
 
     using Microsoft.EntityFrameworkCore;
 

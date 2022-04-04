@@ -138,3 +138,5 @@ app.MapRazorPages();
 await Seeder.Seed(app);
 
 app.Run();
+
+public partial class Program { }

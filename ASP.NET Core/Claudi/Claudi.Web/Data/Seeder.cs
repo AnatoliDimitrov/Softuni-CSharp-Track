@@ -1,14 +1,9 @@
-﻿using Claudi.Web.Controllers;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.VisualStudio.Web.CodeGeneration;
-
-namespace Claudi.Web.Data.Seeding
+﻿namespace Claudi.Web.Data.Seeding
 {
     using Claudi.Infrastructure.Data;
     using Claudi.Infrastructure.Data.Models.DataBaseModels;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
-    using System.Web.Mvc;
 
     public class Seeder
     {

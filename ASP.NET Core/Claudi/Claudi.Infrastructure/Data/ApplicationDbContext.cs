@@ -36,6 +36,7 @@
                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<IdentityRole>().HasData(new IdentityRole { Id = "0e8e18fb-65b5-4bf9-9926-628afdb1c465", Name = "Administrator", NormalizedName = "ADMINISTRATOR".ToUpper() });
+            builder.Entity<IdentityRole>().HasData(new IdentityRole { Id = "8695a758-35e0-44fa-99d7-909a344009e2", Name = "User", NormalizedName = "USER".ToUpper() });
 
             builder.Entity<IdentityUser>().HasData(
                 new IdentityUser

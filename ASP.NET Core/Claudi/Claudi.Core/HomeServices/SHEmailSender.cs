@@ -5,7 +5,7 @@
 
     using Microsoft.Extensions.Configuration;
 
-    using Claudi.Core.ViewModels.ContactsViewModel;
+    using ViewModels.ContactsViewModel;
 
     public class SHEmailSender : ISHEmailSender
     {
