@@ -59,6 +59,14 @@
                 }
             );
 
+            builder.Entity<IdentityUserRole<string>>().HasData(
+                new IdentityUserRole<string>
+                {
+                    RoleId = "8695a758-35e0-44fa-99d7-909a344009e2",
+                    UserId = "90b21bc9-9062-4142-b3f9-774e6797e080"
+                }
+            );
+
             builder.Entity<ConfiguredProduct>()
                 .HasOne(e => e.Type)
                 .WithMany(e => e.ConfiguredProducts)

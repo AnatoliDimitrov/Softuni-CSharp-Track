@@ -1,9 +1,10 @@
 ﻿namespace Claudi.Web.Data.Seeding
 {
-    using Claudi.Infrastructure.Data;
-    using Claudi.Infrastructure.Data.Models.DataBaseModels;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
+
+    using Claudi.Infrastructure.Data;
+    using Claudi.Infrastructure.Data.Models.DataBaseModels;
 
     public class Seeder
     {

@@ -1,11 +1,10 @@
-﻿using Claudi.Core.ViewModels.AdministrationViewModels.AccountsViewModels;
-
-namespace Claudi.Web.Areas.Administration.Controllers
+﻿namespace Claudi.Web.Areas.Administration.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    using Claudi.Core.Administration.AccountsServices;
+    using Core.Administration.AccountsServices;
+    using Core.ViewModels.AdministrationViewModels.AccountsViewModels;
 
     [Area("Administration")]
     [Authorize(Roles = "Administrator")]

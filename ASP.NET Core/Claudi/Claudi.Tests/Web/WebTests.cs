@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿namespace Claudi.Tests.Web;
+
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
-
-namespace Claudi.Tests.Web;
 
 public class WebTests : WebApplicationFactory<Program>
 {

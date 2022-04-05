@@ -1,11 +1,12 @@
-﻿using Claudi.Core.MyProductsServices;
-using Claudi.Core.ViewModels.MyProductsViewModels;
-using Microsoft.AspNetCore.Authorization;
-
-namespace Claudi.Web.Controllers
+﻿namespace Claudi.Web.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
     using System.Security.Claims;
+
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
+
+    using Core.MyProductsServices;
+    using Core.ViewModels.MyProductsViewModels;
 
     public class MyProductsController : Controller
     {

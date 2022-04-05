@@ -191,6 +191,7 @@
                     product.Extras.Add(extra);
                 }
 
+                //throw new ArgumentException();
 
                 await products.AddAsync(product);
 

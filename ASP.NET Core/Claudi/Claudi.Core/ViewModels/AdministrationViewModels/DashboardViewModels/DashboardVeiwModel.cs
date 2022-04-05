@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-namespace Claudi.Core.ViewModels.AdministrationViewModels.DashboardViewModels
+﻿namespace Claudi.Core.ViewModels.AdministrationViewModels.DashboardViewModels
 {
     public class DashboardVeiwModel
     {

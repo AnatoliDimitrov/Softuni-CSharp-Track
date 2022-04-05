@@ -1,5 +1,8 @@
-﻿using Claudi.Web.Controllers;
-using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
+using Microsoft.Extensions.Options;
 
 namespace Claudi.Tests.Calculators
 {
@@ -16,9 +19,12 @@ namespace Claudi.Tests.Calculators
 
 
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Mvc;
 
     using Core.ClaculatorsServices;
     using Core.ViewModels.CalculatorViewModels;
+    
+    using Claudi.Web.Controllers;
 
     using Infrastructure.Data;
     using Infrastructure.Data.Models.DataBaseModels;
@@ -71,12 +77,15 @@ namespace Claudi.Tests.Calculators
                 .Setup(x => x.All())
                 .Returns(listColors.AsQueryable());
 
+            var options = Options.Create<MemoryDistributedCacheOptions>(new MemoryDistributedCacheOptions());
+            IDistributedCache cache = new MemoryDistributedCache(options);
+
             var expected = new List<TypeViewModel>();
             expected.Add(new TypeViewModel { Id = 1, Name = "test", ShortName = "test" });
 
             var service = new SiteCalculatorService(repo, modelsRepoMock.Object, extrasRepoMock.Object, colorsRepoMock.Object, configuredProductsRepoMock.Object);
 
-            var controller = new CalculatorsController(service);
+            var controller = new CalculatorsController(service, cache);
 
             var result = await controller.Index("test");
 
@@ -88,11 +97,6 @@ namespace Claudi.Tests.Calculators
         [Fact]
         public async Task GetProductModelsAsyncWorks()
         {
-            var listModels = new List<ProductModel>();
-            var listExtras = new List<ProductExtra>();
-            var listColors = new List<ProductColor>();
-            var listConfiguredProducts = new List<ConfiguredProduct>();
-
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString());
 
@@ -136,9 +140,14 @@ namespace Claudi.Tests.Calculators
             using var configuredRepo = new EfDeletableEntityRepository<ConfiguredProduct>(dbContext);
             using var extrasRepo = new EfDeletableEntityRepository<ProductExtra>(dbContext);
 
-            var service = new SiteCalculatorService(productsRepo, modelsRepo, extrasRepo, colorsRepo, configuredRepo);
+            
 
-            var controller = new CalculatorsController(service);
+            var service = new SiteCalculatorService(productsRepo, modelsRepo, extrasRepo, colorsRepo, configuredRepo);
+            
+            var options = Options.Create<MemoryDistributedCacheOptions>(new MemoryDistributedCacheOptions());
+            IDistributedCache cache = new MemoryDistributedCache(options);
+
+            var controller = new CalculatorsController(service, cache);
 
             var expected = new List<ModelViewModel>();
             expected.Add(new ModelViewModel() { Name = "test", Id = 1 });
@@ -205,7 +214,10 @@ namespace Claudi.Tests.Calculators
 
             var service = new SiteCalculatorService(productsRepo, modelsRepo, extrasRepo, colorsRepo, configuredRepo);
 
-            var controller = new CalculatorsController(service);
+            var options = Options.Create<MemoryDistributedCacheOptions>(new MemoryDistributedCacheOptions());
+            IDistributedCache cache = new MemoryDistributedCache(options);
+
+            var controller = new CalculatorsController(service, cache);
 
             var expected = new List<ColorViewModel>();
             expected.Add(new ColorViewModel() {

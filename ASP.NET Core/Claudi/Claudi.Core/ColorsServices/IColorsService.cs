@@ -1,7 +1,7 @@
 ﻿namespace Claudi.Core.ColorsServices
 {
-    using Claudi.Core.ViewModels.ColorsViewModels;
-    using Claudi.Core.ViewModels.CommonViewModels;
+    using ViewModels.ColorsViewModels;
+    using ViewModels.CommonViewModels;
 
     public interface IColorsService
     {

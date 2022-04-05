@@ -1,19 +1,19 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity;
-using Moq;
-using System.Threading.Tasks;
-using Claudi.Core.Administration.DashboardServices;
-using Xunit;
-using Claudi.Infrastructure.Data.Models.DataBaseModels;
-using Claudi.Infrastructure.Repositories;
-using System.Linq;
-using Claudi.Core.ViewModels.AdministrationViewModels.DashboardViewModels;
-using Claudi.Infrastructure.Data;
-using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
-
-namespace Claudi.Tests.Administration.Dashboard
+﻿namespace Claudi.Tests.Administration.Dashboard
 {
+    using System;
+    using Microsoft.AspNetCore.Identity;
+    using Moq;
+    using System.Threading.Tasks;
+    using Claudi.Core.Administration.DashboardServices;
+    using Xunit;
+    using Claudi.Infrastructure.Data.Models.DataBaseModels;
+    using Claudi.Infrastructure.Repositories;
+    using System.Linq;
+    using Claudi.Core.ViewModels.AdministrationViewModels.DashboardViewModels;
+    using Claudi.Infrastructure.Data;
+    using FluentAssertions;
+    using Microsoft.EntityFrameworkCore;
+
     public class DashboardServiceTests
     {
 

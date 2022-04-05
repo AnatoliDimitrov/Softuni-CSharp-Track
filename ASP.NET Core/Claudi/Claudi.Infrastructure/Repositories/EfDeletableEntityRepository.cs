@@ -1,9 +1,9 @@
 ﻿namespace Claudi.Infrastructure.Repositories
 {
-    using Claudi.Infrastructure.Data;
-    using Claudi.Infrastructure.Data.Models;
-
     using Microsoft.EntityFrameworkCore;
+
+    using Data;
+    using Data.Models;
 
     public class EfDeletableEntityRepository<TEntity> : EfRepository<TEntity>, IDeletableEntityRepository<TEntity>
         where TEntity : class, IDeletableEntity

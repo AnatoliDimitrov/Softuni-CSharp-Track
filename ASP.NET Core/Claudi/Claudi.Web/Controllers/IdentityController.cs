@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Claudi.Web.Controllers
+﻿namespace Claudi.Web.Controllers
 {
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+
     public class IdentityController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;

@@ -1,6 +1,6 @@
 ﻿namespace Claudi.Core.MyProductsServices
 {
-    using Claudi.Core.ViewModels.MyProductsViewModels;
+    using ViewModels.MyProductsViewModels;
 
     public interface IMyProductsService
     {

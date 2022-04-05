@@ -1,9 +1,9 @@
-﻿using Claudi.Core.GalleriesServices;
-using Claudi.Core.ViewModels.GalleriesViewModels;
-
-namespace Claudi.Web.Controllers
+﻿namespace Claudi.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+
+    using Core.GalleriesServices;
+    using Core.ViewModels.GalleriesViewModels;
 
     public class GalleriesController : Controller
     {

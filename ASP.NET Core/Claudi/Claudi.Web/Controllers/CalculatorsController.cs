@@ -1,27 +1,52 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.Extensions.Caching.Distributed;
 
 namespace Claudi.Web.Controllers
 {
+    using System.Security.Claims;
+    using System.Text.Json;
+
+    using Microsoft.AspNetCore.Mvc;
+
+    using Microsoft.AspNetCore.Authorization;
+
     using Core.ClaculatorsServices;
     using Core.ViewModels.CalculatorViewModels;
 
     using Infrastructure.Common;
 
-    using Microsoft.AspNetCore.Mvc;
-    using System.Security.Claims;
-
     public class CalculatorsController : Controller
     {
-        private readonly ISiteCalculatorService service;
+        private readonly ISiteCalculatorService _service;
+        private readonly IDistributedCache _cache;
 
-        public CalculatorsController(ISiteCalculatorService _service)
+        public CalculatorsController(ISiteCalculatorService service,
+            IDistributedCache cache)
         {
-            service = _service;
+            this._service = service;
+            this._cache = cache;
         }
 
         public async Task<IActionResult> Index(string saved)
         {
-            var types = await service.GetProductTypesAsync();
+            var cachedTypes = await _cache.GetStringAsync("productTypes");
+
+            if (cachedTypes == null)
+            {
+                var result = await _service.GetProductTypesAsync();
+
+                cachedTypes = JsonSerializer.Serialize(result);
+
+                DistributedCacheEntryOptions cacheOptions = new DistributedCacheEntryOptions()
+                {
+                    SlidingExpiration = TimeSpan.FromHours(1),
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(1),
+                };
+
+                await _cache.SetStringAsync("productTypes", cachedTypes);
+            }
+
+            //var types = await _service.GetProductTypesAsync();
+            var types = JsonSerializer.Deserialize<List<TypeViewModel>>(cachedTypes);
 
             var model = new IndexViewModel()
             {
@@ -34,7 +59,14 @@ namespace Claudi.Web.Controllers
 
         public async Task<List<ModelViewModel>> ProductModels(int id)
         {
-            return await service.GetProductModelsAsync(id);
+            var cachedData = await _cache.GetStringAsync("productModels");
+
+            if (cachedData == null)
+            {
+                
+            }
+
+            return await _service.GetProductModelsAsync(id);
         }
 
         public bool IsLoggedIn()
@@ -44,12 +76,12 @@ namespace Claudi.Web.Controllers
 
         public async Task<List<ColorViewModel>> ProductColors(int id)
         {
-            return await service.GetProductColors(id);
+            return await _service.GetProductColors(id);
         }
 
         public async Task<List<ExtraViewModel>> ProductExtras(int id)
         {
-            return await service.GetProductExtras(id);
+            return await _service.GetProductExtras(id);
         }
 
         [HttpPost]
@@ -63,11 +95,11 @@ namespace Claudi.Web.Controllers
                 return this.ValidationProblem(userId);
             }
 
-            var saved = await service.SaveProduct(model, userId);
+            var saved = await _service.SaveProduct(model, userId);
 
             if (!saved)
             {
-                return this.ValidationProblem(userId);
+                return await this.Index(Constants.FAILD);
             }
 
             return await this.Index(Constants.SUCCESS);

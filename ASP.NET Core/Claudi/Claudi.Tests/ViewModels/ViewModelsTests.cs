@@ -1,17 +1,19 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Claudi.Core.ViewModels.AdministrationViewModels.AccountsViewModels;
-using Claudi.Core.ViewModels.CalculatorViewModels;
-using Claudi.Core.ViewModels.CataloguesViewModels;
-using Claudi.Core.ViewModels.ColorsViewModels;
-using Claudi.Core.ViewModels.ContactsViewModel;
-using Claudi.Core.ViewModels.GalleriesViewModels;
-using Claudi.Core.ViewModels.MyProductsViewModels;
-using FluentAssertions;
-
-namespace Claudi.Tests.ViewModels
+﻿namespace Claudi.Tests.ViewModels
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using FluentAssertions;
+
     using Xunit;
+    
+    using Claudi.Core.ViewModels.AdministrationViewModels.AccountsViewModels;
+    using Claudi.Core.ViewModels.CalculatorViewModels;
+    using Claudi.Core.ViewModels.CataloguesViewModels;
+    using Claudi.Core.ViewModels.ColorsViewModels;
+    using Claudi.Core.ViewModels.ContactsViewModel;
+    using Claudi.Core.ViewModels.GalleriesViewModels;
+    using Claudi.Core.ViewModels.MyProductsViewModels;
 
     public class ViewModelsTests
     {

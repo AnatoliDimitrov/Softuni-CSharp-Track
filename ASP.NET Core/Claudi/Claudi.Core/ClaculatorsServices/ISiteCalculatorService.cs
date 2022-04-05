@@ -1,7 +1,7 @@
-﻿using Claudi.Core.ViewModels.CalculatorViewModels;
-
-namespace Claudi.Core.ClaculatorsServices
+﻿namespace Claudi.Core.ClaculatorsServices
 {
+    using ViewModels.CalculatorViewModels;
+
     public interface ISiteCalculatorService
     {
         Task<List<TypeViewModel>> GetProductTypesAsync();
