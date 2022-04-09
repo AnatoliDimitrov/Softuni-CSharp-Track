@@ -1,4 +1,6 @@
-﻿namespace Claudi.Web.Areas.Administration.Controllers
+﻿using Claudi.Infrastructure.Common;
+
+namespace Claudi.Web.Areas.Administration.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -17,14 +19,11 @@
             this._service = service;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string message)
         {
-            var users = await _service.GetDashboardInfoAsync();
+            var model = await _service.GetDashboardInfoAsync();
 
-            var model = new IndexUsersViewModel()
-            {
-                Users = users,
-            };
+            model.Message = message;
 
             return this.View(model);
         }
@@ -33,29 +32,37 @@
         {
             var result = await _service.MakeUserAdministratorAsync(id);
 
-            return this.RedirectToAction("Accounts", "Administration");
+            var message = result ? Constants.SUCCESS : Constants.FAILD;
+
+            return this.RedirectToAction("Accounts", "Administration", new { message = message });
         }
 
         public async Task<IActionResult> RemoveAccountAdmin(string id)
         {
             var result = await _service.RemoveUserAdministratorRoleAsync(id);
 
-            return this.RedirectToAction("Accounts", "Administration");
+            var message = result ? Constants.SUCCESS : Constants.FAILD;
+
+            return this.RedirectToAction("Accounts", "Administration", new { message = message });
         }
 
         public async Task<IActionResult> DeleteAccount(string id)
         {
-            await _service.DeleteUserAsync(id);
+            var result = await _service.DeleteUserAsync(id);
 
-            return this.RedirectToAction("Accounts", "Administration");
+            var message = result ? Constants.SUCCESS : Constants.FAILD;
+
+            return this.RedirectToAction("Accounts", "Administration", new { message = message });
         }
 
         public async Task<IActionResult> ConfirmEmail(string id)
         {
 
-            await _service.ConfirmUserEmailAsync(id);
+            var result = await _service.ConfirmUserEmailAsync(id);
 
-            return this.RedirectToAction("Accounts", "Administration");
+            var message = result ? Constants.SUCCESS : Constants.FAILD;
+
+            return this.RedirectToAction("Accounts", "Administration", new { message = message });
         }
     }
 }

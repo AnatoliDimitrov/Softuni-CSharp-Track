@@ -1,4 +1,6 @@
-﻿namespace Claudi.Web.Controllers
+﻿using Claudi.Infrastructure.Common;
+
+namespace Claudi.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
 
@@ -23,9 +25,24 @@
 
         private async Task<GalleriesViewModel> GetAllPicturesAsync(string name)
         {
-            var pictures = await _service.GetAllPicturesAsync();
+            IEnumerable<GalleryPictureViewModel> pictures = null;
+            IEnumerable<GalleresGroupsViewModel> groups = null;
+            try
+            {
+                //throw new ArgumentException();
+                pictures = await _service.GetAllPicturesAsync();
 
-            var groups = await _service.GetAllGroupsAsync();
+                groups = await _service.GetAllGroupsAsync();
+            }
+            catch (Exception)
+            {
+                return new GalleriesViewModel()
+                {
+                    Type = Constants.FAILD,
+                    Groups = groups,
+                    Pictures = pictures,
+                };
+            }
 
             return new GalleriesViewModel()
             {

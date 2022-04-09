@@ -2,10 +2,10 @@
 {
     public class ExtraViewModel
     {
-        public int Id { get; set; }
+        public int Id { get; init; }
 
-        public string Name { get; set; }
+        public string Name { get; init; }
 
-        public int Group { get; set; }
+        public int Group { get; init; }
     }
 }

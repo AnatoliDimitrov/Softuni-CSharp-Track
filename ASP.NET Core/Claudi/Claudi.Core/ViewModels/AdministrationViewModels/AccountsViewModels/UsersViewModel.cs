@@ -2,12 +2,12 @@
 {
     public class UsersViewModel
     {
-        public string Id { get; set; }
+        public string Id { get; init; }
 
-        public string Email { get; set; }
+        public string Email { get; init; }
 
-        public bool IsAdmin { get; set; }
+        public bool IsAdmin { get; init; }
 
-        public bool IsEmailConfirmed { get; set; }
+        public bool IsEmailConfirmed { get; init; }
     }
 }

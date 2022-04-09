@@ -10,28 +10,28 @@
         }
 
         [Required]
-        public string Type { get; set; }
+        public string Type { get; init; }
 
         [Required]
-        public string ModelId { get; set; }
+        public string ModelId { get; init; }
 
         [Required]
-        public string ColorId { get; set; }
+        public string ColorId { get; init; }
 
         [Required]
-        public string Width { get; set; }
+        public string Width { get; init; }
 
         [Required]
-        public string Height { get; set; }
+        public string Height { get; init; }
 
         [Required]
-        public string Quantity { get; set; }
+        public string Quantity { get; init; }
 
         [Required]
-        public string SquareMeters { get; set; }
+        public string SquareMeters { get; init; }
 
         public virtual ICollection<string> Extras { get; set; }
 
-        public string Price { get; set; }
+        public string Price { get; init; }
     }
 }

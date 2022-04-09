@@ -2,8 +2,10 @@
 {
     public class IndexUsersViewModel
     {
-        public string Message { get; set; }
+        public string? Message { get; set; }
 
-        public List<UsersViewModel> Users { get; set; }
+        public bool Created { get; set; } = true;
+
+        public List<UsersViewModel> Users { get; init; }
     }
 }

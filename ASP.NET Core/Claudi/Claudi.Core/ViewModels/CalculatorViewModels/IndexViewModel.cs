@@ -2,7 +2,7 @@
 {
     public class IndexViewModel
     {
-        public string Saved { get; init; }
+        public string Saved { get; set; }
 
         public List<TypeViewModel> Products { get; init; }
     }

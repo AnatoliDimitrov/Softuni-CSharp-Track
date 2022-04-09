@@ -22,14 +22,27 @@
 
         public async Task<IEnumerable<TypeViewModel>> GetAllTypesAsync()
         {
-            return await _types.All()
-                .OrderBy(t => t.Id)
-                .Select(t => new TypeViewModel
-                {
-                    Name = t.Name,
-                    EnglishNameShort = t.EnglishNameShort,
-                })
-                .ToListAsync();
+            var types = new List<TypeViewModel>();
+
+            try
+            {
+                //throw new ArgumentException();
+                types = await _types.All()
+                    .OrderBy(t => t.Id)
+                    .Select(t => new TypeViewModel
+                    {
+                        Name = t.Name,
+                        EnglishNameShort = t.EnglishNameShort,
+                    })
+                    .ToListAsync();
+
+            }
+            catch (Exception)
+            {
+                return new List<TypeViewModel>();
+            }
+
+            return types;
         }
 
         public async Task<IEnumerable<CatalogueViewModel>> GetAllCatalaguesAsync(int type)

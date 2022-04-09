@@ -16,25 +16,44 @@
             this._roleManager = roleManager;
         }
 
-        public async Task<List<UsersViewModel>> GetDashboardInfoAsync()
+        public async Task<IndexUsersViewModel> GetDashboardInfoAsync()
         {
-            var admins = await _userManager.GetUsersInRoleAsync("Administrator");
+            var users = new List<UsersViewModel>();
 
-            var users = await _userManager.Users
-                .Where(u => u.Email != "apdimitrov@yahoo.com")
-                .Select(u => new UsersViewModel
+            try
+            {
+                //throw new ArgumentException();
+                var admins = await _userManager.GetUsersInRoleAsync("Administrator");
+
+                users = await _userManager.Users
+                    .Where(u => u.Email != "apdimitrov@yahoo.com")
+                    .Select(u => new UsersViewModel
+                    {
+                        Id = u.Id,
+                        Email = u.Email,
+                        IsAdmin = admins.Contains(u),
+                        IsEmailConfirmed = u.EmailConfirmed,
+                    })
+                    .OrderBy(u => u.IsAdmin == false)
+                    .ThenBy(u => u.IsEmailConfirmed == false)
+                    .ThenBy(u => u.Email)
+                    .ToListAsync();
+            }
+            catch (Exception)
+            {
+                return new IndexUsersViewModel()
                 {
-                    Id = u.Id,
-                    Email = u.Email,
-                    IsAdmin = admins.Contains(u),
-                    IsEmailConfirmed = u.EmailConfirmed,
-                })
-                .OrderBy(u => u.IsAdmin == false)
-                .ThenBy(u => u.IsEmailConfirmed == false)
-                .ThenBy(u => u.Email)
-                .ToListAsync();
+                    Created = false,
+                    Users = new List<UsersViewModel>(),
+                };
+            }
 
-            return users;
+            return new IndexUsersViewModel()
+            {
+                Created = true,
+                Message = null,
+                Users = users,
+            };
         }
 
         public async Task<bool> MakeUserAdministratorAsync(string id)

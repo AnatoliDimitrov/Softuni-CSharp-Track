@@ -297,7 +297,7 @@ function renderResult(info) {
                         "debug": false,
                         "newestOnTop": false,
                         "progressBar": false,
-                        "positionClass": "toast-top-full-width",
+                        "positionClass": "toast-bottom-full-width",
                         "preventDuplicates": true,
                         "onclick": null,
                         "showDuration": "300",

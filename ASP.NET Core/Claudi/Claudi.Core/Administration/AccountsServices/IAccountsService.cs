@@ -4,7 +4,7 @@
 
     public interface IAccountsService
     {
-        Task<List<UsersViewModel>> GetDashboardInfoAsync();
+        Task<IndexUsersViewModel> GetDashboardInfoAsync();
 
         Task<bool> MakeUserAdministratorAsync(string id);
 

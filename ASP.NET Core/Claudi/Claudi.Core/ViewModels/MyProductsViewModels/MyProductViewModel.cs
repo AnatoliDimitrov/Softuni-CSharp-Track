@@ -2,26 +2,26 @@
 {
     public class MyProductViewModel
     {
-        public string Id { get; set; }
+        public string Id { get; init; }
 
-        public string Type { get; set; }
+        public string Type { get; init; }
         
-        public string Model { get; set; }
+        public string Model { get; init; }
         
-        public string Color { get; set; }
+        public string Color { get; init; }
 
-        public string ColorGroup { get; set; }
+        public string ColorGroup { get; init; }
 
-        public decimal Width { get; set; }
+        public decimal Width { get; init; }
 
-        public decimal Height { get; set; }
+        public decimal Height { get; init; }
         
-        public decimal SquareMeters { get; set; }
+        public decimal SquareMeters { get; init; }
 
-        public int Quantity { get; set; }
+        public int Quantity { get; init; }
 
         public virtual ICollection<string> Extras { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal Price { get; init; }
     }
 }

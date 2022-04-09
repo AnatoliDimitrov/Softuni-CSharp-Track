@@ -28,20 +28,32 @@
 
         public async Task<DashboardVeiwModel> GetDashboardInfo()
         {
-            var accounts = _userManager.Users.Count();
-            var admins = await _userManager.GetUsersInRoleAsync("Administrator");
-            var samples = await _colors.AllAsNoTracking().CountAsync();
-            var catalogues = await _catalogues.AllAsNoTracking().CountAsync();
-            var gallery = await _galleryPictures.AllAsNoTracking().CountAsync();
+            var dashboardInfo = new DashboardVeiwModel();
 
-            var dashboardInfo = new DashboardVeiwModel
+            try
             {
-                AccountsCount = accounts,
-                AdministratorsCount = admins.Count,
-                SamplesCount = samples,
-                CataloguesCount = catalogues,
-                GalleryCount = gallery
-            };
+                var accounts = _userManager.Users.Count();
+                var admins = await _userManager.GetUsersInRoleAsync("Administrator");
+                var samples = await _colors.AllAsNoTracking().CountAsync();
+                var catalogues = await _catalogues.AllAsNoTracking().CountAsync();
+                var gallery = await _galleryPictures.AllAsNoTracking().CountAsync();
+
+                dashboardInfo = new DashboardVeiwModel
+                {
+                    Created = true,
+                    AccountsCount = accounts,
+                    AdministratorsCount = admins.Count,
+                    SamplesCount = samples,
+                    CataloguesCount = catalogues,
+                    GalleryCount = gallery
+                };
+
+                //throw new ArgumentException();
+            }
+            catch (Exception)
+            {
+                dashboardInfo.Created = false;
+            }
 
             return dashboardInfo;
         }

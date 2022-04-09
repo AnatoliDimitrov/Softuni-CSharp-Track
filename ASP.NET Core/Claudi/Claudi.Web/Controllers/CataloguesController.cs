@@ -1,5 +1,7 @@
 ﻿namespace Claudi.Web.Controllers
 {
+    using System.Linq;
+
     using Microsoft.AspNetCore.Mvc;
 
     using Core.CataloguesServices;
@@ -16,6 +18,11 @@
         public async Task<IActionResult> Index()
         {
             var model = await _service.GetAllTypesAsync();
+            
+            if (model.Count() == 0)
+            {
+                return RedirectToAction("Error", "Home");
+            }
 
             return View(model.ToList());
         }
@@ -77,16 +84,30 @@
 
         private async Task<CataloguesViewModel> GetCataloguesAsync(int typeId, string name)
         {
-            var catalogues = await _service.GetAllCatalaguesAsync(typeId);
-
-            var groups = await _service.GetAllGroupsAsync(typeId);
-
-            return new CataloguesViewModel()
+            var model = new CataloguesViewModel();
+            IEnumerable<CatalogueViewModel> catalogues = null;
+            IEnumerable<CataloguesGroupsViewModel> groups = null;
+            try
             {
-                Type = name,
-                Groups = groups,
-                Catalogues = catalogues,
-            };
+                //throw new ArgumentException(); 
+                catalogues = await _service.GetAllCatalaguesAsync(typeId);
+
+                groups = await _service.GetAllGroupsAsync(typeId);
+
+                model = new CataloguesViewModel()
+                {
+                    Type = name,
+                    IsSuccessful = true,
+                    Groups = groups,
+                    Catalogues = catalogues,
+                };
+            }
+            catch (Exception)
+            {
+                model.IsSuccessful = false;
+            }
+
+            return model;
         }
     }
 }

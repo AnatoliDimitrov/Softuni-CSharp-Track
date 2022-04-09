@@ -4,6 +4,6 @@
     {
         public string Name { get; init; }
 
-        public string EnglishNameShort { get; set; }
+        public string EnglishNameShort { get; init; }
     }
 }

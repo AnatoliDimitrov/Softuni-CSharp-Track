@@ -2,14 +2,16 @@
 {
     public class DashboardVeiwModel
     {
-        public int AccountsCount { get; set; }
+        public bool Created { get; set; }
 
-        public int AdministratorsCount { get; set; }
+        public int AccountsCount { get; init; }
 
-        public int SamplesCount { get; set; }
+        public int AdministratorsCount { get; init; }
 
-        public int CataloguesCount { get; set; }
+        public int SamplesCount { get; init; }
 
-        public int GalleryCount { get; set; }
+        public int CataloguesCount { get; init; }
+
+        public int GalleryCount { get; init; }
     }
 }

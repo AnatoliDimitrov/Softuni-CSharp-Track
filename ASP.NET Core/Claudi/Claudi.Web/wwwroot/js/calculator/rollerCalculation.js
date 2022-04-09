@@ -12,7 +12,7 @@
 		"lima",
 		"lumina",
 		"classic color bo",
-		"melisa BlackOut",
+		"melisa bo",
 		"metalic",
 		"lino",
 		"tropic",

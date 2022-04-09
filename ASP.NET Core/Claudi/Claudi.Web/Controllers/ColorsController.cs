@@ -1,4 +1,7 @@
-﻿namespace Claudi.Web.Controllers
+﻿using Claudi.Core.ViewModels.CommonViewModels;
+using Claudi.Infrastructure.Common;
+
+namespace Claudi.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
 
@@ -15,8 +18,15 @@
 
         public async Task<IActionResult> Index()
         {
-            var model = await _service.GetAllTypesAsync();
-
+            IEnumerable<TypeViewModel> model;
+            try
+            {
+                model = await _service.GetAllTypesAsync();
+            }
+            catch (Exception )
+            {
+                return RedirectToAction("Error", "Home");
+            }
             return View(model.ToList());
         }
 
@@ -98,9 +108,24 @@
 
         private async Task<ColorsViewModel> GetColorsAsync(string type, string name)
         {
-            var colors = await _service.GetAllColorsAsync(type);
+            IEnumerable<ColorViewModel> colors = null;
+            IEnumerable<ColorsGroupsViewModel> groups = null;
+            try
+            {
+                //throw new ArgumentException();
+                colors = await _service.GetAllColorsAsync(type);
 
-            var groups = await _service.GetAllGroupsAsync(type);
+                groups = await _service.GetAllGroupsAsync(type);
+            }
+            catch (Exception)
+            {
+                return new ColorsViewModel()
+                {
+                    Type = Constants.FAILD,
+                    Groups = groups,
+                    Colors = colors,
+                };
+            }
 
             return new ColorsViewModel()
             {

@@ -6,11 +6,11 @@
     {
 
         [Required]
-        [EmailAddress(ErrorMessage ="Въведете валиден имейл адрес.")]
+        [EmailAddress(ErrorMessage = "Въведете валиден имейл адрес.")]
         public string From { get; set; }
- 
 
-         [Required]
+
+        [Required]
         [MaxLength(50, ErrorMessage = "Заглавието не трябва да е повече от 50 символа.")]
         [MinLength(3, ErrorMessage = "Заглавието не трябва да е по малко от 3 символа.")]
         public string Subject { get; set; }

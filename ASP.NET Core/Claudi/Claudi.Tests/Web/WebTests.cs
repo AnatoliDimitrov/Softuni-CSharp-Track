@@ -21,7 +21,7 @@ public class WebTests : WebApplicationFactory<Program>
     }
 
     [Fact]
-    public async Task CataloguesIndexPageContainsH1Prices()
+    public async Task CataloguesIndexPageContainsPrices()
     {
         var application = new WebApplicationFactory<Program>();
 
@@ -30,7 +30,7 @@ public class WebTests : WebApplicationFactory<Program>
 
         var html = await response.Content.ReadAsStringAsync();
 
-        Assert.Contains("<h1>Цени</h1>", html);
+        Assert.Contains("Цени", html);
     }
 
     [Fact]

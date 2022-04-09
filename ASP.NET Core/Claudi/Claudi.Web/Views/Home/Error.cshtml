@@ -1,0 +1,38 @@
+﻿@using Claudi.Core.ViewModels
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "Грешка";
+}
+
+<!--Page Title-->
+<section class="page-title" style="background-image: url(../images/background/page-title.jpg);">
+    <div class="auto-container">
+        <div class="content-box">
+            <div class="title">
+                <h1>404</h1>
+            </div>
+            <ul class="bread-crumb clearfix">
+                <li><a href="/Home/Index">Начало</a></li>
+                <li class="shape"></li>
+                <li>Грешка</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!--End Page Title-->
+
+
+<!-- error-section -->
+<section class="error-section centred sec-pad">
+    <div class="auto-container">
+        <div class="inner-box">
+            <h1>404</h1>
+            <h2>Упс! Нещо се обърка! :(</h2>
+            <p>Върни се към <a href="/Home/Index">Началото</a></p>
+            <div class="btn-box">
+                <a href="/Home/Index" class="theme-btn-one">Върни се към началната страница</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- error-section end -->

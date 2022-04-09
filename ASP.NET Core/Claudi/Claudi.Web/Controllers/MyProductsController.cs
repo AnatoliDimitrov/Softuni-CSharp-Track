@@ -8,6 +8,7 @@
     using Core.MyProductsServices;
     using Core.ViewModels.MyProductsViewModels;
 
+    [Authorize]
     public class MyProductsController : Controller
     {
         private readonly IMyProductsService _service;
@@ -23,20 +24,34 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Index(DeleteViewModel model)
         {
-            await _service.DeleteProduct(model.Id);
+            try
+            {
+                await _service.DeleteProduct(model.Id);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
 
             return this.View();
         }
-
-        [Authorize]
+        
         public async Task<List<MyProductViewModel>> GetMyProducts()
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            List<MyProductViewModel> products = null;
 
-            var products = await _service.GetProductsAsync(userId);
+            try
+            {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                products = await _service.GetProductsAsync(userId);
+            }
+            catch (Exception)
+            {
+                return new List<MyProductViewModel>();
+            }
 
             return products;
         }

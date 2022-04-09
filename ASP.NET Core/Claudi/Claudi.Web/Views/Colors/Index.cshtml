@@ -31,25 +31,25 @@
                 @for (var i = 0; i < Model.Count; i++)
                 {
                     <div class="col-lg-3 col-md-6 col-sm-12 masonry-item small-column all shutters curtains blinds home_drcor">
-                    <div class="project-block-one">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <img src="~/images/gallery/gallery-@(i+8).jpg" alt="@Model[i].Name">
-                            </figure>
-                            <div class="content-box">
-                                <div class="view-btn"><a href="/Colors/@Model[i].EnglishNameShort">+</a></div> 
-                                <div class="text">
-                                    <h3>@Model[i].Name</h3>
-                                    <ul>
-                                        <li><a href="/Catalogues/@Model[i].EnglishNameShort">Цени</a></li>
-                                        <li>/</li>
-                                        <li><a href="/Calculators/Index">Калкулатор</a></li>
-                                    </ul>
+                        <div class="project-block-one">
+                            <div class="inner-box">
+                                <figure class="image-box">
+                                    <img src="~/images/gallery/gallery-@(i + 8).jpg" alt="@Model[i].Name">
+                                </figure>
+                                <div class="content-box">
+                                    <div class="view-btn"><a href="/Colors/@Model[i].EnglishNameShort">+</a></div>
+                                    <div class="text">
+                                        <h3>@Model[i].Name</h3>
+                                        <ul>
+                                            <li><a href="/Catalogues/@Model[i].EnglishNameShort">Цени</a></li>
+                                            <li>/</li>
+                                            <li><a href="/Calculators/Index">Калкулатор</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 }
             </div>
         </div>

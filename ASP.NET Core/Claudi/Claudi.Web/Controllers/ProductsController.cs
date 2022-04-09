@@ -14,9 +14,16 @@
 
         public async Task<IActionResult> Index()
         {
-            var model = await _service.GetAllTypesAsync();
+            try
+            {
+                var model = await _service.GetAllTypesAsync();
 
-            return View(model.ToList());
+                return View(model.ToList());
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> Horizontal()

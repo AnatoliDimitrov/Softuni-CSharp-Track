@@ -69,6 +69,12 @@ builder.Services.ConfigureApplicationCookie(o =>
     o.SlidingExpiration = true;
 });
 
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.CheckConsentNeeded = context => true;
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+});
+
 builder.Services.AddStackExchangeRedisCache(o =>
 {
     o.Configuration = builder.Configuration.GetConnectionString("Redis");
@@ -102,6 +108,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    app.UseExceptionHandler("/Error");
 }
 else
 {
@@ -112,6 +119,8 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseCookiePolicy();
 
 app.UseRouting();
 

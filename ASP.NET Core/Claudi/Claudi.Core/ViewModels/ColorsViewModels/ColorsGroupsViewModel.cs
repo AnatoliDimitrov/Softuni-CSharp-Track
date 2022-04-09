@@ -2,8 +2,8 @@
 {
     public class ColorsGroupsViewModel
     {
-        public string Group { get; set; }
+        public string Group { get; init; }
 
-        public string CssClass { get; set; }
+        public string CssClass { get; init; }
     }
 }
