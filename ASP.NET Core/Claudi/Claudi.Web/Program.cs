@@ -17,8 +17,14 @@ using Claudi.Core.MyProductsServices;
 using Claudi.Core.Administration.DashboardServices;
 using Claudi.Core.Administration.AccountsServices;
 using Claudi.Core.CataloguesServices;
+using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//Environment.SetEnvironmentVariable("VaultUri", "https://claudiwebvault.vault.azure.net/");
+
+var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
+builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -75,10 +81,10 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
-builder.Services.AddStackExchangeRedisCache(o =>
-{
-    o.Configuration = builder.Configuration.GetConnectionString("Redis");
-});
+//builder.Services.AddStackExchangeRedisCache(o =>
+//{
+//    o.Configuration = builder.Configuration.GetConnectionString("Redis");
+//});
 
 builder.Services.Configure<DataProtectionTokenProviderOptions>(o =>
        o.TokenLifespan = TimeSpan.FromDays(1));
@@ -126,18 +132,6 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
-//app.UseEndpoints(endpoints =>
-//{
-//    endpoints.MapControllerRoute(
-//        name: "areaRoute",
-//        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-//    );
-//    endpoints.MapControllerRoute(
-//        name: "default",
-//        pattern: "{controller=Home}/{action=Index}/{id?}"
-//    );
-//});
 
 app.MapControllerRoute(
     name: "default",
