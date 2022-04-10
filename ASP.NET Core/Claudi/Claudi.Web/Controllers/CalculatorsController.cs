@@ -1,11 +1,11 @@
 ﻿namespace Claudi.Web.Controllers
 {
     using System.Security.Claims;
-    using System.Text.Json;
+    //using System.Text.Json;
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.Extensions.Caching.Distributed;
+    //using Microsoft.Extensions.Caching.Distributed;
 
     using Core.ClaculatorsServices;
     using Core.ViewModels.CalculatorViewModels;
@@ -15,21 +15,22 @@
     public class CalculatorsController : Controller
     {
         private readonly ISiteCalculatorService _service;
-        private readonly IDistributedCache _cache;
+        //private readonly IDistributedCache _cache;
 
-        public CalculatorsController(ISiteCalculatorService service,
-            IDistributedCache cache)
+        public CalculatorsController(ISiteCalculatorService service
+           // ,IDistributedCache cache
+            )
         {
             this._service = service;
-            this._cache = cache;
+           // this._cache = cache;
         }
 
         public async Task<IActionResult> Index(string saved)
         {
-            var cachedTypes = await _cache.GetStringAsync("productTypes");
+            //var cachedTypes = await _cache.GetStringAsync("productTypes");
 
-            if (cachedTypes == null)
-            {
+            //if (cachedTypes == null)
+            //{
                 List<TypeViewModel> result = null;
 
                 try
@@ -41,22 +42,22 @@
                     ReturnError();
                 }
 
-                cachedTypes = JsonSerializer.Serialize(result);
+            //    cachedTypes = JsonSerializer.Serialize(result);
 
-                DistributedCacheEntryOptions cacheOptions = new DistributedCacheEntryOptions()
-                {
-                    SlidingExpiration = TimeSpan.FromHours(1),
-                    AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(3),
-                };
+            //    DistributedCacheEntryOptions cacheOptions = new DistributedCacheEntryOptions()
+            //    {
+            //        SlidingExpiration = TimeSpan.FromHours(1),
+            //        AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(3),
+            //    };
 
-                await _cache.SetStringAsync("productTypes", cachedTypes);
-            }
+            //    await _cache.SetStringAsync("productTypes", cachedTypes);
+            //}
 
-            var types = JsonSerializer.Deserialize<List<TypeViewModel>>(cachedTypes);
+           // var types = JsonSerializer.Deserialize<List<TypeViewModel>>(cachedTypes);
 
             var model = new IndexViewModel()
             {
-                Products = types,
+                Products = result,
                 Saved = saved
             };
 
