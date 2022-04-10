@@ -546,7 +546,7 @@
                 Name = "Стандарт",
                 EnglishName = "Standart",
                 Type = tents,
-                OnCalculator = true,
+                OnCalculator = false,
                 CreatedOn = DateTime.UtcNow,
             };
             var tentElegance = new ProductModel()
