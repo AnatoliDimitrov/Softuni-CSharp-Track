@@ -1,10 +1,10 @@
-const options = 'https://localhost:7205/Calculators/';
+const options = '../../Calculators/';
 const productModels = `${options}ProductModels`;
 const productColors = `${options}ProductColors`;
 const productExtras = `${options}ProductExtras`;
 const user = `${options}IsLoggedIn`;
 
-const myProducts = 'https://localhost:7205/MyProducts/GetMyProducts';
+const myProducts = '../../MyProducts/GetMyProducts';
 
 export default {
     options,

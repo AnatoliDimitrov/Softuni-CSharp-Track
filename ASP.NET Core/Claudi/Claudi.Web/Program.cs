@@ -21,10 +21,8 @@ using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//Environment.SetEnvironmentVariable("VaultUri", "https://claudiwebvault.vault.azure.net/");
-
-var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
-builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
+//var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
+//builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -81,10 +79,10 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
-//builder.Services.AddStackExchangeRedisCache(o =>
-//{
-//    o.Configuration = builder.Configuration.GetConnectionString("Redis");
-//});
+builder.Services.AddStackExchangeRedisCache(o =>
+{
+    o.Configuration = builder.Configuration.GetConnectionString("Redis");
+});
 
 builder.Services.Configure<DataProtectionTokenProviderOptions>(o =>
        o.TokenLifespan = TimeSpan.FromDays(1));

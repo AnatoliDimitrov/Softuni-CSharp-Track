@@ -1,4 +1,6 @@
-﻿namespace Claudi.Web.Data.Seeding
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Claudi.Web.Data.Seeding
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
