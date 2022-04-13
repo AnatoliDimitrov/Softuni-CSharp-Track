@@ -21,7 +21,7 @@
 
         public async Task SendEmailAsync(string toEmail, string subject, string message)
         {
-            //Options.SendGridKey = "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"
+            //Options.SendGridKey = "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";
             if (string.IsNullOrEmpty(Options.SendGridKey))
             {
                 throw new Exception("Null SendGridKey");

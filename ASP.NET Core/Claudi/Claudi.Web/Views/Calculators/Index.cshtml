@@ -44,7 +44,7 @@
                         @foreach (var item in Model.Products)
                         {
                             <div class="raduo-button-container">
-                                <input id="@item.ShortName" type="radio" name="@item.Name" value="@item.Id">
+                                <input id="@item.ShortName" type="radio" product-name="@item.Name" name="type" value="@item.Id">
                                 <label class="radio-button-label" for="@item.ShortName">@item.Name</label>
                             </div>
                         }

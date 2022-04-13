@@ -36,12 +36,12 @@ function hidePanel(e) {
 async function chooseOption(option) {
     var answer = option.closest('.answer');
     if (answer.id == 'productChoice') {
-        document.getElementById('typeHeading').textContent = option.name;
+        document.getElementById('typeHeading').textContent = option.getAttribute('product-name');
         let result = await auth.getModelsWithId(option.value);
         productType = option.value;
-        productName = option.name;
+        productName = option.getAttribute('product-name');
         showContent(productType);
-        renderRadios(result, 'model');
+        renderRadios(result, 'model', 'model');
 
         var element = answer.closest('.element');
         element.querySelector('i').className = 'fas fa-plus-circle';
@@ -50,9 +50,9 @@ async function chooseOption(option) {
     else if (answer.id == 'modelChoice') {
         let result = await auth.getColorsWithId(option.value);
         document.getElementById('modelHeading').textContent = option.nextElementSibling.textContent;
-        productModel = option.name;
+        productModel = option.getAttribute('product-name');
         productModelId = option.value;
-        renderRadios(result, 'color');
+        renderRadios(result, 'color', 'color');
 
         var element = answer.closest('.element');
         element.querySelector('i').className = 'fas fa-plus-circle';
@@ -318,7 +318,7 @@ function renderResult(info) {
     }
 }
 
-function renderRadios(options, id) {
+function renderRadios(options, id, type) {
     let container = document.getElementById(id);
     container.innerHTML = '';
 
@@ -327,7 +327,8 @@ function renderRadios(options, id) {
         div.className = 'raduo-button-container';
         let radio = document.createElement('input');
         radio.id = 'model' + option.id;
-        radio.setAttribute('name', option.name);
+        radio.setAttribute('name', type);
+        radio.setAttribute('product-name', option.name);
         radio.setAttribute('type', 'radio');
         radio.value = option.id;
         let label = document.createElement('label');
@@ -357,7 +358,7 @@ function renderRadios(options, id) {
             a.appendChild(image);
             a.classList.toggle('lightbox-image');
             imgSpan.classList.toggle('sample-image');
-            imgSpan.appendChild(a)
+            imgSpan.appendChild(a);
 
             div.appendChild(span);
             div.appendChild(imgSpan);

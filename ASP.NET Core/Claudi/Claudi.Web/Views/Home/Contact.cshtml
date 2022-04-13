@@ -73,7 +73,7 @@
                                     @* <div class="text-danger" asp-validation-summary="All"></div>*@
                                     <span asp-validation-for="From" class="text-danger"></span>
                                     <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                        <input asp-for="From" type="email" name="From" placeholder="Имейл *" required="">
+                                        <input asp-for="From" type="email" name="From" placeholder="Имейл *" required="" value="@User.Identity.Name">
                                     </div>
                                     @*<div class="col-lg-6 col-md-12 col-sm-12 form-group">
                                         <input type="text" name="phone" required="" placeholder="Your Phone">

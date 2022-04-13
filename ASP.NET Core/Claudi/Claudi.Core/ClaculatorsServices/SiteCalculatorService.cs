@@ -101,6 +101,16 @@
                 .OrderBy(c => c.Number.Length)
                 .ToListAsync();
 
+            var ultimate = new int[] { 7, 8, 9 };
+            var ultimateColors = new string[] { "101", "102", "121", "107", "311", "371", "0150", "4459", "7010", "7113", "991", "992", "993", "994", "995", "996", "997", "998", "0150p", "4459p", "7010p", "7327", "7332", "7333", "7346", "7418", "8595" };
+
+            if (ultimate.Contains(id))
+            {
+                colors = colors
+                    .Where(c => ultimateColors.Contains(c.Number))
+                    .ToList();
+            }
+
             if (filter != null)
             {
                 colors = colors

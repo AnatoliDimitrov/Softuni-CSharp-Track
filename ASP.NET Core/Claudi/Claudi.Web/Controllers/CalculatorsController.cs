@@ -23,6 +23,20 @@
             this._cache = cache;
         }
 
+        //public async Task<IActionResult> Index(string saved)
+        //{
+        //    var result = await _service.GetProductTypesAsync();
+
+
+        //    var model = new IndexViewModel()
+        //    {
+        //        Products = result,
+        //        Saved = saved
+        //    };
+
+        //    return this.View(model);
+        //}
+
         public async Task<IActionResult> Index(string saved)
         {
             var cachedTypes = await _cache.GetStringAsync("productTypes");

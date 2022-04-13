@@ -29,15 +29,17 @@
             {
                 var credential = new NetworkCredential
                 {
-                    UserName = _configuration["Contacts:Username"],
-                    Password = _configuration["Contacts:Password"],
+                    UserName = _configuration["Username"],
+                    Password = _configuration["Password"],
                 };
                 smtp.Credentials = credential;
-                smtp.Host = _configuration["Contacts:Host"];
-                smtp.Port = int.Parse(_configuration["Contacts:Port"]);
+                smtp.Host = _configuration["Host"];
+                smtp.Port = int.Parse(_configuration["Port"]);
                 smtp.EnableSsl = false;
                 await smtp.SendMailAsync(message);
             }
+
+            
         }
     }
 }
