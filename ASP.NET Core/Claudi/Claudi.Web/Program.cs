@@ -79,10 +79,10 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
-builder.Services.AddStackExchangeRedisCache(o =>
-{
-    o.Configuration = builder.Configuration.GetConnectionString("Redis");
-});
+//builder.Services.AddStackExchangeRedisCache(o =>
+//{
+//    o.Configuration = builder.Configuration.GetConnectionString("Redis");
+//});
 
 builder.Services.Configure<DataProtectionTokenProviderOptions>(o =>
        o.TokenLifespan = TimeSpan.FromDays(1));

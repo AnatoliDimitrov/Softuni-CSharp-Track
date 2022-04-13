@@ -85,8 +85,8 @@ namespace Claudi.Tests.Calculators
 
             var service = new SiteCalculatorService(repo, modelsRepoMock.Object, extrasRepoMock.Object, colorsRepoMock.Object, configuredProductsRepoMock.Object);
 
-            //var controller = new CalculatorsController(service, cache);
-            var controller = new CalculatorsController(service);
+            var controller = new CalculatorsController(service, cache);
+            //var controller = new CalculatorsController(service);
 
             var result = await controller.Index("test");
 
@@ -148,8 +148,8 @@ namespace Claudi.Tests.Calculators
             var options = Options.Create<MemoryDistributedCacheOptions>(new MemoryDistributedCacheOptions());
             IDistributedCache cache = new MemoryDistributedCache(options);
 
-            //var controller = new CalculatorsController(service, cache);
-            var controller = new CalculatorsController(service);
+            var controller = new CalculatorsController(service, cache);
+            //var controller = new CalculatorsController(service);
 
             var expected = new List<ModelViewModel>();
             expected.Add(new ModelViewModel() { Name = "test", Id = 1 });
@@ -219,8 +219,8 @@ namespace Claudi.Tests.Calculators
             var options = Options.Create<MemoryDistributedCacheOptions>(new MemoryDistributedCacheOptions());
             IDistributedCache cache = new MemoryDistributedCache(options);
 
-            //var controller = new CalculatorsController(service, cache);
-            var controller = new CalculatorsController(service);
+            var controller = new CalculatorsController(service, cache);
+            //var controller = new CalculatorsController(service);
 
             var expected = new List<ColorViewModel>();
             expected.Add(new ColorViewModel() {
