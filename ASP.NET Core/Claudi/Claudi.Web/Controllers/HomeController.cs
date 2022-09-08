@@ -42,6 +42,8 @@
             {
                 try
                 {
+
+                    //throw new ArgumentException();
                     await _sender.Send(model);
 
                     return this.RedirectToAction("Contact", new { sent = Constants.SUCCESS });

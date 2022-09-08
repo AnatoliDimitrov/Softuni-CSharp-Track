@@ -91,8 +91,6 @@ namespace Claudi.Tests.Calculators
             var result = await controller.Index("test");
 
             Assert.IsType(typeof(ViewResult), result);
-            //Assert.True(actual.Count() == expected.Count);
-            //expected.Should().BeEquivalentTo(actual);
         }
 
         [Fact]

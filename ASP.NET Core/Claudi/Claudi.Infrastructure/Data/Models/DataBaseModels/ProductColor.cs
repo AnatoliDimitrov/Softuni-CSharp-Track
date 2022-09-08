@@ -8,7 +8,6 @@
         {
             this.Id = Guid.NewGuid().ToString();
             this.Models = new HashSet<ProductModel>();
-            this.ConfiguredProducts = new HashSet<ConfiguredProduct>();
         }
 
         [Required]
@@ -30,7 +29,5 @@
         public string ImageUrl { get; init; }
 
         public virtual ICollection<ProductModel> Models { get; set; }
-
-        public virtual ICollection<ConfiguredProduct> ConfiguredProducts { get; set; }
     }
 }

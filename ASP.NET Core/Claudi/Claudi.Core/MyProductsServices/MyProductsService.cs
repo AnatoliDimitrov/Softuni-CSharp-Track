@@ -9,34 +9,64 @@
     public class MyProductsService : IMyProductsService
     {
         private readonly IDeletableEntityRepository<ConfiguredProduct> _products;
+        private readonly IDeletableEntityRepository<ProductColor> _colors;
+        private readonly IDeletableEntityRepository<ProductType> _types;
+        private readonly IDeletableEntityRepository<ProductModel> _models;
+        private readonly IDeletableEntityRepository<ProductExtra> _extras;
 
-        public MyProductsService(IDeletableEntityRepository<ConfiguredProduct> products)
+        public MyProductsService(IDeletableEntityRepository<ConfiguredProduct> products,
+            IDeletableEntityRepository<ProductColor> colors,
+            IDeletableEntityRepository<ProductType> types,
+            IDeletableEntityRepository<ProductModel> models,
+            IDeletableEntityRepository<ProductExtra> extras)
         {
             this._products = products;
+            this._colors = colors;
+            this._types = types;
+            this._models = models;
+            this._extras = extras;
         }
 
         public async Task<List<MyProductViewModel>> GetProductsAsync(string userId)
         {
-            var products = await _products.AllAsNoTracking()
+            var configuredProducts = await _products.AllAsNoTracking()
                 .Where(p => p.UserId == userId)
                 .OrderBy(p => p.Type.Id)
-                .Select(p => new MyProductViewModel()
-                {
-                    Id = p.Id,
-                    Type = p.Type.Name,
-                    Model = p.Model.Name,
-                    Color = p.Color.Number,
-                    ColorGroup = p.Color.Group,
-                    Width = p.Width,
-                    Height = p.Height,
-                    Quantity = p.Quantity,
-                    SquareMeters = p.SquareMeters,
-                    Extras = p.Extras
-                        .Select(e => e.Name)
-                        .ToList(),
-                    Price = p.Price,
-                })
                 .ToListAsync();
+
+            var products = new List<MyProductViewModel>();
+
+            foreach (var configuredProduct in configuredProducts)
+            {
+                var color = _colors.All().FirstOrDefault(c => c.Id == configuredProduct.ColorId);
+
+                var type = _types.All().FirstOrDefault(t => t.Id == configuredProduct.TypeId);
+
+                var model = _models.All().FirstOrDefault(m => m.Id == configuredProduct.ModelId);
+
+                var extra = _extras.All()
+                    .Where(e => e.ConfiguredProducts.Contains(configuredProduct))
+                    .Select(e => e.Name)
+                    .ToList();
+
+                var product = new MyProductViewModel()
+                {
+
+                    Id = configuredProduct.Id,
+                    Type = type.Name,
+                    Model = model.Name,
+                    Color = color.Number,
+                    ColorGroup = color.Group,
+                    Width = configuredProduct.Width,
+                    Height = configuredProduct.Height,
+                    Quantity = configuredProduct.Quantity,
+                    SquareMeters = configuredProduct.SquareMeters,
+                    Extras = extra,
+                    Price = configuredProduct.Price,
+                };
+
+                products.Add(product);
+            }
 
             return products;
         }

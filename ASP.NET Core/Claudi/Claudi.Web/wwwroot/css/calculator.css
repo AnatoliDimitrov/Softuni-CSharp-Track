@@ -72,6 +72,10 @@ input[type=checkbox] + label {
     padding: 10px 20px;
     animation: animate .1s;
     background: white;
+    background-image: url("../images/background/flowers.jpg");
+    background-repeat: no-repeat;
+    background-position: right top;
+    
 }
 
 .element .answer .radio-button-label {
@@ -132,6 +136,11 @@ div#extras > ul {
 
 .alert-dismissible{
     margin: 10px 0px 0px 0px;
+}
+
+.price {
+    font-size: x-large;
+    font-weight: bold;
 }
 
 @keyframes animate {

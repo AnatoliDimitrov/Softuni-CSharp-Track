@@ -26,33 +26,32 @@
 			"lumina",
 			"guardian",
 			"juno",
+			"glitter",
 			"tundra",
-			"porto",
-			"albery",
 			"carina bo",
+			"porto",
+			"juno bo",
 			"jacquard natalie",
 			"banbury",
-			"strata spc",
-			"juno bo",
 			"monterey",
-			"blossom print",
+			"cotton flower",
 			"green screen eco",
 			"oslo",
 			"monroe",
 			"jacquard cube",
-			"hampton",],	//89
+			"hampton",
+			"valencia bo"],	//89
 		["corra",
 			"creppe",
 			"jenny",
 			"shantung",
 			"fiesta",
-			"vanesa",
 			"ray",
-			"aneta",
+			"vanesa",
 			"itaca",
 			"van gogh",
+			"aneta",
 			"patricia",
-			"mountain",
 			"carina bo",
 			"screen",
 			"green screen eco"],	//127
@@ -71,10 +70,14 @@
 	];
 
 	let verticalTable = [
-		[10.44, 11.16, 12.72, 12.72, 13.08, 13.56, 13.56, 13.80, 13.80, 13.80, 15.00, 21.24, 25.08, 26.28, 29.16, 32.76, 32.76, 36.60, 38.28, 41.88, 43.80, 43.80, 49.08, 49.08, 49.08, 50.28, 50.28, 57.48, 59.40, 61.09, 62.29, 68.29, 71.86],	// 89mm
-		[10.44, 11.16, 13.08, 12.49, 13.80, 14.28, 14.28, 16.68, 16.68, 16.68, 20.28, 39.59, 43.80, 50.28, 57.48],	//127mm
-		[58, 63, 59, 88, 59, 88, 59, 88, 59, 88, 59, 88, 89, 37, 93, 13, 93, 13, 93, 13, 93, 13, 93, 13]	//AL
-	]
+		[
+			9.90, 10.50, 11.90, 11.90, 12.50, 12.90, 12.90, 12.90, 12.90, 12.90, 14.50, 18.90, 22.90, 24.90, 26.90,
+			29.90, 31.90, 32.90, 33.50, 36.90, 38.90, 41.90, 44.50, 46.50, 46.90, 48.50, 49.90, 55.90, 59.50, 59.90,
+			64.90, 69.90, 74.90
+		], // 89mm
+		[12.50, 13.50, 14.50, 14.50, 15.50, 15.90, 16.50, 16.90, 16.90, 17.90, 20.90, 41.50, 49.90, 58.50], //127mm
+		[56.90, 61.50, 61.50, 61.50, 61.50, 61.50, 89.37, 91.50, 96.50, 96.50, 96.50, 96.50] //AL
+	];
 
 	getModel();
 	getColor();
@@ -127,7 +130,7 @@
 
 		pricePerSquareMeter = verticalTable[modelCode][colorCode];
 		totalPrice = totalPrice + (squareMeters * pricePerSquareMeter);
-		totalPrice = totalPrice + (25.08 * width / 100);
+		totalPrice = totalPrice + (27.9 * width / 100);
 		totalPrice -= totalPrice * (discount / 100);
 
 		if (totalPrice == 0) {

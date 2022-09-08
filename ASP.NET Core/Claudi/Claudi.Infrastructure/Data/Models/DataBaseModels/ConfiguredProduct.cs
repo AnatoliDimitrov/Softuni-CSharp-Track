@@ -22,7 +22,6 @@
 
         [Required]
         public string ColorId { get; set; }
-        public virtual ProductColor Color { get; set; }
 
         [Required]
         [Range(1, 7000)]

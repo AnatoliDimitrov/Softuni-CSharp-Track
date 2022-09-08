@@ -60,19 +60,18 @@
                 Id = "test",
                 Type = type,
                 Model = model,
-                Color = color,
+                ColorId = color.Number,
                 Width = 122,
                 Height = 122,
                 Quantity = 1,
                 SquareMeters = 1,
-                Extras = new List<ProductExtra>(){ new ProductExtra(){Name = "test"} },
+                Extras = new List<ProductExtra>() { new ProductExtra() { Name = "test" } },
                 Price = 122,
                 UserId = "test"
             });
 
             dbContext.SaveChanges();
-
-            using var repo = new EfDeletableEntityRepository<ConfiguredProduct>(dbContext);
+            
 
             var expected = new List<MyProductViewModel>();
             expected.Add(new MyProductViewModel
@@ -90,7 +89,13 @@
                 Price = 122,
             });
 
-            var service = new MyProductsService(repo);
+            using var products = new EfDeletableEntityRepository<ConfiguredProduct>(dbContext);
+            using var colors = new EfDeletableEntityRepository<ProductColor>(dbContext);
+            using var types = new EfDeletableEntityRepository<ProductType>(dbContext);
+            using var models = new EfDeletableEntityRepository<ProductModel>(dbContext);
+            using var extras = new EfDeletableEntityRepository<ProductExtra>(dbContext);
+
+            var service = new MyProductsService(products, colors, types, models, extras);
             var actual = await service.GetProductsAsync("test");
 
             Assert.Single(actual);
@@ -138,7 +143,7 @@
                 Id = "test",
                 Type = type,
                 Model = model,
-                Color = color,
+                ColorId = color.Id,
                 Width = 122,
                 Height = 122,
                 Quantity = 1,
@@ -150,12 +155,16 @@
 
             dbContext.SaveChanges();
 
-            using var repo = new EfDeletableEntityRepository<ConfiguredProduct>(dbContext);
+            using var products = new EfDeletableEntityRepository<ConfiguredProduct>(dbContext);
+            using var colors = new EfDeletableEntityRepository<ProductColor>(dbContext);
+            using var types = new EfDeletableEntityRepository<ProductType>(dbContext);
+            using var models = new EfDeletableEntityRepository<ProductModel>(dbContext);
+            using var extras = new EfDeletableEntityRepository<ProductExtra>(dbContext);
 
-            var service = new MyProductsService(repo);
+            var service = new MyProductsService(products, colors, types, models, extras);
             await service.DeleteProduct("test");
 
-            Assert.Empty(repo.All());
+            Assert.Empty(products.All());
         }
     }
 }

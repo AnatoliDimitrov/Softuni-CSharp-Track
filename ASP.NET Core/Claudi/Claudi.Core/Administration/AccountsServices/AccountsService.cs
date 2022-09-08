@@ -63,7 +63,8 @@
 
             var result = await _userManager.AddToRoleAsync(user, "Administrator");
 
-            return result.Succeeded;
+            //return result.Succeeded;
+            return false;
         }
 
         public async Task<bool> RemoveUserAdministratorRoleAsync(string id)

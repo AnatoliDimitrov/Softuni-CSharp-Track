@@ -25,21 +25,33 @@
             message.Body = string.Format(body, model.From, _configuration["Contact:Email"], model.Message);
             message.IsBodyHtml = true;
 
+            //using (var smtp = new SmtpClient())
+            //{
+            //    var credential = new NetworkCredential
+            //    {
+            //        UserName = _configuration["Username"],
+            //        Password = _configuration["Password"],
+            //    };
+            //    smtp.Credentials = credential;
+            //    smtp.Host = _configuration["Host"];
+            //    smtp.Port = int.Parse(_configuration["Port"]);
+            //    smtp.EnableSsl = false;
+            //    await smtp.SendMailAsync(message);
+            //}
+
             using (var smtp = new SmtpClient())
             {
                 var credential = new NetworkCredential
                 {
-                    UserName = _configuration["Username"],
-                    Password = _configuration["Password"],
+                    UserName = "info@claudi.bg",
+                    Password = "Anatoli8406041726",
                 };
                 smtp.Credentials = credential;
-                smtp.Host = _configuration["Host"];
-                smtp.Port = int.Parse(_configuration["Port"]);
+                smtp.Host = "flora.superhosting.bg";
+                smtp.Port = 25;
                 smtp.EnableSsl = false;
                 await smtp.SendMailAsync(message);
             }
-
-            
         }
     }
 }

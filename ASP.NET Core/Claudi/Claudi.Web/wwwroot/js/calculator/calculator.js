@@ -267,6 +267,10 @@ function renderResult(info) {
         input.setAttribute('value', info[i]);
         input.readOnly = true;
 
+        if (properties[i] == 'Price') {
+            input.classList.toggle('price');
+        }
+
         let label = document.createElement('label');
         label.setAttribute('for', 'resilt' + i);
         label.classList.toggle('form-label');

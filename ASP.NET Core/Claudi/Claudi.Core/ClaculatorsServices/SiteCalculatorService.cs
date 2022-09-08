@@ -98,7 +98,8 @@
                     Group = p.Group,
                     Url = p.ImageUrl,
                 })
-                .OrderBy(c => c.Number.Length)
+                .OrderBy(c => c.Group)
+                .ThenBy(c => c.Number.Length)
                 .ToListAsync();
 
             var ultimate = new int[] { 7, 8, 9 };
@@ -108,6 +109,15 @@
             {
                 colors = colors
                     .Where(c => ultimateColors.Contains(c.Number))
+                    .ToList();
+            }
+
+            var bambooJSerie = new string[] { "J1", "J2", "J3", "J4", "J5", "J6" };
+
+            if (id == 28)
+            {
+                colors = colors
+                    .Where(c => !bambooJSerie.Contains(c.Number))
                     .ToList();
             }
 
@@ -123,25 +133,33 @@
                 {
                     new ColorViewModel()
                     {
+                        Id = "0",
                         Number = "Бял",
+                        Name = "Бял",
                         Group = "nets",
                         Url = "/storage/samples/nets/single_Комарници/bial.jpg"
                     },
                     new ColorViewModel()
                     {
+                        Id = "1",
                         Number = "Кафяв",
+                        Name = "Кафяв",
                         Group = "nets",
                         Url = "/storage/samples/nets/single_Комарници/kafiav.jpg"
                     },
                     new ColorViewModel()
                     {
+                        Id = "2",
                         Number = "Имитация на дърво",
+                        Name = "Имитация на дърво",
                         Group = "nets",
                         Url = "/storage/samples/nets/single_Комарници/zldab.jpg"
                     },
                     new ColorViewModel()
                     {
+                        Id = "3",
                         Number = "Цвят по RAL",
+                        Name = "Цвят по RAL",
                         Group = "nets",
                         Url = "/storage/samples/nets/single_Комарници/bial.jpg"
                     },
@@ -182,7 +200,7 @@
                 {
                     Type = type,
                     Model = productModel,
-                    Color = color,
+                    ColorId = color.Id,
                     UserId = userId,
                     Extras = currentExtras,
                     CreatedOn = DateTime.UtcNow,
