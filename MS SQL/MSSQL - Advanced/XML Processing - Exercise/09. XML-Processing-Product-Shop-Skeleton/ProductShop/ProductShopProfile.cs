@@ -1,6 +1,10 @@
+<<<<<<< Updated upstream
 ﻿using System.Linq;
 using AutoMapper;
 using ProductShop.Dtos.Export;
+=======
+﻿using AutoMapper;
+>>>>>>> Stashed changes
 using ProductShop.Dtos.Import;
 using ProductShop.Models;
 
@@ -11,6 +15,7 @@ namespace ProductShop
         public ProductShopProfile()
         {
             CreateMap<ImportUserDto, User>()
+<<<<<<< Updated upstream
                 .ForMember(d => d.Age, o => o
                     .MapFrom(s => int.Parse(s.Age)));
 
@@ -65,6 +70,11 @@ namespace ProductShop
                             .ToList(),
                         Count = s.ProductsSold.Count.ToString()
                     }));
+=======
+                .ForMember(d => d
+                    .Age, o => o
+                    .MapFrom(s => int.Parse(s.Age)));
+>>>>>>> Stashed changes
         }
     }
 }

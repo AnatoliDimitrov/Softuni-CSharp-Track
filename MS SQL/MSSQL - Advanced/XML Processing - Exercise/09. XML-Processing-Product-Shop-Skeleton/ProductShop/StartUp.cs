@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+<<<<<<< Updated upstream
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -12,6 +13,13 @@ using AutoMapper.QueryableExtensions;
 
 using ProductShop.Data;
 using ProductShop.Dtos.Export;
+=======
+using System.IO;
+using System.Xml.Serialization;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using ProductShop.Data;
+>>>>>>> Stashed changes
 using ProductShop.Dtos.Import;
 using ProductShop.Models;
 
@@ -29,6 +37,7 @@ namespace ProductShop
             //var importUsersXML = File.ReadAllText("../../../Datasets/users.xml");
             //Console.WriteLine(ImportUsers(context, importUsersXML));
 
+<<<<<<< Updated upstream
             //var importProductsXML = File.ReadAllText("../../../Datasets/products.xml");
             //Console.WriteLine(ImportProducts(context, importProductsXML));
 
@@ -42,6 +51,10 @@ namespace ProductShop
             //Console.WriteLine(GetSoldProducts(context));
             //Console.WriteLine(GetCategoriesByProductsCount(context));
             Console.WriteLine(GetUsersWithProducts(context));
+=======
+            var importProductrsXML = File.ReadAllText("../../../Datasets/users.xml");
+            Console.WriteLine(ImportUsers(context, importProductrsXML));
+>>>>>>> Stashed changes
         }
 
         private static void ResetDatabase(ProductShopContext ctx)
@@ -62,14 +75,22 @@ namespace ProductShop
             mapper = new Mapper(configuration);
         }
 
+<<<<<<< Updated upstream
         public static string ImportUsers(ProductShopContext context, string inputXml)
+=======
+        public static string ImportUsers(ProductShopContext context, string inputJson)
+>>>>>>> Stashed changes
         {
             CreateMapper();
 
             XmlRootAttribute root = new XmlRootAttribute("Users");
             XmlSerializer serializer = new XmlSerializer(typeof(ImportUserDto[]) ,root);
 
+<<<<<<< Updated upstream
             using StringReader reader = new StringReader(inputXml);
+=======
+            using StringReader reader = new StringReader(inputJson);
+>>>>>>> Stashed changes
 
             ImportUserDto[] dtos = (ImportUserDto[])serializer.Deserialize(reader);
 
@@ -79,6 +100,7 @@ namespace ProductShop
             context.SaveChanges();
 
             return $"Successfully imported {dtos.Length}";
+<<<<<<< Updated upstream
         }
 
         public static string ImportProducts(ProductShopContext context, string inputXml)
@@ -282,6 +304,8 @@ namespace ProductShop
                 serializer.Serialize(sw, allUsers, ns);
 
                 return sb.ToString().TrimEnd();
+=======
+>>>>>>> Stashed changes
         }
     }
 }

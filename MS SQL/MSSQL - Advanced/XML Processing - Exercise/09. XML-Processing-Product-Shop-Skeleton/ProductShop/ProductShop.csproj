@@ -14,4 +14,11 @@
     <PackageReference Include="Newtonsoft.Json" Version="10.0.1" />
   </ItemGroup>
 
+<<<<<<< Updated upstream
+=======
+  <ItemGroup>
+    <Folder Include="Dtos\Export\" />
+  </ItemGroup>
+
+>>>>>>> Stashed changes
 </Project>
